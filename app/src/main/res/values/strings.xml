@@ -6,4 +6,13 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="by_proceeding_i_agree_to_terms_and_conditions_privacy_policy"><![CDATA[By proceeding,I agree to Terms and Conditions & Privacy Policy]]></string>
     <string name="get_otp">GET OTP</string>
+    <string name="diamond_lea">Diamond League</string>
+    <string name="gold_lea">Gold League</string>
+    <string name="silver_lea">Silver League</string>
+    <string name="play_50_mor">Play 50 more games to unlock</string>
+    <string name="woah_you_ma">Woah! You made it!</string>
+    <string name="amount">0</string>
+    <string name="game_wallet">Game Wallet Balance</string>
+    <string name="add_money">+ Add Money</string>
+    <string name="phone_num">+91 8922345111</string>
 </resources>
