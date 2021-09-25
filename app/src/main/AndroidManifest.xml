@@ -11,7 +11,8 @@
         android:theme="@style/Theme.CarromKing">
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

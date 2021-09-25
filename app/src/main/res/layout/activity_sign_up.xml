@@ -1,117 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".SignUpActivity"
+    android:fitsSystemWindows="true"
     android:background="@color/white">
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
-        app:cardCornerRadius="250dp">
-
-
-        <View
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/secondary_text"
-            android:contentDescription="@string/profile"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/roboto_regular_400"
-        android:text="@string/enter_your_mobile_number"
-        android:textColor="@color/primary_text"
-        android:textSize="28sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/you_will_get_an_otp_on_this_number"
-        android:textColor="@color/secondary_text"
-        android:textSize="19sp" />
-
-    <LinearLayout
-        android:background="@drawable/boundary"
-        android:layout_gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/ccp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="3dp"
-            android:layout_height="match_parent"/>
-
-        <View
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_grey"/>
-
-        <EditText
-            android:backgroundTint="@color/white"
-            android:autofillHints=""
-            android:id="@+id/etPhone"
-            android:hint="@string/mobile_number"
-            android:textSize="24sp"
-            android:textColorHint="@color/secondary_text"
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:inputType="phone" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="250dp">
 
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/secondary_text"
+                    android:contentDescription="@string/profile"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:text="@string/enter_your_mobile_number"
+                android:textColor="@color/primary_text"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/you_will_get_an_otp_on_this_number"
+                android:textColor="@color/secondary_text"
+                android:textSize="19sp" />
+
+            <LinearLayout
+                android:background="@drawable/boundary"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="match_parent"
+                    app:ccp_arrowSize="50dp"
+                    app:ccp_showArrow="true"/>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/light_grey"/>
+
+                <EditText
+                    android:backgroundTint="@color/white"
+                    android:autofillHints=""
+                    android:id="@+id/etPhone"
+                    android:hint="@string/mobile_number"
+                    android:textSize="22sp"
+                    android:textColorHint="@color/secondary_text"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="phone" />
 
 
 
-    </LinearLayout>
 
-    <TextView
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/by_proceeding_i_agree_to_terms_and_conditions_privacy_policy" />
+
+            </LinearLayout>
+
+            <TextView
+                android:textSize="14sp"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/by_proceeding_i_agree_to_terms_and_conditions_privacy_policy" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/btnGetOTP"
-        android:layout_marginTop="250dp"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:textSize="20sp"
         android:text="@string/get_otp"
         android:textColor="@color/white"
-        android:background="@color/blue"
+        android:background="@color/button_grey"
         android:textStyle="bold" />
-</LinearLayout>
+</RelativeLayout>
