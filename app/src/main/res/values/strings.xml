@@ -6,4 +6,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="by_proceeding_i_agree_to_terms_and_conditions_privacy_policy"><![CDATA[By proceeding,I agree to Terms and Conditions & Privacy Policy]]></string>
     <string name="get_otp">GET OTP</string>
+    <string name="enter_the_6_digit_otp_sent_to">Enter the 6 digit OTP sent to</string>
+    <string name="verify">Verify</string>
+    <string name="enter_otp">Enter OTP</string>
 </resources>
