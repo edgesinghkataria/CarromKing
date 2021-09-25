@@ -184,7 +184,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="11dp"
             android:layout_marginTop="23dp"
-            android:layout_marginBottom="40dp"
+
             android:gravity="top"
             android:text="@string/diamond_lea"
             android:textColor="@color/white"
@@ -253,7 +253,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="11dp"
             android:layout_marginTop="23dp"
-            android:layout_marginBottom="40dp"
             android:gravity="top"
             android:text="@string/gold_lea"
             android:textColor="@color/black"
@@ -323,9 +322,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="11dp"
             android:layout_marginTop="23dp"
-            android:layout_marginBottom="40dp"
             android:gravity="top"
-            android:text="@string/diamond_lea"
+            android:text="@string/silver_lea"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
