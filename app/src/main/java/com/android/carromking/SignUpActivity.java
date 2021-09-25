@@ -57,8 +57,6 @@ public class SignUpActivity extends AppCompatActivity {
             
             if(!ccp.isValidFullNumber() || phoneText.isEmpty()) {
                 Toast.makeText(this, "Please add a valid mobile number", Toast.LENGTH_SHORT).show();
-            } else {
-                
             }
         });
     }
