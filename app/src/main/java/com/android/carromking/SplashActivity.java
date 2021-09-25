@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         sp = getSharedPreferences(TAG, MODE_PRIVATE);
 
         new Handler().postDelayed(() -> {
-            Intent i = sp.getBoolean("login", false) ?
+            Intent i = sp.getString("token", null) != null ?
                     new Intent(SplashActivity.this, MainActivity.class) :
                     new Intent(SplashActivity.this, SignUpActivity.class);
             startActivity(i);
