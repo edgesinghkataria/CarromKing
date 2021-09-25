@@ -11,4 +11,7 @@
     <string name="file_shared">File Shared</string>
     <string name="add_money">Add Money</string>
     <string name="cancel">Cancel</string>
+    <string name="enter_the_6_digit_otp_sent_to">Enter the 6 digit OTP sent to</string>
+    <string name="verify">Verify</string>
+    <string name="enter_otp">Enter OTP</string>
 </resources>
