@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.carromking.HeaderInterceptor;
+import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.wallet.WalletResponseDataModel;
@@ -22,7 +22,6 @@ import com.android.carromking.models.wallet.WalletResponseModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class WalletFragment extends Fragment {
 
@@ -41,7 +40,7 @@ public class WalletFragment extends Fragment {
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
-        getWalletData();
+        getWalletData(view.getContext());
         if(dataModel!=null) {
             ///Connect UI Here
         } else {
@@ -51,21 +50,20 @@ public class WalletFragment extends Fragment {
 
     }
 
-    void getWalletData() {
-        HeaderInterceptor interceptor = new HeaderInterceptor();
+    void getWalletData(Context context) {
+        ApiService apiService = new ApiService();
+        MyApiEndpointInterface apiEndpointInterface = apiService.
+                getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
-        Retrofit retrofit = interceptor.getRetrofit(interceptor.getInterceptor(sp.getString("token", null)));
-
-        MyApiEndpointInterface apiEndpointInterface = retrofit.create(MyApiEndpointInterface.class);
         apiEndpointInterface.getWalletData()
                 .enqueue(new Callback<WalletResponseModel>() {
                     @Override
-                    public void onResponse(@NonNull Call<WalletResponseModel> call, Response<WalletResponseModel> response) {
+                    public void onResponse(@NonNull Call<WalletResponseModel> call, @NonNull Response<WalletResponseModel> response) {
                         WalletResponseModel body = response.body();
                         if(body!=null) {
                             if(body.isStatus()) {
                                 dataModel = body.getData();
-                                Log.d(getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
+                                Log.d(context.getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
                             } else {
                                 Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -73,7 +71,7 @@ public class WalletFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<WalletResponseModel> call, Throwable t) {
+                    public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
 
                     }
                 });

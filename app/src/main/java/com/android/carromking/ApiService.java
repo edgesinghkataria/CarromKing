@@ -6,7 +6,7 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HeaderInterceptor {
+public class ApiService {
 
     //Used for Calling API where Authorization token is required
 
@@ -23,11 +23,22 @@ public class HeaderInterceptor {
                 }).build();
     }
 
-    public Retrofit getRetrofit(OkHttpClient client) {
-        return new Retrofit.Builder()
+    public MyApiEndpointInterface getApiServiceForInterceptor(OkHttpClient client) {
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
+
+        return retrofit.create(MyApiEndpointInterface.class);
+    }
+
+    public  MyApiEndpointInterface getApiService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit.create(MyApiEndpointInterface.class);
     }
 }
