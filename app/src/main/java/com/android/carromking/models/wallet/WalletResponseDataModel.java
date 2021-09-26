@@ -1,10 +1,9 @@
-package com.android.carromking;
-
+package com.android.carromking.models.wallet;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserWalletDataModel {
+public class WalletResponseDataModel {
 
     @SerializedName("id")
     @Expose
@@ -27,6 +26,9 @@ public class UserWalletDataModel {
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
+    @SerializedName("totalBalance")
+    @Expose
+    private int totalBalance;
 
     public int getId() {
         return id;
@@ -84,4 +86,11 @@ public class UserWalletDataModel {
         this.updatedAt = updatedAt;
     }
 
+    public int getTotalBalance() {
+        return totalBalance;
+    }
+
+    public void setTotalBalance(int totalBalance) {
+        this.totalBalance = totalBalance;
+    }
 }

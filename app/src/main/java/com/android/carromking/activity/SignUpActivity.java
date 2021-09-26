@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,13 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.carromking.ApiService;
+import com.android.carromking.MyApiEndpointInterface;
+import com.android.carromking.R;
+import com.android.carromking.models.otp.SendOTPResponseDataModel;
+import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.hbb20.CountryCodePicker;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUpActivity extends AppCompatActivity{
     
@@ -27,18 +30,13 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etPhone;
     Button btnGetOTP;
 
-    final String TAG = "com.android.carromking";
-    public static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
+    final String TAG = getString(R.string.TAG);
+
 
     private SharedPreferences sp;
 
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    MyApiEndpointInterface apiService =
-            retrofit.create(MyApiEndpointInterface.class);
+    ApiService apiService = new ApiService();
+    MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
 
     @Override
@@ -88,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity{
             if(!ccp.isValidFullNumber()) {
                 Toast.makeText(this, "Please add a valid mobile number", Toast.LENGTH_SHORT).show();
             } else {
-                apiService.getOtp(phoneText)
+                apiEndpointInterface.getOtp(phoneText)
                         .enqueue(new Callback<SendOTPResponseModel>() {
                             @Override
                             public void onResponse(@NonNull Call<SendOTPResponseModel> call, @NonNull Response<SendOTPResponseModel> response) {

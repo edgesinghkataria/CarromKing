@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarromKing">
         <activity
-            android:name=".EnterOTPActivity"
+            android:name=".activity.EnterOTPActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -25,10 +25,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true"></activity>
     </application>
 

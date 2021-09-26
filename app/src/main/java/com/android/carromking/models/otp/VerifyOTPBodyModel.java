@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.models.otp;
 
 public class VerifyOTPBodyModel {
 
