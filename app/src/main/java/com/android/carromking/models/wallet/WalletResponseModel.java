@@ -1,18 +1,17 @@
-package com.android.carromking.models.home;
+package com.android.carromking.models.wallet;
 
 import com.android.carromking.models.common.ResponseErrorModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class WalletResponseModel {
 
-public class HomeResponseModel {
     @SerializedName("status")
     @Expose
     private boolean status;
     @SerializedName("data")
     @Expose
-    private List<HomeResponseDataModel> data = null;
+    private WalletResponseDataModel data;
     @SerializedName("error")
     @Expose
     private ResponseErrorModel error;
@@ -25,11 +24,11 @@ public class HomeResponseModel {
         this.status = status;
     }
 
-    public List<HomeResponseDataModel> getData() {
+    public WalletResponseDataModel getData() {
         return data;
     }
 
-    public void setData(List<HomeResponseDataModel> data) {
+    public void setData(WalletResponseDataModel data) {
         this.data = data;
     }
 
