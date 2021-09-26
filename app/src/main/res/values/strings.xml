@@ -32,4 +32,21 @@
     <string name="phone_num">+91 8922345111</string>
 
     <string name="TAG">com.android.carromking</string>
+    <string name="link_paytm_wallet">Link Paytm wallet</string>
+    <string name="link_paytm_wallet_associated">Link Paytm wallet associated with this \nnumber:</string>
+    <string name="proceed">Proceed</string>
+    <string name="enter_otp_recieved">Enter OTP recieved on 9999999999</string>
+    <string name="didnt_get_otp">Didn\'t get OTP?</string>
+    <string name="resend_code">RESEND CODe</string>
+    <string name="verify_and_proceed">Verify and Proceed</string>
+    <string name="recieve_in_upi">Recieve in UPI</string>
+    <string name="enter_your_upi_id">Enter your UPI ID</string>
+    <string name="securly_vpa">Securely VPA</string>
+    <string name="upi_icon">UPI_icon</string>
+    <string name="carrom">Carrom</string>
+    <string name="rupee">₹</string>
+    <string name="beginner">Beginner</string>
+    <string name="silver_league_home">Silver League</string>
+    <string name="gold_league_home">Gold League</string>
+    <string name="diamond_league_home">Diamond League</string>
 </resources>
