@@ -1,5 +1,7 @@
 package com.android.carromking;
 
+import com.android.carromking.models.home.HomeResponseDataModel;
+import com.android.carromking.models.home.HomeResponseModel;
 import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
@@ -21,5 +23,8 @@ public interface MyApiEndpointInterface {
 
     @GET("user/profile")
     Call<ProfileResponseModel> getProfileData();
+
+    @GET("home/games")
+    Call<HomeResponseModel> getHomeData();
 
 }
