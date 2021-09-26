@@ -10,4 +10,11 @@
     <string name="verify_and_proceed">Verify and Proceed</string>
     <string name="securly_vpa">Securely VPA</string>
     <string name="upi_icon">UPI_icon</string>
+    <string name="recieve_in_your_bank_account">Recieve in your bank account</string>
+    <string name="account_number">Account Number</string>
+    <string name="confirm_account">Confirm Account</string>
+    <string name="ifsc">IFSC</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="add_cash">Add Cash</string>
+    <string name="rupee_hundred">₹ 100</string>
 </resources>
