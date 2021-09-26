@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.carromking.HeaderInterceptor;
+import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.home.HomeResponseDataModel;
@@ -21,9 +21,10 @@ import com.android.carromking.models.home.HomeResponseModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class HomeFragment extends Fragment {
+
+    final String TAG = getString(R.string.TAG);
 
     SharedPreferences sp;
     HomeResponseDataModel dataModel;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
         getHomeData();
         if(dataModel!=null) {
             ///Connect UI Here
@@ -50,15 +51,13 @@ public class HomeFragment extends Fragment {
     }
 
     void getHomeData() {
-        HeaderInterceptor interceptor = new HeaderInterceptor();
-        Retrofit retrofit = interceptor.getRetrofit(interceptor.getInterceptor(sp.getString("token", null)));
-
-        MyApiEndpointInterface apiEndpointInterface = retrofit.create(MyApiEndpointInterface.class);
+        ApiService interceptor = new ApiService();
+        MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
 
         apiEndpointInterface.getHomeData()
                 .enqueue(new Callback<HomeResponseModel>() {
                     @Override
-                    public void onResponse(@NonNull Call<HomeResponseModel> call, Response<HomeResponseModel> response) {
+                    public void onResponse(@NonNull Call<HomeResponseModel> call, @NonNull Response<HomeResponseModel> response) {
                         if(response.body()!=null) {
                             if(response.body().isStatus()) {
                                 dataModel = response.body().getData().get(0);
@@ -69,7 +68,7 @@ public class HomeFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<HomeResponseModel> call, Throwable t) {
+                    public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
 
                     }
                 });
