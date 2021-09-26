@@ -48,4 +48,17 @@
     <string name="withdrawal_commission_text">Withdrawal <br/>Commission</string>
     <string name="withdrawal_commission_value">5%</string>
     <string name="withdraw_now">Withdraw Now</string>
+
+    <string name="total_balance">Total Balance</string>
+    <string name="unplayed">Unplayed</string>
+    <string name="winning">Winning</string>
+    <string name="add_money_wallet">+ Add Money</string>
+    <string name="withdraw_wallet">Withdraw</string>
+    <string name="welcome_bonus">Welcome Bonus</string>
+    <string name="plus_rupee">+₹</string>
+    <string name="all">All</string>
+    <string name="in_progress">In Progress</string>
+    <string name="successful">Successful</string>
+    <string name="failed">Failed</string>
+    <string name="rupee">₹</string>
 </resources>
