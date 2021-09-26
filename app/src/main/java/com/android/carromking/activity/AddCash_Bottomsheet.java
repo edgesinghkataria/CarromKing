@@ -16,7 +16,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.link_paytm_wallet_otp, container, false);
+        View v = inflater.inflate(R.layout.add_cash, container, false);
 
         return v;
     }

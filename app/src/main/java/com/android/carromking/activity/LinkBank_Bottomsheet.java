@@ -16,7 +16,7 @@ public class LinkBank_Bottomsheet extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.link_paytm_wallet_otp, container, false);
+        View v = inflater.inflate(R.layout.link_bank_account, container, false);
 
         return v;
     }

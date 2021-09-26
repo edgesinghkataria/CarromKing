@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,8 @@ public class WalletFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wallet, container,false);
-
+        Button withdraw = v.findViewById(R.id.button_withdraw);
+        TextView seeAllTransactions = v.findViewById(R.id.seeAllTransactions);
         Button addMoney = v.findViewById(R.id.button_addMoney);
 
         addMoney.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +43,22 @@ public class WalletFragment extends Fragment {
             public void onClick(View v) {
                 AddCash_Bottomsheet bottomSheet = new AddCash_Bottomsheet();
                 bottomSheet.show(getActivity().getSupportFragmentManager(), "AddMoney");
+            }
+        });
+
+        withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new WithdrawBalanceFragment()).commit();
+            }
+        });
+
+        seeAllTransactions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new HistoryFragment()).commit();
             }
         });
         return v;
