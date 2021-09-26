@@ -31,6 +31,7 @@
     <string name="plus_add_money">+ Add Money</string>
     <string name="phone_num">+91 8922345111</string>
     <string name="TAG">com.android.carromking</string>
+    <string name="withdraw_balance_amount">₹ 10.00</string>
     <string name="link_paytm_wallet">Link Paytm wallet</string>
     <string name="link_paytm_wallet_associated">Link Paytm wallet associated with this \nnumber:</string>
     <string name="proceed">Proceed</string>
@@ -48,7 +49,6 @@
     <string name="silver_league_home">Silver League</string>
     <string name="gold_league_home">Gold League</string>
     <string name="diamond_league_home">Diamond League</string>
-    <string name="withdraw_balance_amount">&#x20B9; 10.00</string>
     <string name="withdraw_balance_text">Withdrawble Balance</string>
     <string name="below_withdrawable_text">The amount will be cleared based on your transaction within two working days</string>
     <string name="amount_to_withdraw">Amount to Withdraw</string>
@@ -59,13 +59,15 @@
     <string name="registered_upi_id">You  need to have a registered UPI ID.</string>
     <string name="bank_transfer_text">Receive in your bank account</string>
     <string name="daily_withdrawal_limit_text">Daily <br/>Withdrawal Limit</string>
-    <string name="daily_withdrawal_limit">&#x20B9; 5000</string>
+    <string name="daily_withdrawal_limit">₹ 5000</string>
     <string name="min_withdrawable_amount_text">Minimum withdrawable <br/>Amount</string>
-    <string name="min_withdrawal_amount_value">&#x20B9; 0</string>
+    <string name="min_withdrawal_amount_value">₹ 0</string>
     <string name="withdrawal_commission_text">Withdrawal <br/>Commission</string>
     <string name="withdrawal_commission_value">5%</string>
     <string name="withdraw_now">Withdraw Now</string>
-
+    <string name="withdrawal_successful">Withdrawal Request Successful!</string>
+    <string name="credited_24_hours">The amount will be credited to your preferred <br/>mode in next 24 hrs.</string>
+    <string name="keep_playing">Keep Playing</string>
     <string name="total_balance">Total Balance</string>
     <string name="unplayed">Unplayed</string>
     <string name="winning">Winning</string>
