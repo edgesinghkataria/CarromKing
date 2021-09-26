@@ -26,7 +26,7 @@ import retrofit2.Retrofit;
 public class ProfileFragment extends Fragment {
     SharedPreferences sp;
 
-    ProfileResponseDataModel responseModel;
+    ProfileResponseDataModel dataModel;
 
     @Nullable
     @Override
@@ -41,6 +41,11 @@ public class ProfileFragment extends Fragment {
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
         getProfileData();
+        if(dataModel!=null) {
+            ///Connect UI Here
+        } else {
+            //Error Handling
+        }
     }
 
     void getProfileData() {
@@ -56,8 +61,16 @@ public class ProfileFragment extends Fragment {
                     public void onResponse(Call<ProfileResponseModel> call, Response<ProfileResponseModel> response) {
                         if(response.body()!=null) {
                             if(response.body().isStatus()) {
-                                responseModel = response.body().getData();
-                                Log.d(getString(R.string.TAG), "onResponse: " + responseModel.toString());
+                                dataModel = response.body().getData();
+                                Log.d(getString(R.string.TAG), "onResponse: Profile " + dataModel.getUserData().getUsername());
+
+                                /*
+                                {dataModel.getUserData().getMobileNumber()}
+                                and
+                                {dataModel.getUserData().getToken()}
+                                is null here
+                                Don't use it for this api
+                                 */
 
                             } else {
                                 Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
