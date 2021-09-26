@@ -1,11 +1,12 @@
 package com.android.carromking;
 
-import com.android.carromking.models.home.HomeResponseDataModel;
 import com.android.carromking.models.home.HomeResponseModel;
 import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
 import com.android.carromking.models.profile.ProfileResponseModel;
+import com.android.carromking.models.wallet.WalletResponseModel;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -26,5 +27,8 @@ public interface MyApiEndpointInterface {
 
     @GET("home/games")
     Call<HomeResponseModel> getHomeData();
+
+    @GET("user/wallet")
+    Call<WalletResponseModel> getWalletData();
 
 }
