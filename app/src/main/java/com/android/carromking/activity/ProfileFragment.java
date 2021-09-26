@@ -24,8 +24,6 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-    final String TAG = getString(R.string.TAG);
-
     SharedPreferences sp;
     ProfileResponseDataModel dataModel;
 
@@ -39,9 +37,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
-        getProfileData();
+        getProfileData(view.getContext());
         if(dataModel!=null) {
             ///Connect UI Here
         } else {
@@ -49,7 +47,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    void getProfileData() {
+    void getProfileData(Context context) {
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
@@ -60,7 +58,7 @@ public class ProfileFragment extends Fragment {
                         if(response.body()!=null) {
                             if(response.body().isStatus()) {
                                 dataModel = response.body().getData();
-                                Log.d(TAG, "onResponse: Profile " + dataModel.getUserData().getUsername());
+                                Log.d(context.getString(R.string.TAG), "onResponse: Profile " + dataModel.getUserData().getUsername());
 
                                 /*
                                 {dataModel.getUserData().getMobileNumber()}

@@ -28,8 +28,6 @@ public class WalletFragment extends Fragment {
     SharedPreferences sp;
     WalletResponseDataModel dataModel;
 
-    final String TAG = getString(R.string.TAG);
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,9 +38,9 @@ public class WalletFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
-        getWalletData();
+        getWalletData(view.getContext());
         if(dataModel!=null) {
             ///Connect UI Here
         } else {
@@ -52,7 +50,7 @@ public class WalletFragment extends Fragment {
 
     }
 
-    void getWalletData() {
+    void getWalletData(Context context) {
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.
                 getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
@@ -65,7 +63,7 @@ public class WalletFragment extends Fragment {
                         if(body!=null) {
                             if(body.isStatus()) {
                                 dataModel = body.getData();
-                                Log.d(TAG, "Wallet onResponse: " + body.getData().getUserId());
+                                Log.d(context.getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
                             } else {
                                 Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
                             }

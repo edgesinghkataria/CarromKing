@@ -24,7 +24,6 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    final String TAG = getString(R.string.TAG);
 
     SharedPreferences sp;
     HomeResponseDataModel dataModel;
@@ -40,7 +39,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
         getHomeData();
         if(dataModel!=null) {
             ///Connect UI Here
