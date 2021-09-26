@@ -32,12 +32,14 @@ public class EnterOTPActivity extends AppCompatActivity {
     ApiService apiService = new ApiService();
     MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
-    final String TAG = getString(R.string.TAG);
+    String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_otpactivity);
+
+        TAG = getString(R.string.TAG);
 
         tvMobileNumber = findViewById(R.id.tvMobileNumber);
         etOTP = findViewById(R.id.etOTP);

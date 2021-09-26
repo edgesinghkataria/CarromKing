@@ -30,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity{
     EditText etPhone;
     Button btnGetOTP;
 
-    final String TAG = getString(R.string.TAG);
+    String TAG;
 
 
     private SharedPreferences sp;
@@ -43,6 +43,8 @@ public class SignUpActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        TAG = getString(R.string.TAG);
         
         ccp = findViewById(R.id.ccp);
         etPhone = findViewById(R.id.etPhone);
