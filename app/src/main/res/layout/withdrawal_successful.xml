@@ -36,7 +36,7 @@
         />
 
     <Button
-        android:id="@+id/rectangle_9"
+        android:id="@+id/keepPlaying"
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:layout_marginTop="32dp"
