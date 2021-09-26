@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="13dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.6"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/all"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/all_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_textview"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/in_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:alpha="0.6"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/in_progress"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/progress_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_textview"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/successful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:alpha="0.6"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/successful"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/successful_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_textview"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+            <TextView
+                android:id="@+id/failed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:alpha="0.6"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/failed"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/failed_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/round_textview"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/walletHistory_Recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tab"
+        tools:listitem="@layout/wallet_cardview"/>
+
+
+</LinearLayout>
