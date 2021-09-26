@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
@@ -21,8 +22,6 @@ import com.android.carromking.models.otp.VerifyOTPResponseModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EnterOTPActivity extends AppCompatActivity {
 
@@ -30,17 +29,10 @@ public class EnterOTPActivity extends AppCompatActivity {
     EditText etOTP;
     Button btnVerify;
 
-    final String TAG = "com.android.carromking";
+    ApiService apiService = new ApiService();
+    MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
-    private static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
-
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    MyApiEndpointInterface apiService =
-            retrofit.create(MyApiEndpointInterface.class);
+    final String TAG = getString(R.string.TAG);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +82,10 @@ public class EnterOTPActivity extends AppCompatActivity {
             String otpText = etOTP.getText().toString().trim();
 
             if(otpText.length() == 6) {
-                apiService.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
+                apiEndpointInterface.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
                         .enqueue(new Callback<VerifyOTPResponseModel>() {
                             @Override
-                            public void onResponse(@NonNull Call<VerifyOTPResponseModel> call, Response<VerifyOTPResponseModel> response) {
+                            public void onResponse(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Response<VerifyOTPResponseModel> response) {
                                 if(response.body()!=null) {
                                     if(!response.body().isStatus()) {
                                         Toast.makeText(EnterOTPActivity.this, response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
@@ -107,8 +99,8 @@ public class EnterOTPActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<VerifyOTPResponseModel> call, Throwable t) {
-
+                            public void onFailure(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Throwable t) {
+                                //todo: Handle Error
                             }
                         });
             }
