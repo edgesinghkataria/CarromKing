@@ -8,6 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HeaderInterceptor {
 
+    //Used for Calling API where Authorization token is required
+
     private static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
 
 
@@ -21,11 +23,11 @@ public class HeaderInterceptor {
                 }).build();
     }
 
-    public Retrofit getRetrofit(String token) {
+    public Retrofit getRetrofit(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(getInterceptor(token))
+                .client(client)
                 .build();
     }
 }

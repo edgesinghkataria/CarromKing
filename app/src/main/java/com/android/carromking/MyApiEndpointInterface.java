@@ -1,6 +1,9 @@
 package com.android.carromking;
 
-import ProfileResponseModel;
+import com.android.carromking.models.otp.SendOTPResponseModel;
+import com.android.carromking.models.otp.VerifyOTPBodyModel;
+import com.android.carromking.models.otp.VerifyOTPResponseModel;
+import com.android.carromking.models.profile.ProfileResponseModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

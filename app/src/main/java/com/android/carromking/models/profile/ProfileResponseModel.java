@@ -1,4 +1,6 @@
-import com.android.carromking.ResponseErrorModel;
+package com.android.carromking.models.profile;
+
+import com.android.carromking.models.common.ResponseErrorModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

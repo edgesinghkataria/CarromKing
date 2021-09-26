@@ -1,4 +1,7 @@
-import com.android.carromking.LeagueModel;
+package com.android.carromking.models.profile;
+
+import com.android.carromking.models.common.UserDataModel;
+import com.android.carromking.models.common.UserWalletDataModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

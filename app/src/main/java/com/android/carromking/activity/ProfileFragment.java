@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,8 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import ProfileResponseDataModel;
-import ProfileResponseModel;
+import com.android.carromking.HeaderInterceptor;
+import com.android.carromking.MyApiEndpointInterface;
+import com.android.carromking.R;
+import com.android.carromking.models.profile.ProfileResponseDataModel;
+import com.android.carromking.models.profile.ProfileResponseModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +44,8 @@ public class ProfileFragment extends Fragment {
     }
 
     void getProfileData() {
-        Retrofit retrofit = new HeaderInterceptor().getRetrofit(sp.getString("token", null));
+        HeaderInterceptor interceptor = new HeaderInterceptor();
+        Retrofit retrofit = interceptor.getRetrofit(interceptor.getInterceptor(sp.getString("token", null)));
 
         MyApiEndpointInterface apiService =
                 retrofit.create(MyApiEndpointInterface.class);
