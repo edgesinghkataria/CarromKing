@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.carromking.HeaderInterceptor;
+import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.profile.ProfileResponseDataModel;
@@ -21,11 +21,10 @@ import com.android.carromking.models.profile.ProfileResponseModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ProfileFragment extends Fragment {
-    SharedPreferences sp;
 
+    SharedPreferences sp;
     ProfileResponseDataModel dataModel;
 
     @Nullable
@@ -40,7 +39,7 @@ public class ProfileFragment extends Fragment {
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
-        getProfileData();
+        getProfileData(view.getContext());
         if(dataModel!=null) {
             ///Connect UI Here
         } else {
@@ -48,21 +47,18 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    void getProfileData() {
-        HeaderInterceptor interceptor = new HeaderInterceptor();
-        Retrofit retrofit = interceptor.getRetrofit(interceptor.getInterceptor(sp.getString("token", null)));
+    void getProfileData(Context context) {
+        ApiService apiService = new ApiService();
+        MyApiEndpointInterface apiEndpointInterface = apiService.getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
-        MyApiEndpointInterface apiService =
-                retrofit.create(MyApiEndpointInterface.class);
-
-        apiService.getProfileData()
+        apiEndpointInterface.getProfileData()
                 .enqueue(new Callback<ProfileResponseModel>() {
                     @Override
-                    public void onResponse(Call<ProfileResponseModel> call, Response<ProfileResponseModel> response) {
+                    public void onResponse(@NonNull Call<ProfileResponseModel> call, @NonNull Response<ProfileResponseModel> response) {
                         if(response.body()!=null) {
                             if(response.body().isStatus()) {
                                 dataModel = response.body().getData();
-                                Log.d(getString(R.string.TAG), "onResponse: Profile " + dataModel.getUserData().getUsername());
+                                Log.d(context.getString(R.string.TAG), "onResponse: Profile " + dataModel.getUserData().getUsername());
 
                                 /*
                                 {dataModel.getUserData().getMobileNumber()}
@@ -81,7 +77,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ProfileResponseModel> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ProfileResponseModel> call, @NonNull Throwable t) {
 
                     }
                 });
