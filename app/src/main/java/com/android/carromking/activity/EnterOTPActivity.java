@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.carromking.MyApiEndpointInterface;
+import com.android.carromking.R;
+import com.android.carromking.models.otp.VerifyOTPBodyModel;
+import com.android.carromking.models.otp.VerifyOTPResponseModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +32,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
     final String TAG = "com.android.carromking";
 
-    public static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
+    private static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -14,6 +14,13 @@
     <string name="enter_the_6_digit_otp_sent_to">Enter the 6 digit OTP sent to</string>
     <string name="verify">Verify</string>
     <string name="enter_otp">Enter OTP</string>
+    <string name="battle_level">BATTLE (Level X)</string>
+    <string name="win">Win</string>
+    <string name="Rs">\u20B9</string>
+    <string name="p2">2P</string>
+    <string name="entry_fees">Entry Fees</string>
+    <string name="play">Play</string>
+    <string name="use_bonus">Use 0.5 Rs bonus</string>
     <string name="diamond_lea">Diamond League</string>
     <string name="gold_lea">Gold League</string>
     <string name="silver_lea">Silver League</string>
@@ -23,6 +30,7 @@
     <string name="game_wallet">Game Wallet Balance</string>
     <string name="plus_add_money">+ Add Money</string>
     <string name="phone_num">+91 8922345111</string>
+    <string name="TAG">com.android.carromking</string>
     <string name="withdraw_balance_amount">&#x20B9; 10.00</string>
     <string name="withdraw_balance_text">Withdrawble Balance</string>
     <string name="below_withdrawable_text">The amount will be cleared based on your transaction within two working days</string>

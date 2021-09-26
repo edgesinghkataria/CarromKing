@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.carromking.MyApiEndpointInterface;
+import com.android.carromking.R;
+import com.android.carromking.models.otp.SendOTPResponseDataModel;
+import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.hbb20.CountryCodePicker;
 
 import retrofit2.Call;
