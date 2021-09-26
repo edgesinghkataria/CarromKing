@@ -1,10 +1,11 @@
-package com.android.carromking;
 
+package com.android.carromking.models.otp;
+
+import com.android.carromking.models.common.ResponseErrorModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class VerifyOTPResponseModel {
-
+public class SendOTPResponseModel {
 
     @SerializedName("status")
     @Expose
@@ -14,7 +15,7 @@ public class VerifyOTPResponseModel {
     private ResponseErrorModel error;
     @SerializedName("data")
     @Expose
-    private  VerifyOTPResponseDataModel data;
+    private SendOTPResponseDataModel data;
 
     public boolean isStatus() {
         return status;
@@ -32,11 +33,11 @@ public class VerifyOTPResponseModel {
         this.error = error;
     }
 
-    public VerifyOTPResponseDataModel getData() {
+    public SendOTPResponseDataModel getData() {
         return data;
     }
 
-    public void setData(VerifyOTPResponseDataModel data) {
+    public void setData(SendOTPResponseDataModel data) {
         this.data = data;
     }
 }

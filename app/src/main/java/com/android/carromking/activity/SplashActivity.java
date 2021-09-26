@@ -1,4 +1,4 @@
-package com.android.carromking;
+package com.android.carromking.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.android.carromking.R;
 
 public class SplashActivity extends AppCompatActivity {
     private SharedPreferences sp;
