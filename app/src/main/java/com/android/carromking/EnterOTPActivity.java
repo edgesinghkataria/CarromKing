@@ -27,7 +27,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
     final String TAG = "com.android.carromking";
 
-    public static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
+    private static final String BASE_URL = "https://ecommerce-checkout.herokuapp.com/";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)

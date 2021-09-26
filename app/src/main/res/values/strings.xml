@@ -30,4 +30,6 @@
     <string name="game_wallet">Game Wallet Balance</string>
     <string name="plus_add_money">+ Add Money</string>
     <string name="phone_num">+91 8922345111</string>
+
+    <string name="TAG">com.android.carromking</string>
 </resources>

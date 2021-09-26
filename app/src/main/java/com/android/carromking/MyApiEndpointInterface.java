@@ -1,5 +1,6 @@
 package com.android.carromking;
 
+import ProfileResponseModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,5 +15,8 @@ public interface MyApiEndpointInterface {
 
     @POST("auth")
     Call<VerifyOTPResponseModel> verifyOTP(@Body VerifyOTPBodyModel bodyModel);
+
+    @GET("user/profile")
+    Call<ProfileResponseModel> getProfileData();
 
 }
