@@ -75,4 +75,9 @@
     <string name="confirm_account">Confirm Account</string>
     <string name="ifsc">IFSC</string>
     <string name="account_holder_name">Account Holder Name</string>
+    <string name="or">or</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="continuee">Continue</string>
+    <string name="bank_link_declaration">I hereby declare that the information provided by me is correct.</string>
+
 </resources>
