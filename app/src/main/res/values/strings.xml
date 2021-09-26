@@ -14,4 +14,11 @@
     <string name="enter_the_6_digit_otp_sent_to">Enter the 6 digit OTP sent to</string>
     <string name="verify">Verify</string>
     <string name="enter_otp">Enter OTP</string>
+    <string name="battle_level">BATTLE (Level X)</string>
+    <string name="win">Win</string>
+    <string name="Rs">\u20B9</string>
+    <string name="p2">2P</string>
+    <string name="entry_fees">Entry Fees</string>
+    <string name="play">Play</string>
+    <string name="use_bonus">Use 0.5 Rs bonus</string>
 </resources>
