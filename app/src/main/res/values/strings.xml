@@ -65,6 +65,22 @@
     <string name="withdrawal_commission_text">Withdrawal <br/>Commission</string>
     <string name="withdrawal_commission_value">5%</string>
     <string name="withdraw_now">Withdraw Now</string>
+
+    <string name="rupee_hundred">₹ 100</string>
+    <string name="rupee_ten">₹ 10</string>
+    <string name="rupee_twenty">₹ 20</string>
+    <string name="rupee_fifty">₹ 50</string>
+    <string name="add_cash">Add Cash</string>
+    <string name="recieve_in_your_bank_account">Recieve in your bank account</string>
+    <string name="account_number">Account Number</string>
+    <string name="confirm_account">Confirm Account</string>
+    <string name="ifsc">IFSC</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="or">or</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="continuee">Continue</string>
+    <string name="bank_link_declaration">I hereby declare that the information provided by me is correct.</string>
+
     <string name="withdrawal_successful">Withdrawal Request Successful!</string>
     <string name="credited_24_hours">The amount will be credited to your preferred <br/>mode in next 24 hrs.</string>
     <string name="keep_playing">Keep Playing</string>
@@ -79,4 +95,5 @@
     <string name="in_progress">In Progress</string>
     <string name="successful">Successful</string>
     <string name="failed">Failed</string>
+
 </resources>
