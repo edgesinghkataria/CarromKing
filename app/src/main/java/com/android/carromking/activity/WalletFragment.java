@@ -38,17 +38,6 @@ public class WalletFragment extends Fragment {
     private LocalDataModel localDataModel;
     final Gson gson = new Gson();
 
-    private LocalDataModel localDataModel1 =  new LocalDataModel(
-            "1",
-            getString(R.string.mobile_number),
-            "",
-            "silver",
-            sp.getString("token", null),
-            "0",
-            "0",
-            "0"
-    );
-
 
     @Nullable
     @Override
@@ -89,6 +78,17 @@ public class WalletFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                sp.getString("token", null),
+                "2",
+                "0",
+                "0"
+        );
 
         localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
