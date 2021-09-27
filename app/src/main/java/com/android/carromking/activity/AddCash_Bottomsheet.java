@@ -2,6 +2,8 @@ package com.android.carromking.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +87,74 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
                 button20.setTextColor(Color.parseColor("#000000"));
                 button50.setTextColor(Color.parseColor("#000000"));
                 button10.setTextColor(Color.parseColor("#000000"));
+            }
+        });
+
+        amountEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(amountEditText.getText().toString().trim().equals("10")) {
+                    button10.setBackgroundResource(R.drawable.custom_button);
+                    button20.setBackgroundResource(R.drawable.custom_button2);
+                    button50.setBackgroundResource(R.drawable.custom_button2);
+                    button100.setBackgroundResource(R.drawable.custom_button2);
+
+                    button10.setTextColor(Color.parseColor("#FFFFFF"));
+                    button20.setTextColor(Color.parseColor("#000000"));
+                    button50.setTextColor(Color.parseColor("#000000"));
+                    button100.setTextColor(Color.parseColor("#000000"));
+                } else if(amountEditText.getText().toString().trim().equals("20")){
+
+                    button20.setBackgroundResource(R.drawable.custom_button);
+                    button10.setBackgroundResource(R.drawable.custom_button2);
+                    button50.setBackgroundResource(R.drawable.custom_button2);
+                    button100.setBackgroundResource(R.drawable.custom_button2);
+
+                    button20.setTextColor(Color.parseColor("#FFFFFF"));
+                    button10.setTextColor(Color.parseColor("#000000"));
+                    button50.setTextColor(Color.parseColor("#000000"));
+                    button100.setTextColor(Color.parseColor("#000000"));
+                }else if(amountEditText.getText().toString().trim().equals("50")){
+                    button50.setBackgroundResource(R.drawable.custom_button);
+                    button20.setBackgroundResource(R.drawable.custom_button2);
+                    button10.setBackgroundResource(R.drawable.custom_button2);
+                    button100.setBackgroundResource(R.drawable.custom_button2);
+
+                    button50.setTextColor(Color.parseColor("#FFFFFF"));
+                    button20.setTextColor(Color.parseColor("#000000"));
+                    button10.setTextColor(Color.parseColor("#000000"));
+                    button100.setTextColor(Color.parseColor("#000000"));
+                }else if(amountEditText.getText().toString().trim().equals("100")){
+                    button100.setBackgroundResource(R.drawable.custom_button);
+                    button20.setBackgroundResource(R.drawable.custom_button2);
+                    button50.setBackgroundResource(R.drawable.custom_button2);
+                    button10.setBackgroundResource(R.drawable.custom_button2);
+
+                    button100.setTextColor(Color.parseColor("#FFFFFF"));
+                    button20.setTextColor(Color.parseColor("#000000"));
+                    button50.setTextColor(Color.parseColor("#000000"));
+                    button10.setTextColor(Color.parseColor("#000000"));
+                }else{
+                    button10.setBackgroundResource(R.drawable.custom_button2);
+                    button20.setBackgroundResource(R.drawable.custom_button2);
+                    button50.setBackgroundResource(R.drawable.custom_button2);
+                    button100.setBackgroundResource(R.drawable.custom_button2);
+
+                    button10.setTextColor(Color.parseColor("#000000"));
+                    button20.setTextColor(Color.parseColor("#000000"));
+                    button50.setTextColor(Color.parseColor("#000000"));
+                    button100.setTextColor(Color.parseColor("#000000"));
+                }
             }
         });
         return v;
