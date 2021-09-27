@@ -154,10 +154,14 @@ public class WalletFragment extends Fragment {
 
                 updateLocal(walletResponseDataModel);
 
-                unPlayedAmount.setText(walletResponseDataModel.getDepositBalance());
-                winningAmount.setText(walletResponseDataModel.getWinningBalance());
-                cashBonus.setText(walletResponseDataModel.getBonusBalance());
-                totalBalance.setText(walletResponseDataModel.getTotalBalance());
+                String unPlayedBalance = localDataModel.getDepositBalance();
+                String winningBalance = localDataModel.getWinningBalance();
+                String bonusBalance = localDataModel.getBonusBalance();
+
+                unPlayedAmount.setText(localDataModel.getDepositBalance());
+                winningAmount.setText(localDataModel.getWinningBalance());
+                cashBonus.setText(localDataModel.getBonusBalance());
+                totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
             } else {
                 Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();

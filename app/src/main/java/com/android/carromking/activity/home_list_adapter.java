@@ -31,6 +31,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
     @NonNull
     @Override
     public home_list_adapter.HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_lobby_recycler_item , parent , false);
         return new HomeViewHolder(v);
     }
