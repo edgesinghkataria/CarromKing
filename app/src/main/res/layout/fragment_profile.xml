@@ -144,6 +144,7 @@
             android:background="@drawable/add_money_button_bg"
             android:gravity="center"
             android:text="@string/plus_add_money"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp"
             tools:ignore="RelativeOverlap" />
