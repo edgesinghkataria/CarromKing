@@ -20,6 +20,8 @@ import com.android.carromking.R;
 
 public class WithdrawBalanceFragment extends Fragment {
 
+    private homeIconHighlightTwo listener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,8 +38,17 @@ public class WithdrawBalanceFragment extends Fragment {
         withdrawNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                WithdrawSuccessfulFragment withdrawSuccessfulFragment = new WithdrawSuccessfulFragment();
+                withdrawSuccessfulFragment.HighLightHomeIcon(new WithdrawSuccessfulFragment.homeIconHighlight() {
+                    @Override
+                    public void highlightHomeIcon() {
+                        listener.highlightHomeIconTwo();
+                    }
+                });
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new WithdrawSuccessfulFragment()).commit();
+                        withdrawSuccessfulFragment).commit();
             }
         });
 
@@ -93,6 +104,14 @@ public class WithdrawBalanceFragment extends Fragment {
         });
 
         return v;
+    }
+
+    public interface homeIconHighlightTwo{
+        void highlightHomeIconTwo();
+    }
+
+    public void HighLightHomeIconTwo(homeIconHighlightTwo listener){
+        this.listener = listener;
     }
 
     @Override

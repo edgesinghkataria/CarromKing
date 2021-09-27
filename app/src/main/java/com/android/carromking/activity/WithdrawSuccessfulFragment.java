@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.carromking.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class WithdrawSuccessfulFragment extends Fragment {
 
+    private homeIconHighlight listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,10 +29,20 @@ public class WithdrawSuccessfulFragment extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
+                listener.highlightHomeIcon();
             }
         });
         return v;
     }
+
+    public interface homeIconHighlight{
+        void highlightHomeIcon();
+    }
+
+    public void HighLightHomeIcon(homeIconHighlight listener){
+        this.listener = listener;
+    }
+
     @Override
     public void onResume() {
         super.onResume();

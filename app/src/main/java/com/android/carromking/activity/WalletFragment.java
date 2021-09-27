@@ -43,6 +43,7 @@ public class WalletFragment extends Fragment {
 
     String TAG;
 
+    private homeIconHighlightThree listener;
 
     @Nullable
     @Override
@@ -61,8 +62,17 @@ public class WalletFragment extends Fragment {
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "AddMoney");
         });
 
-        withdraw.setOnClickListener(v13 -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new WithdrawBalanceFragment()).commit());
+        withdraw.setOnClickListener(v13 -> {
+            WithdrawBalanceFragment withdrawBalanceFragment = new WithdrawBalanceFragment();
+            withdrawBalanceFragment.HighLightHomeIconTwo(new WithdrawBalanceFragment.homeIconHighlightTwo() {
+                @Override
+                public void highlightHomeIconTwo() {
+                    listener.highlightHomeIconThree();
+                }
+            });
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                withdrawBalanceFragment).commit();
+        });
 
         seeAllTransactions.setOnClickListener(v1 ->
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
@@ -177,6 +187,14 @@ public class WalletFragment extends Fragment {
         localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
 
         sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
+    }
+
+    public interface homeIconHighlightThree{
+        void highlightHomeIconThree();
+    }
+
+    public void HighLightHomeIconThree(homeIconHighlightThree listener){
+        this.listener = listener;
     }
 
     @Override
