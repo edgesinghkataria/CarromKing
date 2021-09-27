@@ -21,9 +21,12 @@ import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.common.UserDataModel;
+import com.android.carromking.models.common.UserWalletDataModel;
+import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.profile.LeagueModel;
 import com.android.carromking.models.profile.ProfileResponseDataModel;
 import com.android.carromking.models.profile.ProfileResponseModel;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -35,12 +38,15 @@ public class ProfileFragment extends Fragment {
 
     SharedPreferences sp;
     ProfileResponseDataModel dataModel;
+    String TAG;
 
     TextView tvMobileNumber, tvAmountBalance;
     ImageView profile_lock_diamond, profile_lock_gold, profile_lock_silver;
     TextView profile_status_gold, profile_status_diamond, profile_status_silver, profile_user_league_name;
 
     ImageView profileImage, trophyImage;
+
+    LocalDataModel localDataModel;
 
     @Nullable
     @Override
@@ -52,8 +58,12 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
-        Log.d(getString(R.string.TAG), "onViewCreated: " + sp.getString("token", null));
+        TAG = getString(R.string.TAG);
+
+        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        Log.d(TAG, "onViewCreated: " + sp.getString("token", null));
+
+        localDataModel = new Gson().fromJson(sp.getString("local", null), LocalDataModel.class);
 
         tvMobileNumber = view.findViewById(R.id.profile_phone_num);
         tvAmountBalance = view.findViewById(R.id.tvBalance);
@@ -67,6 +77,9 @@ public class ProfileFragment extends Fragment {
 
         trophyImage = view.findViewById(R.id.profile_user_league_img);
         profileImage = view.findViewById(R.id.profile_profile_icon);
+
+        trophyImage.setRotation(12);
+        getLevel(localDataModel.getLevel());
 
         new MyTask().execute(view);
     }
@@ -85,7 +98,7 @@ public class ProfileFragment extends Fragment {
                             if (response.body() != null) {
                                 if (response.body().isStatus()) {
                                     dataModel = response.body().getData();
-                                    Log.d(views[0].getContext().getString(R.string.TAG), "onResponse: Profile " + dataModel.getUserData().getUsername());
+                                    Log.d(TAG, "onResponse: Profile " + dataModel.getUserData().getUsername());
 
                                 /*
                                 {dataModel.getUserData().getMobileNumber()}
@@ -120,27 +133,12 @@ public class ProfileFragment extends Fragment {
                 //Connect UI Here
                 UserDataModel user = dataModel.getUserData();
                 List<LeagueModel> leagues = dataModel.getLeagues();
-                tvMobileNumber.setText(user.getUsername());
+                tvMobileNumber.setText(localDataModel.getMobileNumber());
                 tvAmountBalance.setText(String.valueOf(dataModel.getWalletData().getDepositBalance()));
 
-                switch (user.getLevel()) {
-                    case "diamond":
-                        trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.diamond_trophy_tilted));
-                        profile_user_league_name.setText(requireContext().getString(R.string.diamond_lea));
-                        break;
-                    case "gold":
-                        trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.golden_trophy_tilted));
-                        profile_user_league_name.setText(requireContext().getString(R.string.gold_lea));
-                        break;
-                    case "silver":
-                        trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.silver_trophy_tilted));
-                        profile_user_league_name.setText(requireContext().getString(R.string.silver_lea));
-                        break;
-                }
+                updateLocal(user, dataModel.getWalletData());
 
-                trophyImage.setRotation(12);
-
-
+                getLevel(user.getLevel());
 
                 leagues.forEach(league -> {
                     switch (league.getName()) {
@@ -163,5 +161,31 @@ public class ProfileFragment extends Fragment {
             }
 
         }
+    }
+
+    private void getLevel(String level) {
+        switch (level) {
+            case "diamond":
+                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.diamond_trophy_tilted));
+                profile_user_league_name.setText(requireContext().getString(R.string.diamond_lea));
+                break;
+            case "gold":
+                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.golden_trophy_tilted));
+                profile_user_league_name.setText(requireContext().getString(R.string.gold_lea));
+                break;
+            case "silver":
+                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.silver_trophy_tilted));
+                profile_user_league_name.setText(requireContext().getString(R.string.silver_lea));
+                break;
+        }
+    }
+
+    private void updateLocal(UserDataModel user, UserWalletDataModel wallet) {
+        localDataModel.setDepositBalance(String.valueOf(wallet.getDepositBalance()));
+        localDataModel.setWinningBalance(String.valueOf(wallet.getWinningBalance()));
+        localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
+        localDataModel.setLevel(user.getLevel());
+
+        sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
     }
 }
