@@ -2,6 +2,7 @@ package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,36 +41,53 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
-        getHomeData();
-        if(dataModel!=null) {
-            ///Connect UI Here
-        } else {
-            //Error Handling
-        }
+
+        new getHome().execute(view);
 
     }
 
-    void getHomeData() {
-        ApiService interceptor = new ApiService();
-        MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
+    private class getHome extends AsyncTask<View, Integer, HomeResponseDataModel> {
 
-        apiEndpointInterface.getHomeData()
-                .enqueue(new Callback<HomeResponseModel>() {
-                    @Override
-                    public void onResponse(@NonNull Call<HomeResponseModel> call, @NonNull Response<HomeResponseModel> response) {
-                        if(response.body()!=null) {
-                            if(response.body().isStatus()) {
-                                dataModel = response.body().getData().get(0);
-                            } else {
-                                Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
+        @Override
+        protected HomeResponseDataModel doInBackground(View... views) {
+            Context context = views[0].getContext();
+
+            ApiService interceptor = new ApiService();
+            MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
+
+            apiEndpointInterface.getHomeData()
+                    .enqueue(new Callback<HomeResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<HomeResponseModel> call, @NonNull Response<HomeResponseModel> response) {
+                            if (response.body() != null) {
+                                if (response.body().isStatus()) {
+                                    dataModel = response.body().getData().get(0);
+                                } else {
+                                    Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
+                        @Override
+                        public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+
+            while (true) {
+                if(dataModel!=null) {
+                    return dataModel;
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(HomeResponseDataModel dataModel1) {
+            if(dataModel1!=null) {
+                
+            }
+        }
     }
+
+
 }
