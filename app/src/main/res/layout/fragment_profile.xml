@@ -31,12 +31,10 @@
             android:id="@+id/profile_user_league_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
             android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="35dp"
-            android:src="@drawable/golden_trophy"
-            />
+            android:layout_marginRight="8dp"/>
 
         <TextView
             android:id="@+id/profile_user_league_name"
@@ -65,17 +63,16 @@
             android:id="@+id/profile_profile_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/blue_profile_icon"
-            android:paddingLeft="19dp"
-            android:paddingRight="19dp"
-            android:paddingTop="19dp"
-            android:paddingBottom="13.57dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="35dp"
             android:layout_marginLeft="18dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/circular_profile_icon"
-            />
+            android:paddingLeft="19dp"
+            android:paddingTop="19dp"
+            android:paddingRight="19dp"
+            android:paddingBottom="13.57dp"
+            android:src="@drawable/blue_profile_icon" />
 
         <ImageView
             android:id="@+id/profile_ellipse_bottom"
@@ -111,7 +108,7 @@
             android:background="@drawable/rupee" />
 
         <TextView
-            android:id="@+id/profile_amount"
+            android:id="@+id/tvBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -218,7 +215,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="4.59dp"
-            android:background="@drawable/diamond_trophy_tilted" />
+            android:background="@drawable/diamond_trophy_tilted"
+            android:rotation="13" />
 
 
     </RelativeLayout>
