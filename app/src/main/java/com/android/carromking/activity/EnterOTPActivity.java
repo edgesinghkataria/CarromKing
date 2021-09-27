@@ -2,14 +2,12 @@ package com.android.carromking.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +23,6 @@ import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
 import com.android.carromking.models.otp.VerifyOTPResponseDataModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
-import com.android.carromking.models.wallet.WalletResponseDataModel;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -49,7 +46,7 @@ public class EnterOTPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_otpactivity);
-
+        getSupportActionBar().hide();
         progressBar = new CustomProgressBar(this);
 
         TAG = getString(R.string.TAG);
