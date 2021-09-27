@@ -37,7 +37,7 @@
     <string name="proceed">Proceed</string>
     <string name="enter_otp_recieved">Enter OTP received on 9999999999</string>
     <string name="didnt_get_otp">Didn\'t get OTP?</string>
-    <string name="resend_code">RESEND CODe</string>
+    <string name="resend_code">RESEND CODE</string>
     <string name="verify_and_proceed">Verify and Proceed</string>
     <string name="recieve_in_upi">Receive in UPI</string>
     <string name="enter_your_upi_id">Enter your UPI ID</string>

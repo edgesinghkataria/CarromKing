@@ -82,7 +82,7 @@ public class WalletFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        TAG = getString(R.string.TAG);
         sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         LocalDataModel localDataModel1 =  new LocalDataModel(

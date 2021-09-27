@@ -80,7 +80,7 @@
                 android:textStyle="bold" />
 
 
-            <TextView
+            <EditText
                 android:id="@+id/amount_to_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,22 +88,20 @@
                 android:paddingLeft="2dp"
                 android:text="@string/withdraw_balance_amount"
                 android:textColor="#2B2B2B"
+                android:ems="10"
+                android:backgroundTint="@color/light_grey"
+                android:textAlignment="center"
                 android:textSize="18sp"
+                android:inputType="number"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/short_line"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:background="@drawable/withdraw_line" />
 
             <TextView
                 android:id="@+id/funds_will_be_transferred_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="22dp"
                 android:text="@string/funds_will_be_transferred_text"
                 android:textColor="@color/black"
                 android:textSize="10sp"
