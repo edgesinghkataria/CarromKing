@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.carromking.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class WithdrawSuccessfulFragment extends Fragment {
@@ -21,15 +22,19 @@ public class WithdrawSuccessfulFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.withdrawal_successful, container, false);
+        BottomNavigationView bottomNav = MainActivity.bottomNav;
 
         Button keepPlaying = v.findViewById(R.id.keepPlaying);
         keepPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                bottomNav.setSelectedItemId(R.id.nav_home);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
             }
         });
         return v;
     }
+
 }
