@@ -99,7 +99,9 @@ public class ProfileFragment extends Fragment {
         btnAddMoney = view.findViewById(R.id.btnAddMoney);
 
         trophyImage.setRotation(12);
-        getLevel(localDataModel.getLevel());
+        getLevel(localDataModel.getLevel(), view.getContext());
+
+        tvMobileNumber.setText(localDataModel.getMobileNumber());
 
         new MyTask().execute(view);
 
@@ -158,12 +160,9 @@ public class ProfileFragment extends Fragment {
                 //Connect UI Here
                 UserDataModel user = dataModel.getUserData();
                 List<LeagueModel> leagues = dataModel.getLeagues();
-                tvMobileNumber.setText(localDataModel.getMobileNumber());
                 tvAmountBalance.setText(String.valueOf(dataModel.getWalletData().getDepositBalance()));
 
                 updateLocal(user, dataModel.getWalletData());
-
-                getLevel(user.getLevel());
 
                 leagues.forEach(league -> {
                     switch (league.getName()) {
@@ -188,19 +187,19 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void getLevel(String level) {
+    private void getLevel(String level, Context context) {
         if(level!=null) {
             switch (level) {
                 case "diamond":
-                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.diamond_trophy_tilted));
+                    trophyImage.setBackground(ContextCompat.getDrawable(context, R.drawable.diamond_trophy_tilted));
                     profile_user_league_name.setText(requireContext().getString(R.string.diamond_lea));
                     break;
                 case "gold":
-                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.golden_trophy_tilted));
+                    trophyImage.setBackground(ContextCompat.getDrawable(context, R.drawable.golden_trophy_tilted));
                     profile_user_league_name.setText(requireContext().getString(R.string.gold_lea));
                     break;
                 case "silver":
-                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.silver_trophy_tilted));
+                    trophyImage.setBackground(ContextCompat.getDrawable(context, R.drawable.silver_trophy_tilted));
                     profile_user_league_name.setText(requireContext().getString(R.string.silver_lea));
                     break;
             }
@@ -213,6 +212,7 @@ public class ProfileFragment extends Fragment {
         localDataModel.setWinningBalance(String.valueOf(wallet.getWinningBalance()));
         localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
         localDataModel.setLevel(user.getLevel());
+        localDataModel.setProfilePic(user.getProfilePic());
 
         sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
     }

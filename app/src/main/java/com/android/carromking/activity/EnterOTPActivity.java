@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -100,7 +101,7 @@ public class EnterOTPActivity extends AppCompatActivity {
                                     } else {
                                         sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
                                         sp.edit().putString("sessionId", sessionId).apply();
-                                        storeDataInLocal(response.body().getData(), sp);
+                                        storeDataInLocal(response.body().getData(), sp, numberWithCode);
                                         Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();
@@ -119,12 +120,12 @@ public class EnterOTPActivity extends AppCompatActivity {
 
     }
 
-    void storeDataInLocal(VerifyOTPResponseDataModel dataModel, SharedPreferences sp) {
+    void storeDataInLocal(VerifyOTPResponseDataModel dataModel, SharedPreferences sp, String mobileNumber) {
         UserDataModel userData = dataModel.getUserData();
         UserWalletDataModel walletData = dataModel.getUserWalletData();
         LocalDataModel localDataModel = new LocalDataModel(
                 String.valueOf(userData.getId()),
-                userData.getMobileNumber(),
+                mobileNumber,
                 userData.getProfilePic(),
                 userData.getLevel(),
                 userData.getToken(),
