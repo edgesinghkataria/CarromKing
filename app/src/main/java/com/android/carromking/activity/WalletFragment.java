@@ -2,6 +2,7 @@ package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +19,12 @@ import androidx.fragment.app.Fragment;
 import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
+import com.android.carromking.models.common.UserDataModel;
+import com.android.carromking.models.common.UserWalletDataModel;
+import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.wallet.WalletResponseDataModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +34,10 @@ public class WalletFragment extends Fragment {
 
     SharedPreferences sp;
     WalletResponseDataModel dataModel;
+    TextView unplayedAmount, winningAmount, cashBonus, totalBalance;
+    private LocalDataModel localDataModel;
+    final Gson gson = new Gson();
+
 
     @Nullable
     @Override
@@ -70,40 +79,104 @@ public class WalletFragment extends Fragment {
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
-        getWalletData(view.getContext());
-        if(dataModel!=null) {
-            ///Connect UI Here
-        } else {
-            //Error Handling
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                sp.getString("token", null),
+                "0",
+                "0",
+                "0"
+        );
+
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+
+
+        unplayedAmount = view.findViewById(R.id.unplayed_amount);
+        winningAmount = view.findViewById(R.id.winning_amount);
+        cashBonus = view.findViewById(R.id.cash_bonus);
+        totalBalance = view.findViewById(R.id.wallet_balance);
+
+        String unplayedBalance = localDataModel.getDepositBalance();
+        String winningBalance = localDataModel.getWinningBalance();
+        String bonusBalance = localDataModel.getBonusBalance();
+
+        unplayedAmount.setText(unplayedBalance);
+        winningAmount.setText(winningBalance);
+        cashBonus.setText(bonusBalance);
+        totalBalance.setText(unplayedBalance + winningBalance + bonusBalance);
+
+        MyTask myTask = new MyTask();
+        myTask.execute(view);
+
+    }
+
+    private class MyTask extends AsyncTask<View, Integer , WalletResponseDataModel>{
+        @Override
+        protected WalletResponseDataModel doInBackground(View... views) {
+
+            ApiService apiService = new ApiService();
+            MyApiEndpointInterface apiEndpointInterface = apiService.
+                    getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+
+            apiEndpointInterface.getWalletData()
+                    .enqueue(new Callback<WalletResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<WalletResponseModel> call, @NonNull Response<WalletResponseModel> response) {
+                            WalletResponseModel body = response.body();
+                            if(body!=null) {
+                                if(body.isStatus()) {
+                                    dataModel = body.getData();
+                                    Log.d(getContext().getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
+                                } else {
+                                    Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
+
+                        }
+                    });
+            while (true) {
+                if(dataModel!=null) {
+                    return dataModel;
+                }
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(WalletResponseDataModel walletResponseDataModel) {
+            if(walletResponseDataModel!=null) {
+
+                updateLocal(walletResponseDataModel);
+
+                String unplayedBalance = localDataModel.getDepositBalance();
+                String winningBalance = localDataModel.getWinningBalance();
+                String bonusBalance = localDataModel.getBonusBalance();
+
+                unplayedAmount.setText(unplayedBalance);
+                winningAmount.setText(winningBalance);
+                cashBonus.setText(bonusBalance);
+                totalBalance.setText(unplayedBalance + winningBalance + bonusBalance);
+
+            } else {
+                Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+            }
         }
 
 
     }
 
-    void getWalletData(Context context) {
-        ApiService apiService = new ApiService();
-        MyApiEndpointInterface apiEndpointInterface = apiService.
-                getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+    private void updateLocal(WalletResponseDataModel wallet) {
+        localDataModel.setDepositBalance(String.valueOf(wallet.getDepositBalance()));
+        localDataModel.setWinningBalance(String.valueOf(wallet.getWinningBalance()));
+        localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
 
-        apiEndpointInterface.getWalletData()
-                .enqueue(new Callback<WalletResponseModel>() {
-                    @Override
-                    public void onResponse(@NonNull Call<WalletResponseModel> call, @NonNull Response<WalletResponseModel> response) {
-                        WalletResponseModel body = response.body();
-                        if(body!=null) {
-                            if(body.isStatus()) {
-                                dataModel = body.getData();
-                                Log.d(context.getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
-                            } else {
-                                Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
-
-                    }
-                });
+        sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
     }
+
 }

@@ -140,6 +140,30 @@
                 android:textSize="10sp"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:id="@+id/greenTickAndArrowPaytm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:orientation="horizontal"
+                android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/greenTickPaytm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/green_tick_withdraw" />
+
+                <ImageView
+                    android:id="@+id/arrow_paytm"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/withdraw_arrow" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -195,12 +219,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/greenTickUpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    android:background="@drawable/green_tick_withdraw" />
 
                 <ImageView
                     android:id="@+id/arrow_upi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:background="@drawable/withdraw_arrow" />
             </LinearLayout>
 
@@ -242,11 +276,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:gravity="right">
+
+                <ImageView
+                    android:id="@+id/greenTickBankTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    android:background="@drawable/green_tick_withdraw" />
 
                 <ImageView
                     android:id="@+id/arrow_bank_transfer"
                     android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:background="@drawable/withdraw_arrow" />
             </LinearLayout>
