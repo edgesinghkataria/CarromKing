@@ -1,5 +1,6 @@
 package com.android.carromking.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.android.carromking.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class LinkPaytm_Bottomsheet extends BottomSheetDialogFragment {
+
+    private greenTickPaytmTwo listener;
 
     @Nullable
     @Override
@@ -33,10 +36,25 @@ public class LinkPaytm_Bottomsheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 LinkPaytmOTP_Bottomsheet bottomSheet = new LinkPaytmOTP_Bottomsheet();
+                bottomSheet.ShowGreenTickPaytm(new LinkPaytmOTP_Bottomsheet.greenTickPaytm() {
+                    @Override
+                    public void showGreenTickPaytm() {
+                        listener.showGreenTickPaytmTwo();
+                    }
+                });
                 bottomSheet.show(getActivity().getSupportFragmentManager(), "LinkPaytmOTP");
                 dismiss();
             }
         });
         return v;
     }
+
+    public interface greenTickPaytmTwo{
+        void showGreenTickPaytmTwo();
+    }
+
+    public void ShowGreenTickPaytmTwo(greenTickPaytmTwo listener){
+        this.listener = listener;
+    }
+
 }
