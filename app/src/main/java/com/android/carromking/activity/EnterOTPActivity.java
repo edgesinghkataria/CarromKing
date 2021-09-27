@@ -2,18 +2,21 @@ package com.android.carromking.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.carromking.ApiService;
+import com.android.carromking.CustomProgressBar;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.common.UserDataModel;
@@ -38,12 +41,16 @@ public class EnterOTPActivity extends AppCompatActivity {
     ApiService apiService = new ApiService();
     MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
+    CustomProgressBar progressBar;
+
     String TAG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_otpactivity);
+
+        progressBar = new CustomProgressBar(this);
 
         TAG = getString(R.string.TAG);
 
@@ -87,6 +94,7 @@ public class EnterOTPActivity extends AppCompatActivity {
         });
 
         btnVerify.setOnClickListener(view -> {
+            progressBar.show();
             String otpText = etOTP.getText().toString().trim();
 
             if(otpText.length() == 6) {
@@ -100,7 +108,8 @@ public class EnterOTPActivity extends AppCompatActivity {
                                     } else {
                                         sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
                                         sp.edit().putString("sessionId", sessionId).apply();
-                                        storeDataInLocal(response.body().getData(), sp);
+                                        storeDataInLocal(response.body().getData(), sp, numberWithCode);
+                                        progressBar.hide();
                                         Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();
@@ -110,7 +119,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Throwable t) {
-                                //todo: Handle Error
+
                             }
                         });
             }
@@ -119,12 +128,12 @@ public class EnterOTPActivity extends AppCompatActivity {
 
     }
 
-    void storeDataInLocal(VerifyOTPResponseDataModel dataModel, SharedPreferences sp) {
+    void storeDataInLocal(VerifyOTPResponseDataModel dataModel, SharedPreferences sp, String mobileNumber) {
         UserDataModel userData = dataModel.getUserData();
         UserWalletDataModel walletData = dataModel.getUserWalletData();
         LocalDataModel localDataModel = new LocalDataModel(
                 String.valueOf(userData.getId()),
-                userData.getMobileNumber(),
+                mobileNumber,
                 userData.getProfilePic(),
                 userData.getLevel(),
                 userData.getToken(),
