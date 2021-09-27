@@ -48,6 +48,8 @@ public class ProfileFragment extends Fragment {
 
     LocalDataModel localDataModel;
 
+    final Gson gson = new Gson();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +65,20 @@ public class ProfileFragment extends Fragment {
         sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
         Log.d(TAG, "onViewCreated: " + sp.getString("token", null));
 
-        localDataModel = new Gson().fromJson(sp.getString("local", null), LocalDataModel.class);
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                sp.getString("token", null),
+                "0",
+                "0",
+                "0"
+        );
+
+
+
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
         tvMobileNumber = view.findViewById(R.id.profile_phone_num);
         tvAmountBalance = view.findViewById(R.id.tvBalance);
@@ -164,20 +179,23 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getLevel(String level) {
-        switch (level) {
-            case "diamond":
-                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.diamond_trophy_tilted));
-                profile_user_league_name.setText(requireContext().getString(R.string.diamond_lea));
-                break;
-            case "gold":
-                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.golden_trophy_tilted));
-                profile_user_league_name.setText(requireContext().getString(R.string.gold_lea));
-                break;
-            case "silver":
-                trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.silver_trophy_tilted));
-                profile_user_league_name.setText(requireContext().getString(R.string.silver_lea));
-                break;
+        if(level!=null) {
+            switch (level) {
+                case "diamond":
+                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.diamond_trophy_tilted));
+                    profile_user_league_name.setText(requireContext().getString(R.string.diamond_lea));
+                    break;
+                case "gold":
+                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.golden_trophy_tilted));
+                    profile_user_league_name.setText(requireContext().getString(R.string.gold_lea));
+                    break;
+                case "silver":
+                    trophyImage.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.silver_trophy_tilted));
+                    profile_user_league_name.setText(requireContext().getString(R.string.silver_lea));
+                    break;
+            }
         }
+
     }
 
     private void updateLocal(UserDataModel user, UserWalletDataModel wallet) {
