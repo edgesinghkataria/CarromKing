@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.android.carromking.models.profile.ProfileResponseModel;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +45,7 @@ public class ProfileFragment extends Fragment {
     TextView tvMobileNumber, tvAmountBalance;
     ImageView profile_lock_diamond, profile_lock_gold, profile_lock_silver;
     TextView profile_status_gold, profile_status_diamond, profile_status_silver, profile_user_league_name;
+    Button btnAddMoney;
 
     ImageView profileImage, trophyImage;
 
@@ -93,10 +96,17 @@ public class ProfileFragment extends Fragment {
         trophyImage = view.findViewById(R.id.profile_user_league_img);
         profileImage = view.findViewById(R.id.profile_profile_icon);
 
+        btnAddMoney = view.findViewById(R.id.btnAddMoney);
+
         trophyImage.setRotation(12);
         getLevel(localDataModel.getLevel());
 
         new MyTask().execute(view);
+
+        btnAddMoney.setOnClickListener(view1 -> {
+            AddCash_Bottomsheet bottomSheet = new AddCash_Bottomsheet();
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "AddMoney");
+        });
     }
 
     private class MyTask extends AsyncTask<View, Integer, ProfileResponseDataModel> {
