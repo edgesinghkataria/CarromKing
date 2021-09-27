@@ -16,8 +16,14 @@ import android.widget.Toast;
 import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
+import com.android.carromking.models.common.UserDataModel;
+import com.android.carromking.models.common.UserWalletDataModel;
+import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
+import com.android.carromking.models.otp.VerifyOTPResponseDataModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
+import com.android.carromking.models.wallet.WalletResponseDataModel;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -93,7 +99,9 @@ public class EnterOTPActivity extends AppCompatActivity {
                                         Toast.makeText(EnterOTPActivity.this, response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
-                                        sp.edit().putString("sessionId", sessionId).apply();                                        Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
+                                        sp.edit().putString("sessionId", sessionId).apply();
+                                        storeDataInLocal(response.body().getData(), sp);
+                                        Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();
                                     }
@@ -109,5 +117,25 @@ public class EnterOTPActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    void storeDataInLocal(VerifyOTPResponseDataModel dataModel, SharedPreferences sp) {
+        UserDataModel userData = dataModel.getUserData();
+        UserWalletDataModel walletData = dataModel.getUserWalletData();
+        LocalDataModel localDataModel = new LocalDataModel(
+                String.valueOf(userData.getId()),
+                userData.getMobileNumber(),
+                userData.getProfilePic(),
+                userData.getLevel(),
+                userData.getToken(),
+                String.valueOf(walletData.getWinningBalance()),
+                String.valueOf(walletData.getDepositBalance()),
+                String.valueOf(walletData.getBonusBalance())
+
+        );
+
+        Gson gson = new Gson();
+        String json = gson.toJson(localDataModel);
+        sp.edit().putString("local", json).apply();
     }
 }
