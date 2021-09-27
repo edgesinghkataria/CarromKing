@@ -85,7 +85,7 @@ public class WalletFragment extends Fragment {
                 "",
                 "silver",
                 sp.getString("token", null),
-                "2",
+                "0",
                 "0",
                 "0"
         );
