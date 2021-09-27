@@ -44,7 +44,14 @@ public class MainActivity extends AppCompatActivity {
                         bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
                         break;
                     case R.id.nav_wallet:
-                        selectedFragment = new WalletFragment();
+                        WalletFragment walletFragment = new WalletFragment();
+                        walletFragment.HighLightHomeIconThree(new WalletFragment.homeIconHighlightThree() {
+                            @Override
+                            public void highlightHomeIconThree() {
+                                bottomNav.setSelectedItemId(R.id.nav_home);
+                            }
+                        });
+                        selectedFragment = walletFragment;
                         break;
                     case R.id.nav_profile:
                         selectedFragment = new ProfileFragment();

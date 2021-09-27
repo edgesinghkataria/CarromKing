@@ -32,7 +32,7 @@ public class LinkPaytmOTP_Bottomsheet extends BottomSheetDialogFragment {
 
         Button verifyAndProceed = view.findViewById(R.id.verifyAndProceedPaytm);
         EditText paytmOtp = view.findViewById(R.id.PaytmOtpField);
-
+        verifyAndProceed.setEnabled(false);
         verifyAndProceed.setClickable(false);
         verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.button_grey));
 
@@ -54,9 +54,11 @@ public class LinkPaytmOTP_Bottomsheet extends BottomSheetDialogFragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(paytmOtp.getText().toString().trim().length() == 6) {
                     verifyAndProceed.setClickable(true);
+                    verifyAndProceed.setEnabled(true);
                     verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.blue));
                 } else {
                     verifyAndProceed.setClickable(false);
+                    verifyAndProceed.setEnabled(false);
                     verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.button_grey));
                 }
             }

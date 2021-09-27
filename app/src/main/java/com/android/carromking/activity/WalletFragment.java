@@ -43,6 +43,7 @@ public class WalletFragment extends Fragment {
 
     String TAG;
 
+    private homeIconHighlightThree listener;
 
     @Nullable
     @Override
@@ -61,8 +62,17 @@ public class WalletFragment extends Fragment {
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "AddMoney");
         });
 
-        withdraw.setOnClickListener(v13 -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new WithdrawBalanceFragment()).commit());
+        withdraw.setOnClickListener(v13 -> {
+            WithdrawBalanceFragment withdrawBalanceFragment = new WithdrawBalanceFragment();
+            withdrawBalanceFragment.HighLightHomeIconTwo(new WithdrawBalanceFragment.homeIconHighlightTwo() {
+                @Override
+                public void highlightHomeIconTwo() {
+                    listener.highlightHomeIconThree();
+                }
+            });
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                withdrawBalanceFragment).commit();
+        });
 
         seeAllTransactions.setOnClickListener(v1 ->
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
@@ -154,10 +164,14 @@ public class WalletFragment extends Fragment {
 
                 updateLocal(walletResponseDataModel);
 
-                unPlayedAmount.setText(walletResponseDataModel.getDepositBalance());
-                winningAmount.setText(walletResponseDataModel.getWinningBalance());
-                cashBonus.setText(walletResponseDataModel.getBonusBalance());
-                totalBalance.setText(walletResponseDataModel.getTotalBalance());
+                String unPlayedBalance = localDataModel.getDepositBalance();
+                String winningBalance = localDataModel.getWinningBalance();
+                String bonusBalance = localDataModel.getBonusBalance();
+
+                unPlayedAmount.setText(localDataModel.getDepositBalance());
+                winningAmount.setText(localDataModel.getWinningBalance());
+                cashBonus.setText(localDataModel.getBonusBalance());
+                totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
             } else {
                 Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
@@ -173,6 +187,14 @@ public class WalletFragment extends Fragment {
         localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
 
         sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
+    }
+
+    public interface homeIconHighlightThree{
+        void highlightHomeIconThree();
+    }
+
+    public void HighLightHomeIconThree(homeIconHighlightThree listener){
+        this.listener = listener;
     }
 
     @Override
