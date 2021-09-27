@@ -12,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.carromking.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class WithdrawSuccessfulFragment extends Fragment {
-
 
 
     @Override
@@ -33,7 +33,6 @@ public class WithdrawSuccessfulFragment extends Fragment {
         });
         return v;
     }
-
     @Override
     public void onResume() {
         super.onResume();

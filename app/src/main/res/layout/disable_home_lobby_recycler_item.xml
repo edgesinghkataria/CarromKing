@@ -16,10 +16,9 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/battle_lobby_disable"
@@ -89,7 +88,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/disablelinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -147,7 +146,7 @@
             android:layout_marginBottom="14dp"
             android:text="@string/use_bonus"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/disablelinearLayout" />
 
         <ImageView
             android:layout_width="35dp"
@@ -157,7 +156,7 @@
             android:layout_marginBottom="14dp"
             android:src="@drawable/gift_lobby"
             app:layout_constraintEnd_toStartOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/disablelinearLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

@@ -149,7 +149,7 @@ public class ProfileFragment extends Fragment {
 
                         @Override
                         public void onFailure(@NonNull Call<ProfileResponseModel> call, @NonNull Throwable t) {
-
+                            progressBar.hide();
                         }
                     });
             while (true) {
