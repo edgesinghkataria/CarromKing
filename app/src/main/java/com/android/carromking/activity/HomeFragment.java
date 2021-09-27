@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     HomeResponseDataModel dataModel;
     home_list_adapter adapter;
     RecyclerView HomeRecyclerView;
-    TextView beginner, silver, gold, diamond;
+    TextView beginner, silver, gold, diamond, homeWallet;
     List<LobbyModel> lobbyList, beginnerList, silverList, goldList, diamondList;
     LocalDataModel localDataModel;
 
@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
 
+        homeWallet = v.findViewById(R.id.home_wallet);
         beginner = v.findViewById(R.id.home_beginner);
         silver = v.findViewById(R.id.home_silver);
         gold = v.findViewById(R.id.home_gold);
@@ -136,6 +137,11 @@ public class HomeFragment extends Fragment {
                 "0"
         );
         localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+        String unPlayedBalance = localDataModel.getDepositBalance();
+        String winningBalance = localDataModel.getWinningBalance();
+        String bonusBalance = localDataModel.getBonusBalance();
+
+        homeWallet.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
         switch (localDataModel.getLevel()) {
             case "beginner":
