@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.android.carromking.ApiService;
@@ -105,7 +107,7 @@ public class WalletFragment extends Fragment {
         unplayedAmount.setText(unplayedBalance);
         winningAmount.setText(winningBalance);
         cashBonus.setText(bonusBalance);
-        totalBalance.setText(unplayedBalance + winningBalance + bonusBalance);
+        totalBalance.setText(String.valueOf(Integer.parseInt(unplayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
         MyTask myTask = new MyTask();
         myTask.execute(view);
@@ -161,7 +163,7 @@ public class WalletFragment extends Fragment {
                 unplayedAmount.setText(unplayedBalance);
                 winningAmount.setText(winningBalance);
                 cashBonus.setText(bonusBalance);
-                totalBalance.setText(unplayedBalance + winningBalance + bonusBalance);
+                totalBalance.setText(String.valueOf(Integer.parseInt(unplayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
             } else {
                 Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
@@ -177,6 +179,19 @@ public class WalletFragment extends Fragment {
         localDataModel.setBonusBalance(String.valueOf(wallet.getBonusBalance()));
 
         sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Wallet" + "</font>"));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
     }
 
 }

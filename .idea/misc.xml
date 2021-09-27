@@ -4,14 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_splash.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/add_cash.xml" value="0.234375" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/enter_upi_id.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.264" />
-        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_withdraw_balance.xml" value="0.176" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_withdraw_balance.xml" value="0.2" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/link_bank_account.xml" value="0.25" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/link_paytm_wallet_otp.xml" value="0.264" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/paytm_add_wallet.xml" value="0.25" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/pop_up_add_money.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/wallet_history.xml" value="0.25" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/withdrawal_successful.xml" value="0.264" />
         <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/drawable/boundary.xml" value="0.22604166666666667" />

@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 
 import com.android.carromking.R;
@@ -17,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FFFFFF"));
+        getSupportActionBar().setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().hide();
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 //      this is to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {

@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        getSupportActionBar().hide();
         TAG = getString(R.string.TAG);
         
         ccp = findViewById(R.id.ccp);
