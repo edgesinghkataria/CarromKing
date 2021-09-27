@@ -19,10 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.android.carromking.ApiService;
+import com.android.carromking.CustomProgressBar;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
-import com.android.carromking.models.common.UserDataModel;
-import com.android.carromking.models.common.UserWalletDataModel;
 import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.wallet.WalletResponseDataModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
@@ -36,9 +35,13 @@ public class WalletFragment extends Fragment {
 
     SharedPreferences sp;
     WalletResponseDataModel dataModel;
-    TextView unplayedAmount, winningAmount, cashBonus, totalBalance;
+    TextView unPlayedAmount, winningAmount, cashBonus, totalBalance;
     private LocalDataModel localDataModel;
     final Gson gson = new Gson();
+
+    CustomProgressBar progressBar;
+
+    String TAG;
 
 
     @Nullable
@@ -49,29 +52,20 @@ public class WalletFragment extends Fragment {
         TextView seeAllTransactions = v.findViewById(R.id.seeAllTransactions);
         Button addMoney = v.findViewById(R.id.button_addMoney);
 
-        addMoney.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCash_Bottomsheet bottomSheet = new AddCash_Bottomsheet();
-                bottomSheet.show(getActivity().getSupportFragmentManager(), "AddMoney");
-            }
+        TAG = v.getContext().getString(R.string.TAG);
+
+        progressBar = new CustomProgressBar(requireActivity());
+
+        addMoney.setOnClickListener(v12 -> {
+            AddCash_Bottomsheet bottomSheet = new AddCash_Bottomsheet();
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "AddMoney");
         });
 
-        withdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new WithdrawBalanceFragment()).commit();
-            }
-        });
+        withdraw.setOnClickListener(v13 -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new WithdrawBalanceFragment()).commit());
 
-        seeAllTransactions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HistoryFragment()).commit();
-            }
-        });
+        seeAllTransactions.setOnClickListener(v1 ->
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
         return v;
     }
 
@@ -79,7 +73,7 @@ public class WalletFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         LocalDataModel localDataModel1 =  new LocalDataModel(
                 "1",
@@ -95,20 +89,21 @@ public class WalletFragment extends Fragment {
         localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
 
-        unplayedAmount = view.findViewById(R.id.unplayed_amount);
+        unPlayedAmount = view.findViewById(R.id.unplayed_amount);
         winningAmount = view.findViewById(R.id.winning_amount);
         cashBonus = view.findViewById(R.id.cash_bonus);
         totalBalance = view.findViewById(R.id.wallet_balance);
 
-        String unplayedBalance = localDataModel.getDepositBalance();
+        String unPlayedBalance = localDataModel.getDepositBalance();
         String winningBalance = localDataModel.getWinningBalance();
         String bonusBalance = localDataModel.getBonusBalance();
 
-        unplayedAmount.setText(unplayedBalance);
+        unPlayedAmount.setText(unPlayedBalance);
         winningAmount.setText(winningBalance);
         cashBonus.setText(bonusBalance);
-        totalBalance.setText(String.valueOf(Integer.parseInt(unplayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
+        totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
+        progressBar.show();
         MyTask myTask = new MyTask();
         myTask.execute(view);
 
@@ -117,6 +112,7 @@ public class WalletFragment extends Fragment {
     private class MyTask extends AsyncTask<View, Integer , WalletResponseDataModel>{
         @Override
         protected WalletResponseDataModel doInBackground(View... views) {
+//            Context context = views[0].getContext();
 
             ApiService apiService = new ApiService();
             MyApiEndpointInterface apiEndpointInterface = apiService.
@@ -130,8 +126,10 @@ public class WalletFragment extends Fragment {
                             if(body!=null) {
                                 if(body.isStatus()) {
                                     dataModel = body.getData();
-                                    Log.d(getContext().getString(R.string.TAG), "Wallet onResponse: " + body.getData().getUserId());
+                                    progressBar.hide();
+                                    Log.d(TAG, "Wallet onResponse: " + body.getData().getUserId());
                                 } else {
+                                    progressBar.hide();
                                     Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -139,7 +137,7 @@ public class WalletFragment extends Fragment {
 
                         @Override
                         public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
-
+                            progressBar.hide();
                         }
                     });
             while (true) {
@@ -156,14 +154,10 @@ public class WalletFragment extends Fragment {
 
                 updateLocal(walletResponseDataModel);
 
-                String unplayedBalance = localDataModel.getDepositBalance();
-                String winningBalance = localDataModel.getWinningBalance();
-                String bonusBalance = localDataModel.getBonusBalance();
-
-                unplayedAmount.setText(unplayedBalance);
-                winningAmount.setText(winningBalance);
-                cashBonus.setText(bonusBalance);
-                totalBalance.setText(String.valueOf(Integer.parseInt(unplayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
+                unPlayedAmount.setText(walletResponseDataModel.getDepositBalance());
+                winningAmount.setText(walletResponseDataModel.getWinningBalance());
+                cashBonus.setText(walletResponseDataModel.getBonusBalance());
+                totalBalance.setText(walletResponseDataModel.getTotalBalance());
 
             } else {
                 Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();

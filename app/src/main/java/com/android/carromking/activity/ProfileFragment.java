@@ -31,7 +31,6 @@ import com.android.carromking.models.profile.ProfileResponseModel;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
