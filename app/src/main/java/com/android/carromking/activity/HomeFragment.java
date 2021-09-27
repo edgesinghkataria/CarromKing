@@ -2,6 +2,7 @@ package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.android.carromking.R;
 import com.android.carromking.models.home.HomeResponseDataModel;
 import com.android.carromking.models.home.HomeResponseModel;
 import com.android.carromking.models.home.LobbyModel;
+import com.android.carromking.models.local.LocalDataModel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +43,11 @@ public class HomeFragment extends Fragment {
     home_list_adapter adapter;
     RecyclerView HomeRecyclerView;
     TextView beginner, silver, gold, diamond;
-    List<LobbyModel> lobbyList;
+    List<LobbyModel> lobbyList, beginnerList, silverList, goldList, diamondList;
+    LocalDataModel localDataModel;
 
     CustomProgressBar progressBar;
+    final Gson gson = new Gson();
 
     @Nullable
     @Override
@@ -60,6 +65,55 @@ public class HomeFragment extends Fragment {
         HomeRecyclerView.setHasFixedSize(true);
         HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new home_list_adapter();
+
+        beginner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                beginner.setTypeface(null, Typeface.BOLD);
+                silver.setTypeface(null, Typeface.NORMAL);
+                gold.setTypeface(null, Typeface.NORMAL);
+                diamond.setTypeface(null, Typeface.NORMAL);
+                adapter.setTasks(beginnerList);
+                HomeRecyclerView.setAdapter(adapter);
+            }
+        });
+
+        silver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                silver.setTypeface(null, Typeface.BOLD);
+                beginner.setTypeface(null, Typeface.NORMAL);
+                gold.setTypeface(null, Typeface.NORMAL);
+                diamond.setTypeface(null, Typeface.NORMAL);
+                adapter.setTasks(silverList);
+                HomeRecyclerView.setAdapter(adapter);
+            }
+        });
+
+        gold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gold.setTypeface(null, Typeface.BOLD);
+                silver.setTypeface(null, Typeface.NORMAL);
+                beginner.setTypeface(null, Typeface.NORMAL);
+                diamond.setTypeface(null, Typeface.NORMAL);
+                adapter.setTasks(goldList);
+                HomeRecyclerView.setAdapter(adapter);
+            }
+        });
+
+        diamond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                diamond.setTypeface(null, Typeface.BOLD);
+                silver.setTypeface(null, Typeface.NORMAL);
+                gold.setTypeface(null, Typeface.NORMAL);
+                beginner.setTypeface(null, Typeface.NORMAL);
+                adapter.setTasks(diamondList);
+                HomeRecyclerView.setAdapter(adapter);
+            }
+        });
+
         return v;
 
     }
@@ -70,6 +124,33 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                sp.getString("token", null),
+                "0",
+                "0",
+                "0"
+        );
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+
+        switch (localDataModel.getLevel()) {
+            case "beginner":
+                beginner.setTypeface(null, Typeface.BOLD);
+                break;
+            case "silver":
+                silver.setTypeface(null, Typeface.BOLD);
+                break;
+            case "gold":
+                gold.setTypeface(null, Typeface.BOLD);
+                break;
+            case "diamond":
+                diamond.setTypeface(null, Typeface.BOLD);
+                break;
+        }
 
         progressBar.show();
         new getHome().execute(view);
@@ -117,8 +198,46 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(HomeResponseDataModel dataModel1) {
             if(dataModel1!=null) {
                 //lobbyList = new ArrayList<>();
+                beginnerList = new ArrayList<LobbyModel>();
+                silverList = new ArrayList<LobbyModel>();
+                goldList = new ArrayList<LobbyModel>();
+                diamondList = new ArrayList<LobbyModel>();
                 lobbyList = dataModel1.getLobbies();
-                adapter.setTasks(lobbyList);
+
+                for(LobbyModel lobby: lobbyList)
+                {
+                    if(lobby.getLevel().equals("beginner"))
+                    {
+                        beginnerList.add(lobby);
+                    }
+                    if(lobby.getLevel().equals("silver"))
+                    {
+                        silverList.add(lobby);
+                    }
+                    if(lobby.getLevel().equals("gold"))
+                    {
+                        goldList.add(lobby);
+                    }
+                    if(lobby.getLevel().equals("diamond"))
+                    {
+                        diamondList.add(lobby);
+                    }
+                }
+                switch (localDataModel.getLevel()) {
+                    case "beginner":
+                        adapter.setTasks(beginnerList);
+                        break;
+                    case "silver":
+                        adapter.setTasks(silverList);
+                        break;
+                    case "gold":
+                        adapter.setTasks(goldList);
+                        break;
+                    case "diamond":
+                        adapter.setTasks(diamondList);
+                        break;
+                }
+                //adapter.setTasks(lobbyList);
                 HomeRecyclerView.setAdapter(adapter);
             }
 
