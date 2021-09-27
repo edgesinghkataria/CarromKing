@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_home:
                         selectedFragment = new HomeFragment();
+                        bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
                         break;
                     case R.id.nav_wallet:
                         selectedFragment = new WalletFragment();

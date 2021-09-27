@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.carromking.ApiService;
+import com.android.carromking.CustomProgressBar;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.otp.SendOTPResponseDataModel;
@@ -38,6 +39,8 @@ public class SignUpActivity extends AppCompatActivity{
     ApiService apiService = new ApiService();
     MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
+    CustomProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity{
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
         TAG = getString(R.string.TAG);
+        progressBar = new CustomProgressBar(this);
         
         ccp = findViewById(R.id.ccp);
         etPhone = findViewById(R.id.etPhone);
@@ -82,11 +86,13 @@ public class SignUpActivity extends AppCompatActivity{
 
 
         btnGetOTP.setOnClickListener(view -> {
+            progressBar.show();
             String ccpText = ccp.getSelectedCountryCodeWithPlus();
             String phoneText = etPhone.getText().toString().trim();
             
             if(!ccp.isValidFullNumber()) {
                 Toast.makeText(this, "Please add a valid mobile number", Toast.LENGTH_SHORT).show();
+                progressBar.hide();
             } else {
                 apiEndpointInterface.getOtp(phoneText)
                         .enqueue(new Callback<SendOTPResponseModel>() {
@@ -104,9 +110,11 @@ public class SignUpActivity extends AppCompatActivity{
                                     bundle.putString("mobileNumber", data.getMobileNumber());
                                     bundle.putString("sessionId", data.getSessionId());
                                     i.putExtras(bundle);
+                                    progressBar.hide();
                                     startActivity(i);
                                     finish();
                                 } else {
+                                    progressBar.hide();
                                     Toast.makeText(SignUpActivity.this, "There was an issue sending the OTP. Please try again after some time", Toast.LENGTH_LONG).show();
                                 }
                             }
