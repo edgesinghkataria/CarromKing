@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.carromking.ApiService;
+import com.android.carromking.CustomProgressBar;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.home.HomeResponseDataModel;
@@ -41,6 +42,8 @@ public class HomeFragment extends Fragment {
     TextView beginner, silver, gold, diamond;
     List<LobbyModel> lobbyList;
 
+    CustomProgressBar progressBar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,11 +54,12 @@ public class HomeFragment extends Fragment {
         gold = v.findViewById(R.id.home_gold);
         diamond = v.findViewById(R.id.home_diamond);
 
+        progressBar = new CustomProgressBar(getActivity());
+
         HomeRecyclerView = v.findViewById(R.id.home_RecyclerView);
         HomeRecyclerView.setHasFixedSize(true);
         HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new home_list_adapter();
-        HomeRecyclerView.setAdapter(adapter);
         return v;
 
     }
@@ -67,6 +71,7 @@ public class HomeFragment extends Fragment {
 
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
+        progressBar.show();
         new getHome().execute(view);
 
     }
@@ -87,7 +92,9 @@ public class HomeFragment extends Fragment {
                             if (response.body() != null) {
                                 if (response.body().isStatus()) {
                                     dataModel = response.body().getData().get(0);
+                                    progressBar.hide();
                                 } else {
+                                    progressBar.hide();
                                     Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -95,7 +102,7 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
-
+                            progressBar.hide();
                         }
                     });
 
@@ -112,7 +119,7 @@ public class HomeFragment extends Fragment {
                 //lobbyList = new ArrayList<>();
                 lobbyList = dataModel1.getLobbies();
                 adapter.setTasks(lobbyList);
-
+                HomeRecyclerView.setAdapter(adapter);
             }
 
         }

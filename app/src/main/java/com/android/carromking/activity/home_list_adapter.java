@@ -40,7 +40,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
         final LobbyModel item = mLobbyList.get(position);
         String maxP = item.getMaxPlayers() + "P";
         holder.mMaxPlayer.setText(maxP);
-        holder.mPlayAmount.setText(item.getEntryFee());
+        holder.mPlayAmount.setText(String.valueOf(item.getEntryFee()));
         //this needs to be edited by win amount from api
         holder.mWinAmount.setText("500");
         if(item.isIsLocked()){
