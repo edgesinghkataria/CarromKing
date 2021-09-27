@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class WithdrawSuccessfulFragment extends Fragment {
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

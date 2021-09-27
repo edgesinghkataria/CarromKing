@@ -21,6 +21,13 @@ import java.util.List;
 
 public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.HomeViewHolder> {
     private List<LobbyModel> mLobbyList;
+
+    public void setTasks(List<LobbyModel> mLobbyList){
+       // this.mLobbyList = new ArrayList<>();
+        this.mLobbyList = mLobbyList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public home_list_adapter.HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -79,8 +86,6 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
                 break;
         }
 
-
-
     }
 
     @Override
@@ -112,9 +117,5 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
         }
     }
 
-    public void setTasks(List<LobbyModel> mLobbyList){
-        this.mLobbyList = mLobbyList;
-        notifyDataSetChanged();
-    }
 
 }

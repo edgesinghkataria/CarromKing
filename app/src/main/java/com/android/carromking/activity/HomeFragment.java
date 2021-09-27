@@ -4,20 +4,28 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.carromking.ApiService;
 import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.home.HomeResponseDataModel;
 import com.android.carromking.models.home.HomeResponseModel;
+import com.android.carromking.models.home.LobbyModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,11 +36,28 @@ public class HomeFragment extends Fragment {
 
     SharedPreferences sp;
     HomeResponseDataModel dataModel;
+    home_list_adapter adapter;
+    RecyclerView HomeRecyclerView;
+    TextView beginner, silver, gold, diamond;
+    List<LobbyModel> lobbyList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container,false);
+        View v = inflater.inflate(R.layout.fragment_home, container,false);
+
+        beginner = v.findViewById(R.id.home_beginner);
+        silver = v.findViewById(R.id.home_silver);
+        gold = v.findViewById(R.id.home_gold);
+        diamond = v.findViewById(R.id.home_diamond);
+
+        HomeRecyclerView = v.findViewById(R.id.home_RecyclerView);
+        HomeRecyclerView.setHasFixedSize(true);
+        HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new home_list_adapter();
+        HomeRecyclerView.setAdapter(adapter);
+        return v;
+
     }
 
 
@@ -84,8 +109,12 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(HomeResponseDataModel dataModel1) {
             if(dataModel1!=null) {
-                
+                //lobbyList = new ArrayList<>();
+                lobbyList = dataModel1.getLobbies();
+                adapter.setTasks(lobbyList);
+
             }
+
         }
     }
 
