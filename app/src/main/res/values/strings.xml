@@ -96,6 +96,12 @@
     <string name="successful">Successful</string>
     <string name="failed">Failed</string>
     <string name="todo">TODO</string>
+    <string name="see_all_transactions">See All Transactions</string>
+    <string name="_25_00">-₹25.00</string>
+    <string name="_10_sep_11_pm">10,Sep 11:PM</string>
+    <string name="p_25_00">+₹25.00</string>
+    <string name="pending">Pending</string>
+    <string name="transaction_history">Transaction History</string>
 
     <string name="otp_not_received">Didn\'t Receive OTP?</string>
     <string name="resend_otp">Resend OTP?</string>

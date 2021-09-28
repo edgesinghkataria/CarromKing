@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,9 +16,9 @@
             android:id="@+id/welcome_bon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/roboto_regular_400"
             android:gravity="top"
@@ -29,15 +30,15 @@
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="37dp"
             android:gravity="top"
             android:paddingBottom="12dp"
-            android:text="10,Sep 11:PM"
+            android:text="@string/_10_sep_11_pm"
             android:textColor="#ADADAD"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
 
         <TextView
@@ -45,12 +46,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="14dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:fontFamily="@font/roboto_bold_700"
             android:gravity="top"
-            android:text="-₹25.00"
+            android:text="@string/p_25_00"
             android:textColor="#000000"
             android:textSize="12sp" />
 
@@ -59,24 +60,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="36dp"
-            android:layout_marginRight="28dp"
+            android:layout_marginEnd="15dp"
             android:fontFamily="@font/roboto_regular_400"
             android:gravity="top"
-            android:text="Failed"
-            android:textColor="#E34B4B"
-            android:textSize="10sp" />
+            android:text="@string/pending"
+            android:textColor="#FF9933"
+            android:textSize="11sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="36dp"
-            android:layout_marginRight="12dp"
-            android:gravity="top"
-            android:src="@drawable/failed_wallet" />
 
     </RelativeLayout>
 
