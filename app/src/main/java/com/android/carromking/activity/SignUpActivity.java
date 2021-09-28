@@ -86,14 +86,13 @@ public class SignUpActivity extends AppCompatActivity{
 
 
         btnGetOTP.setOnClickListener(view -> {
-            progressBar.show();
             String ccpText = ccp.getSelectedCountryCodeWithPlus();
             String phoneText = etPhone.getText().toString().trim();
             
             if(!ccp.isValidFullNumber()) {
                 Toast.makeText(this, "Please add a valid mobile number", Toast.LENGTH_SHORT).show();
-                progressBar.hide();
             } else {
+                progressBar.show();
                 apiEndpointInterface.getOtp(phoneText)
                         .enqueue(new Callback<SendOTPResponseModel>() {
                             @Override
@@ -107,21 +106,21 @@ public class SignUpActivity extends AppCompatActivity{
                                     sp.edit().putString("mobileNumber", ccpText+ " " +data.getMobileNumber()).apply();
                                     Intent i = new Intent(SignUpActivity.this, EnterOTPActivity.class);
                                     Bundle bundle = new Bundle();
+                                    progressBar.dismiss();
                                     bundle.putString("mobileNumber", data.getMobileNumber());
                                     bundle.putString("sessionId", data.getSessionId());
                                     i.putExtras(bundle);
-                                    progressBar.hide();
                                     startActivity(i);
                                     finish();
                                 } else {
-                                    progressBar.hide();
+                                    progressBar.dismiss();
                                     Toast.makeText(SignUpActivity.this, "There was an issue sending the OTP. Please try again after some time", Toast.LENGTH_LONG).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(@NonNull Call<SendOTPResponseModel> call, @NonNull Throwable t) {
-
+                                progressBar.dismiss();
                             }
                         });
             }

@@ -135,12 +135,13 @@ public class EnterOTPActivity extends AppCompatActivity {
                             public void onResponse(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Response<VerifyOTPResponseModel> response) {
                                 if (response.body() != null) {
                                     if (!response.body().isStatus()) {
+                                        progressBar.dismiss();
                                         Toast.makeText(EnterOTPActivity.this, response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                     } else {
                                         sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
                                         sp.edit().putString("sessionId", sessionId).apply();
                                         storeDataInLocal(response.body().getData(), sp, numberWithCode);
-                                        progressBar.hide();
+                                        progressBar.dismiss();
                                         Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();
@@ -150,7 +151,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Throwable t) {
-
+                                progressBar.dismiss();
                             }
                         });
             }

@@ -3,9 +3,7 @@ package com.android.carromking.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,64 +65,43 @@ public class HomeFragment extends Fragment {
         HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new home_list_adapter();
 
-        beginner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                beginner.setTypeface(null, Typeface.BOLD);
-                silver.setTypeface(null, Typeface.NORMAL);
-                gold.setTypeface(null, Typeface.NORMAL);
-                diamond.setTypeface(null, Typeface.NORMAL);
-                adapter.setTasks(beginnerList);
-                HomeRecyclerView.setAdapter(adapter);
-            }
+        beginner.setOnClickListener(v14 -> {
+            beginner.setTypeface(null, Typeface.BOLD);
+            silver.setTypeface(null, Typeface.NORMAL);
+            gold.setTypeface(null, Typeface.NORMAL);
+            diamond.setTypeface(null, Typeface.NORMAL);
+            adapter.setTasks(beginnerList);
+            HomeRecyclerView.setAdapter(adapter);
         });
 
-        silver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                silver.setTypeface(null, Typeface.BOLD);
-                beginner.setTypeface(null, Typeface.NORMAL);
-                gold.setTypeface(null, Typeface.NORMAL);
-                diamond.setTypeface(null, Typeface.NORMAL);
-                adapter.setTasks(silverList);
-                HomeRecyclerView.setAdapter(adapter);
-            }
+        silver.setOnClickListener(v13 -> {
+            silver.setTypeface(null, Typeface.BOLD);
+            beginner.setTypeface(null, Typeface.NORMAL);
+            gold.setTypeface(null, Typeface.NORMAL);
+            diamond.setTypeface(null, Typeface.NORMAL);
+            adapter.setTasks(silverList);
+            HomeRecyclerView.setAdapter(adapter);
         });
 
-        gold.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gold.setTypeface(null, Typeface.BOLD);
-                silver.setTypeface(null, Typeface.NORMAL);
-                beginner.setTypeface(null, Typeface.NORMAL);
-                diamond.setTypeface(null, Typeface.NORMAL);
-                adapter.setTasks(goldList);
-                HomeRecyclerView.setAdapter(adapter);
-            }
+        gold.setOnClickListener(v12 -> {
+            gold.setTypeface(null, Typeface.BOLD);
+            silver.setTypeface(null, Typeface.NORMAL);
+            beginner.setTypeface(null, Typeface.NORMAL);
+            diamond.setTypeface(null, Typeface.NORMAL);
+            adapter.setTasks(goldList);
+            HomeRecyclerView.setAdapter(adapter);
         });
 
-        diamond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                diamond.setTypeface(null, Typeface.BOLD);
-                silver.setTypeface(null, Typeface.NORMAL);
-                gold.setTypeface(null, Typeface.NORMAL);
-                beginner.setTypeface(null, Typeface.NORMAL);
-                adapter.setTasks(diamondList);
-                HomeRecyclerView.setAdapter(adapter);
-            }
+        diamond.setOnClickListener(v1 -> {
+            diamond.setTypeface(null, Typeface.BOLD);
+            silver.setTypeface(null, Typeface.NORMAL);
+            gold.setTypeface(null, Typeface.NORMAL);
+            beginner.setTypeface(null, Typeface.NORMAL);
+            adapter.setTasks(diamondList);
+            HomeRecyclerView.setAdapter(adapter);
         });
 
-        return v;
-
-    }
-
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+        sp = v.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
         LocalDataModel localDataModel1 =  new LocalDataModel(
                 "1",
@@ -158,17 +135,22 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
-        progressBar.show();
-        new getHome().execute(view);
+        return v;
 
     }
 
-    private class getHome extends AsyncTask<View, Integer, HomeResponseDataModel> {
 
-        @Override
-        protected HomeResponseDataModel doInBackground(View... views) {
-            Context context = views[0].getContext();
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        getHomeData();
+
+    }
+
+    private void getHomeData() {
+
+        progressBar.show();
             ApiService interceptor = new ApiService();
             MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
 
@@ -179,75 +161,62 @@ public class HomeFragment extends Fragment {
                             if (response.body() != null) {
                                 if (response.body().isStatus()) {
                                     dataModel = response.body().getData().get(0);
-                                    progressBar.hide();
+                                    if(dataModel!=null) {
+                                        beginnerList = new ArrayList<>();
+                                        silverList = new ArrayList<>();
+                                        goldList = new ArrayList<>();
+                                        diamondList = new ArrayList<>();
+                                        lobbyList = dataModel.getLobbies();
+
+                                        for(LobbyModel lobby: lobbyList)
+                                        {
+                                            switch (lobby.getLevel()) {
+                                                case "beginner":
+                                                    beginnerList.add(lobby);
+                                                    break;
+                                                case "silver":
+                                                    silverList.add(lobby);
+                                                    break;
+                                                case "gold":
+                                                    goldList.add(lobby);
+                                                    break;
+                                                case "diamond":
+                                                    diamondList.add(lobby);
+                                                    break;
+                                            }
+                                        }
+                                        switch (localDataModel.getLevel()) {
+                                            case "beginner":
+                                                adapter.setTasks(beginnerList);
+                                                break;
+                                            case "silver":
+                                                adapter.setTasks(silverList);
+                                                break;
+                                            case "gold":
+                                                adapter.setTasks(goldList);
+                                                break;
+                                            case "diamond":
+                                                adapter.setTasks(diamondList);
+                                                break;
+                                        }
+                                        //adapter.setTasks(lobbyList);
+                                        HomeRecyclerView.setAdapter(adapter);
+                                        progressBar.dismiss();
+                                    } else {
+                                        progressBar.dismiss();
+                                        Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
-                                    progressBar.hide();
+                                    progressBar.dismiss();
                                     Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
-
                         @Override
                         public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
-                            progressBar.hide();
+                            progressBar.dismiss();
                         }
                     });
-
-            while (true) {
-                if(dataModel!=null) {
-                    return dataModel;
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(HomeResponseDataModel dataModel1) {
-            if(dataModel1!=null) {
-                //lobbyList = new ArrayList<>();
-                beginnerList = new ArrayList<LobbyModel>();
-                silverList = new ArrayList<LobbyModel>();
-                goldList = new ArrayList<LobbyModel>();
-                diamondList = new ArrayList<LobbyModel>();
-                lobbyList = dataModel1.getLobbies();
-
-                for(LobbyModel lobby: lobbyList)
-                {
-                    if(lobby.getLevel().equals("beginner"))
-                    {
-                        beginnerList.add(lobby);
-                    }
-                    if(lobby.getLevel().equals("silver"))
-                    {
-                        silverList.add(lobby);
-                    }
-                    if(lobby.getLevel().equals("gold"))
-                    {
-                        goldList.add(lobby);
-                    }
-                    if(lobby.getLevel().equals("diamond"))
-                    {
-                        diamondList.add(lobby);
-                    }
-                }
-                switch (localDataModel.getLevel()) {
-                    case "beginner":
-                        adapter.setTasks(beginnerList);
-                        break;
-                    case "silver":
-                        adapter.setTasks(silverList);
-                        break;
-                    case "gold":
-                        adapter.setTasks(goldList);
-                        break;
-                    case "diamond":
-                        adapter.setTasks(diamondList);
-                        break;
-                }
-                //adapter.setTasks(lobbyList);
-                HomeRecyclerView.setAdapter(adapter);
-            }
-
-        }
     }
 
 
