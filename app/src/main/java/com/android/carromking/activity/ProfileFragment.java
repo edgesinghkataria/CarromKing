@@ -160,14 +160,19 @@ public class ProfileFragment extends Fragment {
         progressBar.show();
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
-        apiEndpointInterface.getProfileData()
-                .enqueue(new Callback<ProfileResponseModel>() {
-                    @Override
-                    public void onResponse(@NonNull Call<ProfileResponseModel> call, @NonNull Response<ProfileResponseModel> response) {
-                        if (response.body() != null) {
-                            if (response.body().isStatus()) {
-                                dataModel = response.body().getData();
-                                Log.d(TAG, "onResponse: Profile " + dataModel.getUserData().getUsername());
+
+        if(!apiService.internetIsConnected()) {
+            progressBar.hide();
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+        } else {
+            apiEndpointInterface.getProfileData()
+                    .enqueue(new Callback<ProfileResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<ProfileResponseModel> call, @NonNull Response<ProfileResponseModel> response) {
+                            if (response.body() != null) {
+                                if (response.body().isStatus()) {
+                                    dataModel = response.body().getData();
+                                    Log.d(TAG, "onResponse: Profile " + dataModel.getUserData().getUsername());
 
                                 /*
                                 {dataModel.getUserData().getMobileNumber()}
@@ -177,48 +182,47 @@ public class ProfileFragment extends Fragment {
                                 Don't use it for this api
                                  */
 
-                                if (dataModel != null) {
-                                    //Connect UI Here
-                                    UserDataModel user = dataModel.getUserData();
-                                    List<LeagueModel> leagues = dataModel.getLeagues();
-                                    tvAmountBalance.setText(String.valueOf(dataModel.getWalletData().getDepositBalance()));
+                                    if (dataModel != null) {
+                                        //Connect UI Here
+                                        UserDataModel user = dataModel.getUserData();
+                                        List<LeagueModel> leagues = dataModel.getLeagues();
+                                        tvAmountBalance.setText(String.valueOf(dataModel.getWalletData().getDepositBalance()));
 
-                                    updateLocal(user, dataModel.getWalletData());
+                                        updateLocal(user, dataModel.getWalletData());
 
-                                    leagues.forEach(league -> {
-                                        switch (league.getName()) {
-                                            case "diamond":
-                                                profile_lock_diamond.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
-                                                profile_status_diamond.setText(league.getDescription());
-                                                break;
-                                            case "gold":
-                                                profile_lock_gold.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
-                                                profile_status_gold.setText(league.getDescription());
-                                                break;
-                                            case "silver":
-                                                profile_lock_silver.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
-                                                profile_status_silver.setText(league.getDescription());
-                                                break;
-                                        }
-                                    });
-                                    progressBar.dismiss();
+                                        leagues.forEach(league -> {
+                                            switch (league.getName()) {
+                                                case "diamond":
+                                                    profile_lock_diamond.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
+                                                    profile_status_diamond.setText(league.getDescription());
+                                                    break;
+                                                case "gold":
+                                                    profile_lock_gold.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
+                                                    profile_status_gold.setText(league.getDescription());
+                                                    break;
+                                                case "silver":
+                                                    profile_lock_silver.setVisibility(league.isIsLocked() ? View.VISIBLE : View.GONE);
+                                                    profile_status_silver.setText(league.getDescription());
+                                                    break;
+                                            }
+                                        });
+                                        progressBar.dismiss();
+                                    } else {
+                                        progressBar.dismiss();
+                                        Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     progressBar.dismiss();
-                                    Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                progressBar.dismiss();
-                                Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(@NonNull Call<ProfileResponseModel> call, @NonNull Throwable t) {
-                        progressBar.dismiss();
-                    }
-                });
-
-
+                        @Override
+                        public void onFailure(@NonNull Call<ProfileResponseModel> call, @NonNull Throwable t) {
+                            progressBar.dismiss();
+                        }
+                    });
+        }
     }
 }

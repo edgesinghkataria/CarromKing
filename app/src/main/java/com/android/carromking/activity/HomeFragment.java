@@ -151,9 +151,14 @@ public class HomeFragment extends Fragment {
     private void getHomeData() {
 
         progressBar.show();
-            ApiService interceptor = new ApiService();
-            MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
 
+        ApiService interceptor = new ApiService();
+        MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
+
+        if(!interceptor.internetIsConnected()) {
+            progressBar.hide();
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+        } else {
             apiEndpointInterface.getHomeData()
                     .enqueue(new Callback<HomeResponseModel>() {
                         @Override
@@ -161,15 +166,14 @@ public class HomeFragment extends Fragment {
                             if (response.body() != null) {
                                 if (response.body().isStatus()) {
                                     dataModel = response.body().getData().get(0);
-                                    if(dataModel!=null) {
+                                    if (dataModel != null) {
                                         beginnerList = new ArrayList<>();
                                         silverList = new ArrayList<>();
                                         goldList = new ArrayList<>();
                                         diamondList = new ArrayList<>();
                                         lobbyList = dataModel.getLobbies();
 
-                                        for(LobbyModel lobby: lobbyList)
-                                        {
+                                        for (LobbyModel lobby : lobbyList) {
                                             switch (lobby.getLevel()) {
                                                 case "beginner":
                                                     beginnerList.add(lobby);
@@ -212,11 +216,13 @@ public class HomeFragment extends Fragment {
                                 }
                             }
                         }
+
                         @Override
                         public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
                             progressBar.dismiss();
                         }
                     });
+        }
     }
 
 

@@ -64,18 +64,22 @@
             android:layout_marginTop="6dp"
             android:text="@string/Rs"
             android:textColor="@color/primary_text"
-            android:textSize="24sp"
+            android:fontFamily="@font/roboto_bold_700"
+            android:textStyle="bold"
+            android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/battle_level" />
 
 
         <TextView
+            android:textAlignment="center"
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:fontFamily="@font/roboto_medium_500"
             android:text="@string/p2"
+            android:background="@drawable/boundary_text"
             android:textColor="@color/secondary_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,8 @@ import com.android.carromking.R;
 import com.android.carromking.models.common.UserDataModel;
 import com.android.carromking.models.common.UserWalletDataModel;
 import com.android.carromking.models.local.LocalDataModel;
+import com.android.carromking.models.otp.SendOTPResponseDataModel;
+import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
 import com.android.carromking.models.otp.VerifyOTPResponseDataModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
@@ -38,12 +42,16 @@ public class EnterOTPActivity extends AppCompatActivity {
     EditText etOtp1, etOtp2, etOtp3, etOtp4, etOtp5, etOtp6;
     Button btnVerify;
 
+    TextView tvTimer, otp_not_received;
+    LinearLayout resend_otp, change_mobile_num, layout_timer;
+
     ApiService apiService = new ApiService();
     MyApiEndpointInterface apiEndpointInterface = apiService.getApiService();
 
     CustomProgressBar progressBar;
 
     String TAG;
+    int time;
 
     private EditText[] editTexts;
 
@@ -65,9 +73,16 @@ public class EnterOTPActivity extends AppCompatActivity {
         etOtp6 = findViewById(R.id.etOtp6);
         btnVerify = findViewById(R.id.btnVerify);
 
+        tvTimer = findViewById(R.id.tvTimer);
+        otp_not_received = findViewById(R.id.otp_not_received);
+        resend_otp = findViewById(R.id.resend_otp);
+        change_mobile_num = findViewById(R.id.change_mobile_num);
+        layout_timer = findViewById(R.id.layout_timer);
+
         editTexts = new EditText[]{etOtp1, etOtp2, etOtp3, etOtp4, etOtp5 ,etOtp6};
 
         btnVerify.setClickable(false);
+        setTimer();
 
         SharedPreferences sp = getSharedPreferences(TAG, MODE_PRIVATE);
         String numberWithCode = sp.getString("mobileNumber", "+91 9999999999");
@@ -92,31 +107,38 @@ public class EnterOTPActivity extends AppCompatActivity {
         etOtp5.setOnKeyListener(new PinOnKeyListener(4));
         etOtp6.setOnKeyListener(new PinOnKeyListener(5));
 
+        resend_otp.setOnClickListener(view -> {
+            progressBar.show();
+            apiEndpointInterface.getOtp(mobileNumber)
+                    .enqueue(new Callback<SendOTPResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<SendOTPResponseModel> call, @NonNull Response<SendOTPResponseModel> response) {
+                            if (response.body() != null && response.isSuccessful() && response.body().isStatus()) {
+                                SendOTPResponseDataModel data = response.body().getData();
+                                otp_not_received.setVisibility(View.GONE);
+                                resend_otp.setVisibility(View.GONE);
+                                change_mobile_num.setVisibility(View.GONE);
+                                layout_timer.setVisibility(View.VISIBLE);
+                                setTimer();
+                                progressBar.dismiss();
+                            } else {
+                                progressBar.dismiss();
+                                Toast.makeText(EnterOTPActivity.this, "There was an issue sending the OTP. Please try again", Toast.LENGTH_LONG).show();
+                            }
+                        }
 
-//        etOTP.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if (etOTP.getText().toString().trim().length() == 6) {
-//                    btnVerify.setClickable(true);
-//                    btnVerify.setBackgroundColor(getColor(R.color.blue));
-//                } else {
-//                    btnVerify.setClickable(false);
-//                    btnVerify.setBackgroundColor(getColor(R.color.button_grey));
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
+                        @Override
+                        public void onFailure(@NonNull Call<SendOTPResponseModel> call, @NonNull Throwable t) {
+                            progressBar.dismiss();
+                        }
+                    });
+        });
 
-        btnVerify.setClickable(false);
+        change_mobile_num.setOnClickListener(view -> {
+            Intent i = new Intent(this, SignUpActivity.class);
+            startActivity(i);
+            finish();
+        });
 
         btnVerify.setOnClickListener(view -> {
             progressBar.show();
@@ -129,31 +151,36 @@ public class EnterOTPActivity extends AppCompatActivity {
                     + etOtp6.getText().toString();
 
             if (otpText.length() == 6) {
-                apiEndpointInterface.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
-                        .enqueue(new Callback<VerifyOTPResponseModel>() {
-                            @Override
-                            public void onResponse(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Response<VerifyOTPResponseModel> response) {
-                                if (response.body() != null) {
-                                    if (!response.body().isStatus()) {
-                                        progressBar.dismiss();
-                                        Toast.makeText(EnterOTPActivity.this, response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
-                                        sp.edit().putString("sessionId", sessionId).apply();
-                                        storeDataInLocal(response.body().getData(), sp, numberWithCode);
-                                        progressBar.dismiss();
-                                        Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
-                                        startActivity(i);
-                                        finish();
+                if(!apiService.internetIsConnected()) {
+                    progressBar.hide();
+                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    apiEndpointInterface.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
+                            .enqueue(new Callback<VerifyOTPResponseModel>() {
+                                @Override
+                                public void onResponse(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Response<VerifyOTPResponseModel> response) {
+                                    if (response.body() != null) {
+                                        if (!response.body().isStatus()) {
+                                            progressBar.dismiss();
+                                            Toast.makeText(EnterOTPActivity.this, response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            sp.edit().putString("token", response.body().getData().getUserData().getToken()).apply();
+                                            sp.edit().putString("sessionId", sessionId).apply();
+                                            storeDataInLocal(response.body().getData(), sp, numberWithCode);
+                                            progressBar.dismiss();
+                                            Intent i = new Intent(EnterOTPActivity.this, MainActivity.class);
+                                            startActivity(i);
+                                            finish();
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Throwable t) {
-                                progressBar.dismiss();
-                            }
-                        });
+                                @Override
+                                public void onFailure(@NonNull Call<VerifyOTPResponseModel> call, @NonNull Throwable t) {
+                                    progressBar.dismiss();
+                                }
+                            });
+                }
             }
         });
 
@@ -283,5 +310,30 @@ public class EnterOTPActivity extends AppCompatActivity {
             return false;
         }
 
+    }
+
+    private void setTimer() {
+        time = 30;
+        new CountDownTimer(30000, 1000) {
+
+            @Override
+            public void onTick(long l) {
+                String text = "00 : " + checkDigit(time);
+                tvTimer.setText(text);
+                time--;
+            }
+
+            @Override
+            public void onFinish() {
+                otp_not_received.setVisibility(View.VISIBLE);
+                resend_otp.setVisibility(View.VISIBLE);
+                change_mobile_num.setVisibility(View.VISIBLE);
+                layout_timer.setVisibility(View.GONE);
+            }
+        }.start();
+    }
+
+    private String checkDigit(int number) {
+        return number <= 9 ? "0" + number : String.valueOf(number);
     }
 }

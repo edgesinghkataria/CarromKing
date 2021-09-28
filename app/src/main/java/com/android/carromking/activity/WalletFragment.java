@@ -71,11 +71,11 @@ public class WalletFragment extends Fragment {
                 }
             });
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                withdrawBalanceFragment).commit();
+                withdrawBalanceFragment).addToBackStack(null).commit();
         });
 
         seeAllTransactions.setOnClickListener(v1 ->
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).addToBackStack(null).commit());
 
 
         sp = v.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
@@ -134,26 +134,16 @@ public class WalletFragment extends Fragment {
         this.listener = listener;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + "Wallet" + "</font>"));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
-    }
-
-
     private void getWalletData() {
         progressBar.show();
             ApiService apiService = new ApiService();
             MyApiEndpointInterface apiEndpointInterface = apiService.
                     getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
+        if(!apiService.internetIsConnected()) {
+            progressBar.hide();
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+        } else {
             apiEndpointInterface.getWalletData()
                     .enqueue(new Callback<WalletResponseModel>() {
                         @Override
@@ -191,6 +181,7 @@ public class WalletFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
+        }
     }
 
 }
