@@ -1,5 +1,7 @@
 package com.android.carromking.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,23 +19,56 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.carromking.R;
+import com.android.carromking.models.local.LocalDataModel;
+import com.google.gson.Gson;
 
 public class WithdrawBalanceFragment extends Fragment {
 
     private homeIconHighlightTwo listener;
+    private LocalDataModel localDataModel;
+    final Gson gson = new Gson();
+    SharedPreferences sp;
+    String TAG;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_withdraw_balance, container, false);
+        return v;
+    }
 
-        Button withdrawNow = v.findViewById(R.id.withdraw_now_button);
-        TextView linkPaytm = v.findViewById(R.id.link_account_paytm);
-        ImageView linkUPI = v.findViewById(R.id.arrow_upi);
-        ImageView linkBank = v.findViewById(R.id.arrow_bank_transfer);
-        LinearLayout greenTickAndArrowPaytm = v.findViewById(R.id.greenTickAndArrowPaytm);
-        ImageView greenTickUpi = v.findViewById(R.id.greenTickUpi);
-        ImageView greenTickBank = v.findViewById(R.id.greenTickBankTransfer);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TAG = getString(R.string.TAG);
+        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                sp.getString("token", null),
+                "0",
+                "0",
+                "0"
+        );
+
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+
+
+        Button withdrawNow = view.findViewById(R.id.withdraw_now_button);
+        TextView linkPaytm = view.findViewById(R.id.link_account_paytm);
+        ImageView linkUPI = view.findViewById(R.id.arrow_upi);
+        ImageView linkBank = view.findViewById(R.id.arrow_bank_transfer);
+        LinearLayout greenTickAndArrowPaytm = view.findViewById(R.id.greenTickAndArrowPaytm);
+        ImageView greenTickUpi = view.findViewById(R.id.greenTickUpi);
+        ImageView greenTickBank = view.findViewById(R.id.greenTickBankTransfer);
+        TextView withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
+        TextView amountToWithdraw = view.findViewById(R.id.amount_to_withdraw);
+
+        withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
+        amountToWithdraw.setText("₹ "+ localDataModel.getWinningBalance());
 
         withdrawNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +138,7 @@ public class WithdrawBalanceFragment extends Fragment {
             }
         });
 
-        return v;
+
     }
 
     public interface homeIconHighlightTwo{
