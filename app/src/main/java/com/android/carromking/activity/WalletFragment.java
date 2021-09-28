@@ -2,10 +2,8 @@ package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +24,8 @@ import com.android.carromking.models.local.LocalDataModel;
 import com.android.carromking.models.wallet.WalletResponseDataModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
 import com.google.gson.Gson;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,14 +76,9 @@ public class WalletFragment extends Fragment {
 
         seeAllTransactions.setOnClickListener(v1 ->
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
-        return v;
-    }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        sp = v.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         LocalDataModel localDataModel1 =  new LocalDataModel(
                 "1",
@@ -99,10 +94,10 @@ public class WalletFragment extends Fragment {
         localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
 
-        unPlayedAmount = view.findViewById(R.id.unplayed_amount);
-        winningAmount = view.findViewById(R.id.winning_amount);
-        cashBonus = view.findViewById(R.id.cash_bonus);
-        totalBalance = view.findViewById(R.id.wallet_balance);
+        unPlayedAmount = v.findViewById(R.id.unplayed_amount);
+        winningAmount = v.findViewById(R.id.winning_amount);
+        cashBonus = v.findViewById(R.id.cash_bonus);
+        totalBalance = v.findViewById(R.id.wallet_balance);
 
         String unPlayedBalance = localDataModel.getDepositBalance();
         String winningBalance = localDataModel.getWinningBalance();
@@ -113,73 +108,15 @@ public class WalletFragment extends Fragment {
         cashBonus.setText(bonusBalance);
         totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
 
-        progressBar.show();
-        MyTask myTask = new MyTask();
-        myTask.execute(view);
-
+        return v;
     }
 
-    private class MyTask extends AsyncTask<View, Integer , WalletResponseDataModel>{
-        @Override
-        protected WalletResponseDataModel doInBackground(View... views) {
-//            Context context = views[0].getContext();
-
-            ApiService apiService = new ApiService();
-            MyApiEndpointInterface apiEndpointInterface = apiService.
-                    getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
-
-            apiEndpointInterface.getWalletData()
-                    .enqueue(new Callback<WalletResponseModel>() {
-                        @Override
-                        public void onResponse(@NonNull Call<WalletResponseModel> call, @NonNull Response<WalletResponseModel> response) {
-                            WalletResponseModel body = response.body();
-                            if(body!=null) {
-                                if(body.isStatus()) {
-                                    dataModel = body.getData();
-                                    progressBar.hide();
-                                    Log.d(TAG, "Wallet onResponse: " + body.getData().getUserId());
-                                } else {
-                                    progressBar.hide();
-                                    Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
-                            progressBar.hide();
-                        }
-                    });
-            while (true) {
-                if(dataModel!=null) {
-                    return dataModel;
-                }
-            }
-
-        }
-
-        @Override
-        protected void onPostExecute(WalletResponseDataModel walletResponseDataModel) {
-            if(walletResponseDataModel!=null) {
-
-                updateLocal(walletResponseDataModel);
-
-                String unPlayedBalance = localDataModel.getDepositBalance();
-                String winningBalance = localDataModel.getWinningBalance();
-                String bonusBalance = localDataModel.getBonusBalance();
-
-                unPlayedAmount.setText(localDataModel.getDepositBalance());
-                winningAmount.setText(localDataModel.getWinningBalance());
-                cashBonus.setText(localDataModel.getBonusBalance());
-                totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
-
-            } else {
-                Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getWalletData();
     }
+
 
     private void updateLocal(WalletResponseDataModel wallet) {
         localDataModel.setDepositBalance(String.valueOf(wallet.getDepositBalance()));
@@ -200,14 +137,60 @@ public class WalletFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Wallet" + "</font>"));
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + "Wallet" + "</font>"));
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+    }
+
+
+    private void getWalletData() {
+        progressBar.show();
+            ApiService apiService = new ApiService();
+            MyApiEndpointInterface apiEndpointInterface = apiService.
+                    getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+
+            apiEndpointInterface.getWalletData()
+                    .enqueue(new Callback<WalletResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<WalletResponseModel> call, @NonNull Response<WalletResponseModel> response) {
+                            WalletResponseModel body = response.body();
+                            if(body!=null) {
+                                if(body.isStatus()) {
+                                    dataModel = body.getData();
+
+                                    if(dataModel!=null) {
+                                        updateLocal(dataModel);
+                                        String unPlayedBalance = localDataModel.getDepositBalance();
+                                        String winningBalance = localDataModel.getWinningBalance();
+                                        String bonusBalance = localDataModel.getBonusBalance();
+
+                                        unPlayedAmount.setText(localDataModel.getDepositBalance());
+                                        winningAmount.setText(localDataModel.getWinningBalance());
+                                        cashBonus.setText(localDataModel.getBonusBalance());
+                                        totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
+
+                                        progressBar.dismiss();
+                                    } else {
+                                        progressBar.dismiss();
+                                        Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    progressBar.dismiss();
+                                    Toast.makeText(getContext(), body.getError().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<WalletResponseModel> call, @NonNull Throwable t) {
+                            progressBar.dismiss();
+                        }
+                    });
     }
 
 }

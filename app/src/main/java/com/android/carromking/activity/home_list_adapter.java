@@ -91,6 +91,9 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
 
     @Override
     public int getItemCount() {
+        if(mLobbyList == null) {
+            return 0;
+        }
         return mLobbyList.size();
     }
 

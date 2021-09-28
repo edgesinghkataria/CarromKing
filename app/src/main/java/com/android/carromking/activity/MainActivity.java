@@ -33,39 +33,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment;
 
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        selectedFragment = new HomeFragment();
-                        bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
-                        break;
-                    case R.id.nav_wallet:
-                        WalletFragment walletFragment = new WalletFragment();
-                        walletFragment.HighLightHomeIconThree(new WalletFragment.homeIconHighlightThree() {
-                            @Override
-                            public void highlightHomeIconThree() {
-                                bottomNav.setSelectedItemId(R.id.nav_home);
-                            }
-                        });
-                        selectedFragment = walletFragment;
-                        break;
-                    case R.id.nav_profile:
-                        selectedFragment = new ProfileFragment();
-                        break;
-                }
+            if (item.getItemId() == R.id.nav_home) {
+                selectedFragment = new HomeFragment();
+                bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        selectedFragment).commit();
-
-                return true;
+            } else if (item.getItemId() == R.id.nav_wallet) {
+                WalletFragment walletFragment = new WalletFragment();
+                walletFragment.HighLightHomeIconThree(new WalletFragment.homeIconHighlightThree() {
+                    @Override
+                    public void highlightHomeIconThree() {
+                        bottomNav.setSelectedItemId(R.id.nav_home);
+                    }
+                });
+                selectedFragment = walletFragment;
+            } else {
+                selectedFragment = new ProfileFragment();
             }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFragment).commit();
+
+            return true;
         });
 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment());
+    }
 }

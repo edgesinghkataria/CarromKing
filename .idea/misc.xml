@@ -3,12 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_splash.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/add_cash.xml" value="0.234375" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/enter_upi_id.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.264" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_withdraw_balance.xml" value="0.2" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/link_bank_account.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/link_paytm_wallet_otp.xml" value="0.264" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/paytm_add_wallet.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/pop_up_add_money.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/wallet_history.xml" value="0.25" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/layout/withdrawal_successful.xml" value="0.264" />
+        <entry key="..\:/Users/AYUSHI GUPTA/AndroidStudioProjects/CarromKing/app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/drawable/boundary.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/activity_enter_otpactivity.xml" value="0.20989583333333334" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/activity_sign_up.xml" value="0.20666666666666667" />
         <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/activity_splash.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/border.xml" value="0.1" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/fragment_home.xml" value="0.20989583333333334" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/fragment_profile.xml" value="0.2" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.1" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/fragment_withdraw_balance.xml" value="0.4" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/home_lobby_recycler_item.xml" value="0.1685185185185185" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/profile_league_recycler_item.xml" value="0.1685185185185185" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/progress_bar.xml" value="0.20989583333333334" />
+        <entry key="..\:/Users/HemantLakhotia/Desktop/CarromKing/app/src/main/res/layout/withdrawal_successful.xml" value="0.25833333333333336" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/circle.xml" value="0.15208333333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/corner_radius_linear_layout.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/corner_radius_linier_layout.xml" value="0.15052083333333333" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/custom_button.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/custom_button_cancel.xml" value="0.17864583333333334" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/diamond_cup_background.xml" value="0.1" />
@@ -16,12 +41,9 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/pop_up_level_up.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/activity_splash.xml" value="0.5" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/add_cash.xml" value="0.1" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/disable_home_lobby_recycler_item.xml" value="0.42207053469852107" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_home.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_profile.xml" value="0.1796875" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/home_lobby_recycler_item.xml" value="0.5277382645803699" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/pop_up_add_money.xml" value="0.5" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/pop_up_file_shared.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/layout/pop_up_level_up.xml" value="0.42645074224021595" />
