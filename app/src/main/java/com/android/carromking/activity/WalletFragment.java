@@ -71,11 +71,11 @@ public class WalletFragment extends Fragment {
                 }
             });
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                withdrawBalanceFragment).commit();
+                withdrawBalanceFragment).addToBackStack(null).commit();
         });
 
         seeAllTransactions.setOnClickListener(v1 ->
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).commit());
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).addToBackStack(null).commit());
 
 
         sp = v.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
