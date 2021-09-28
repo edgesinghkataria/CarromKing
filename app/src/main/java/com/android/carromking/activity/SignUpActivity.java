@@ -97,33 +97,34 @@ public class SignUpActivity extends AppCompatActivity{
                 if(!apiService.internetIsConnected()) {
                     progressBar.hide();
                     Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-                }
-                apiEndpointInterface.getOtp(phoneText)
-                        .enqueue(new Callback<SendOTPResponseModel>() {
-                            @Override
-                            public void onResponse(@NonNull Call<SendOTPResponseModel> call, @NonNull Response<SendOTPResponseModel> response) {
-                                if(response.body()!=null && response.isSuccessful() && response.body().isStatus()) {
-                                    SendOTPResponseDataModel data = response.body().getData();
-                                    sp.edit().putString("mobileNumber", ccpText+ " " +data.getMobileNumber()).apply();
-                                    Intent i = new Intent(SignUpActivity.this, EnterOTPActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    progressBar.dismiss();
-                                    bundle.putString("mobileNumber", data.getMobileNumber());
-                                    bundle.putString("sessionId", data.getSessionId());
-                                    i.putExtras(bundle);
-                                    startActivity(i);
-                                    finish();
-                                } else {
-                                    progressBar.dismiss();
-                                    Toast.makeText(SignUpActivity.this, "There was an issue sending the OTP. Please try again after some time", Toast.LENGTH_LONG).show();
+                } else {
+                    apiEndpointInterface.getOtp(phoneText)
+                            .enqueue(new Callback<SendOTPResponseModel>() {
+                                @Override
+                                public void onResponse(@NonNull Call<SendOTPResponseModel> call, @NonNull Response<SendOTPResponseModel> response) {
+                                    if(response.body()!=null && response.isSuccessful() && response.body().isStatus()) {
+                                        SendOTPResponseDataModel data = response.body().getData();
+                                        sp.edit().putString("mobileNumber", ccpText+ " " +data.getMobileNumber()).apply();
+                                        Intent i = new Intent(SignUpActivity.this, EnterOTPActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        progressBar.dismiss();
+                                        bundle.putString("mobileNumber", data.getMobileNumber());
+                                        bundle.putString("sessionId", data.getSessionId());
+                                        i.putExtras(bundle);
+                                        startActivity(i);
+                                        finish();
+                                    } else {
+                                        progressBar.dismiss();
+                                        Toast.makeText(SignUpActivity.this, "There was an issue sending the OTP. Please try again after some time", Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(@NonNull Call<SendOTPResponseModel> call, @NonNull Throwable t) {
-                                progressBar.dismiss();
-                            }
-                        });
+                                @Override
+                                public void onFailure(@NonNull Call<SendOTPResponseModel> call, @NonNull Throwable t) {
+                                    progressBar.dismiss();
+                                }
+                            });
+                }
             }
         });
     }

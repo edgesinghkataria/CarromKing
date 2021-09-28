@@ -158,71 +158,71 @@ public class HomeFragment extends Fragment {
         if(!interceptor.internetIsConnected()) {
             progressBar.hide();
             Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-        }
+        } else {
+            apiEndpointInterface.getHomeData()
+                    .enqueue(new Callback<HomeResponseModel>() {
+                        @Override
+                        public void onResponse(@NonNull Call<HomeResponseModel> call, @NonNull Response<HomeResponseModel> response) {
+                            if (response.body() != null) {
+                                if (response.body().isStatus()) {
+                                    dataModel = response.body().getData().get(0);
+                                    if (dataModel != null) {
+                                        beginnerList = new ArrayList<>();
+                                        silverList = new ArrayList<>();
+                                        goldList = new ArrayList<>();
+                                        diamondList = new ArrayList<>();
+                                        lobbyList = dataModel.getLobbies();
 
-        apiEndpointInterface.getHomeData()
-                .enqueue(new Callback<HomeResponseModel>() {
-                    @Override
-                    public void onResponse(@NonNull Call<HomeResponseModel> call, @NonNull Response<HomeResponseModel> response) {
-                        if (response.body() != null) {
-                            if (response.body().isStatus()) {
-                                dataModel = response.body().getData().get(0);
-                                if (dataModel != null) {
-                                    beginnerList = new ArrayList<>();
-                                    silverList = new ArrayList<>();
-                                    goldList = new ArrayList<>();
-                                    diamondList = new ArrayList<>();
-                                    lobbyList = dataModel.getLobbies();
-
-                                    for (LobbyModel lobby : lobbyList) {
-                                        switch (lobby.getLevel()) {
+                                        for (LobbyModel lobby : lobbyList) {
+                                            switch (lobby.getLevel()) {
+                                                case "beginner":
+                                                    beginnerList.add(lobby);
+                                                    break;
+                                                case "silver":
+                                                    silverList.add(lobby);
+                                                    break;
+                                                case "gold":
+                                                    goldList.add(lobby);
+                                                    break;
+                                                case "diamond":
+                                                    diamondList.add(lobby);
+                                                    break;
+                                            }
+                                        }
+                                        switch (localDataModel.getLevel()) {
                                             case "beginner":
-                                                beginnerList.add(lobby);
+                                                adapter.setTasks(beginnerList);
                                                 break;
                                             case "silver":
-                                                silverList.add(lobby);
+                                                adapter.setTasks(silverList);
                                                 break;
                                             case "gold":
-                                                goldList.add(lobby);
+                                                adapter.setTasks(goldList);
                                                 break;
                                             case "diamond":
-                                                diamondList.add(lobby);
+                                                adapter.setTasks(diamondList);
                                                 break;
                                         }
+                                        //adapter.setTasks(lobbyList);
+                                        HomeRecyclerView.setAdapter(adapter);
+                                        progressBar.dismiss();
+                                    } else {
+                                        progressBar.dismiss();
+                                        Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
                                     }
-                                    switch (localDataModel.getLevel()) {
-                                        case "beginner":
-                                            adapter.setTasks(beginnerList);
-                                            break;
-                                        case "silver":
-                                            adapter.setTasks(silverList);
-                                            break;
-                                        case "gold":
-                                            adapter.setTasks(goldList);
-                                            break;
-                                        case "diamond":
-                                            adapter.setTasks(diamondList);
-                                            break;
-                                    }
-                                    //adapter.setTasks(lobbyList);
-                                    HomeRecyclerView.setAdapter(adapter);
-                                    progressBar.dismiss();
                                 } else {
                                     progressBar.dismiss();
-                                    Toast.makeText(requireContext(), "Unable to refresh, try again later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                progressBar.dismiss();
-                                Toast.makeText(getContext(), response.body().getError().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
-                        progressBar.dismiss();
-                    }
-                });
+                        @Override
+                        public void onFailure(@NonNull Call<HomeResponseModel> call, @NonNull Throwable t) {
+                            progressBar.dismiss();
+                        }
+                    });
+        }
     }
 
 

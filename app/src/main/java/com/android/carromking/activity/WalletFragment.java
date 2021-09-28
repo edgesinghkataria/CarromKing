@@ -143,8 +143,7 @@ public class WalletFragment extends Fragment {
         if(!apiService.internetIsConnected()) {
             progressBar.hide();
             Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-        }
-
+        } else {
             apiEndpointInterface.getWalletData()
                     .enqueue(new Callback<WalletResponseModel>() {
                         @Override
@@ -182,6 +181,7 @@ public class WalletFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
+        }
     }
 
 }
