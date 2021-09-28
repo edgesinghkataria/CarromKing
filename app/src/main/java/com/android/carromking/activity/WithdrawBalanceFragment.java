@@ -1,7 +1,10 @@
 package com.android.carromking.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -82,7 +87,7 @@ public class WithdrawBalanceFragment extends Fragment {
                     }
                 });
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         withdrawSuccessfulFragment).commit();
             }
         });
@@ -100,7 +105,7 @@ public class WithdrawBalanceFragment extends Fragment {
                         greenTickUpi.setVisibility(View.GONE);
                     }
                 });
-                bottomSheet.show(getActivity().getSupportFragmentManager(), "LinkPaytm");
+                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytm");
             }
         });
 
@@ -117,7 +122,7 @@ public class WithdrawBalanceFragment extends Fragment {
                         linkPaytm.setVisibility(View.VISIBLE);
                     }
                 });
-                bottomSheet.show(getActivity().getSupportFragmentManager(), "LinkUPI");
+                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkUPI");
             }
         });
 
@@ -134,7 +139,7 @@ public class WithdrawBalanceFragment extends Fragment {
                         greenTickAndArrowPaytm.setVisibility(View.GONE);
                     }
                 });
-                bottomSheet.show(getActivity().getSupportFragmentManager(), "LinkBank");
+                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkBank");
             }
         });
 
@@ -149,17 +154,25 @@ public class WithdrawBalanceFragment extends Fragment {
         this.listener = listener;
     }
 
+
+
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Withdraw Balance" + "</font>"));
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().show();
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color=\"black\">" + "Withdraw Balance" + "</font>"));
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setElevation(0);
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        @SuppressLint("UseCompatLoadingForDrawables")
+        final Drawable upArrow = getResources().getDrawable(R.drawable.ic_baseline_keyboard_backspace_24, requireContext().getTheme());
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity)requireActivity()).getSupportActionBar().hide();
     }
 
 }

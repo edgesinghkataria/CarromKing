@@ -7,12 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.android.carromking.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FFFFFF"));
+        assert getSupportActionBar() != null;
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         getSupportActionBar().hide();
 
@@ -60,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(getString(R.string.TAG), "onOptionsItemSelected: Hello");
+        if(item.getItemId() == android.R.id.home) {
+            getSupportFragmentManager().popBackStack();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

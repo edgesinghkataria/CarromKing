@@ -43,7 +43,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
         holder.mMaxPlayer.setText(maxP);
         holder.mPlayAmount.setText(String.valueOf(item.getEntryFee()));
         //this needs to be edited by win amount from api
-        holder.mWinAmount.setText("₹500");
+        holder.mWinAmount.setText("₹ 500");
         if(item.isIsLocked()){
             holder.mLobbyIcon.setImageResource(R.drawable.disable_icon);
             holder.mBattleLevel.setTextColor(Color.parseColor("#717284"));

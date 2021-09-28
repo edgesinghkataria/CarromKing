@@ -134,20 +134,6 @@ public class WalletFragment extends Fragment {
         this.listener = listener;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle(Html.fromHtml("<font color=\"black\">" + "Wallet" + "</font>"));
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
-    }
-
-
     private void getWalletData() {
         progressBar.show();
             ApiService apiService = new ApiService();
