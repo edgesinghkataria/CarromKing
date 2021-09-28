@@ -155,10 +155,10 @@ public class HomeFragment extends Fragment {
         ApiService interceptor = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
 
-        if(!interceptor.internetIsConnected()) {
-            progressBar.hide();
-            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-        } else {
+//        if(!interceptor.internetIsConnected()) {
+//            progressBar.hide();
+//            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+//        } else {
             apiEndpointInterface.getHomeData()
                     .enqueue(new Callback<HomeResponseModel>() {
                         @Override
@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
-        }
+//        }
     }
 
 

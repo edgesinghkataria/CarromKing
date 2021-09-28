@@ -141,7 +141,6 @@ public class EnterOTPActivity extends AppCompatActivity {
         });
 
         btnVerify.setOnClickListener(view -> {
-            progressBar.show();
             String otpText =
                     etOtp1.getText().toString()
                             + etOtp2.getText().toString()
@@ -151,10 +150,11 @@ public class EnterOTPActivity extends AppCompatActivity {
                     + etOtp6.getText().toString();
 
             if (otpText.length() == 6) {
-                if(!apiService.internetIsConnected()) {
-                    progressBar.hide();
-                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-                } else {
+                progressBar.show();
+//                if(!apiService.internetIsConnected()) {
+//                    progressBar.hide();
+//                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+//                }
                     apiEndpointInterface.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
                             .enqueue(new Callback<VerifyOTPResponseModel>() {
                                 @Override
@@ -180,7 +180,6 @@ public class EnterOTPActivity extends AppCompatActivity {
                                     progressBar.dismiss();
                                 }
                             });
-                }
             }
         });
 

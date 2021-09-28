@@ -94,10 +94,10 @@ public class SignUpActivity extends AppCompatActivity{
             } else {
                 progressBar.show();
 
-                if(!apiService.internetIsConnected()) {
-                    progressBar.hide();
-                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
-                } else {
+//                if(!apiService.internetIsConnected()) {
+//                    progressBar.hide();
+//                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+//                } else {
                     apiEndpointInterface.getOtp(phoneText)
                             .enqueue(new Callback<SendOTPResponseModel>() {
                                 @Override
@@ -124,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity{
                                     progressBar.dismiss();
                                 }
                             });
-                }
+//                }
             }
         });
     }

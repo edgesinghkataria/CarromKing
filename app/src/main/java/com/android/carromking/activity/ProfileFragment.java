@@ -161,10 +161,10 @@ public class ProfileFragment extends Fragment {
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
-        if(!apiService.internetIsConnected()) {
-            progressBar.hide();
-            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-        } else {
+//        if(!apiService.internetIsConnected()) {
+//            progressBar.hide();
+//            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+//        } else {
             apiEndpointInterface.getProfileData()
                     .enqueue(new Callback<ProfileResponseModel>() {
                         @Override
@@ -223,6 +223,6 @@ public class ProfileFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
-        }
+//        }
     }
 }
