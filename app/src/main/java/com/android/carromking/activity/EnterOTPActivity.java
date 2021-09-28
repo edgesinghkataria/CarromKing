@@ -151,6 +151,11 @@ public class EnterOTPActivity extends AppCompatActivity {
                     + etOtp6.getText().toString();
 
             if (otpText.length() == 6) {
+                if(!apiService.internetIsConnected()) {
+                    progressBar.hide();
+                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+                }
+
                 apiEndpointInterface.verifyOTP(new VerifyOTPBodyModel(mobileNumber, sessionId, otpText))
                         .enqueue(new Callback<VerifyOTPResponseModel>() {
                             @Override

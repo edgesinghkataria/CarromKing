@@ -93,6 +93,11 @@ public class SignUpActivity extends AppCompatActivity{
                 Toast.makeText(this, "Please add a valid mobile number", Toast.LENGTH_SHORT).show();
             } else {
                 progressBar.show();
+
+                if(!apiService.internetIsConnected()) {
+                    progressBar.hide();
+                    Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+                }
                 apiEndpointInterface.getOtp(phoneText)
                         .enqueue(new Callback<SendOTPResponseModel>() {
                             @Override

@@ -160,6 +160,12 @@ public class ProfileFragment extends Fragment {
         progressBar.show();
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+
+        if(!apiService.internetIsConnected()) {
+            progressBar.hide();
+            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+        }
+
         apiEndpointInterface.getProfileData()
                 .enqueue(new Callback<ProfileResponseModel>() {
                     @Override
