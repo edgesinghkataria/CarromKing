@@ -8,7 +8,7 @@
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/tab"
@@ -62,7 +62,7 @@
                 android:id="@+id/in_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/roboto_regular_400"
                 android:gravity="center"
@@ -96,7 +96,7 @@
                 android:id="@+id/successful"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/roboto_regular_400"
                 android:gravity="center"
@@ -129,7 +129,7 @@
                 android:id="@+id/failed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/roboto_regular_400"
                 android:gravity="center"
@@ -158,7 +158,236 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tab"
-        tools:listitem="@layout/wallet_cardview"/>
+        tools:listitem="@layout/wallet_cardview_failed"
+        android:visibility="gone"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardView_wallet"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcome_bon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/welcome_bonus"
+                android:textColor="#2B2B2B"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="37dp"
+                android:gravity="top"
+                android:paddingBottom="12dp"
+                android:text="@string/_10_sep_11_pm"
+                android:textColor="#ADADAD"
+                android:textSize="11sp" />
+
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="top"
+                android:text="@string/p_25_00"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/status_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/pending"
+                android:textColor="#FF9933"
+                android:textSize="11sp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardView_wallet_f"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcome_bon_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/welcome_bonus"
+                android:textColor="#2B2B2B"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="37dp"
+                android:gravity="top"
+                android:paddingBottom="12dp"
+                android:text="@string/_10_sep_11_pm"
+                android:textColor="#ADADAD"
+                android:textSize="11sp" />
+
+
+            <TextView
+                android:id="@+id/amount_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="top"
+                android:text="@string/_25_00"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/status_wallet_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="28dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/failed"
+                android:textColor="#E34B4B"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="top"
+                android:src="@drawable/failed_wallet" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardView_wallet_s"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcome_bon_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/welcome_bonus"
+                android:textColor="#2B2B2B"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/time_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="37dp"
+                android:gravity="top"
+                android:paddingBottom="12dp"
+                android:text="@string/_10_sep_11_pm"
+                android:textColor="#ADADAD"
+                android:textSize="11sp" />
+
+
+            <TextView
+                android:id="@+id/amount_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/roboto_bold_700"
+                android:gravity="top"
+                android:text="@string/p_25_00"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/status_wallet_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/roboto_regular_400"
+                android:gravity="top"
+                android:text="@string/successful"
+                android:textColor="#2B2B2B"
+                android:textSize="11sp" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
