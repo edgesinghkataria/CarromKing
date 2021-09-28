@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:fontFamily="@font/roboto_regular_400">
 
         <LinearLayout
             android:id="@+id/withdraw_balance_blue_bg"

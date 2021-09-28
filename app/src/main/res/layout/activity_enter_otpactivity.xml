@@ -114,6 +114,72 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/otp_not_received"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:text="@string/otp_not_received"
+                android:textColor="@color/black"
+                android:letterSpacing="0.05"
+                android:textSize="10.5sp"
+                android:gravity="top"
+                android:visibility="gone"
+                />
+
+            <LinearLayout
+                android:id="@+id/resend_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/resend_otp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/resend_otp"
+                    android:textColor="#1D9FFF"
+                    android:layout_marginLeft="14dp"
+                    android:textSize="13sp"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/change_mobile_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/edit_mobile_num"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_mobile_num"
+                    android:textColor="#1D9FFF"
+                    android:layout_marginLeft="14dp"
+                    android:textSize="13sp"
+                    />
+
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
