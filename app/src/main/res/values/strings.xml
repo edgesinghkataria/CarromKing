@@ -97,4 +97,10 @@
     <string name="failed">Failed</string>
     <string name="todo">TODO</string>
 
+    <string name="otp_not_received">Didn\'t Receive OTP?</string>
+    <string name="resend_otp">Resend OTP?</string>
+    <string name="change_mobile_num">Change Mobile Number?</string>
+    <string name="_00_15">00 : 15</string>
+
+
 </resources>
