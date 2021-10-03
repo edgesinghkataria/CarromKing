@@ -1,11 +1,13 @@
 package com.android.carromking.activity;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +26,10 @@ public class WithdrawSuccessfulFragment extends Fragment {
         View v = inflater.inflate(R.layout.withdrawal_successful, container, false);
 
         Button keepPlaying = v.findViewById(R.id.keepPlaying);
-        keepPlaying.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HomeFragment()).commit();
-                listener.highlightHomeIcon();
-            }
+        keepPlaying.setOnClickListener(v1 -> {
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new HomeFragment()).commit();
+            listener.highlightHomeIcon();
         });
         return v;
     }
@@ -43,16 +42,5 @@ public class WithdrawSuccessfulFragment extends Fragment {
         this.listener = listener;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        ((AppCompatActivity)getActivity()).setTitle("Withdraw Balance");
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-    }
 }

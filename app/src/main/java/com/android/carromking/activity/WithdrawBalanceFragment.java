@@ -79,21 +79,18 @@ public class WithdrawBalanceFragment extends Fragment {
 
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
-        withdrawNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        withdrawNow.setOnClickListener(v -> {
 
-                WithdrawSuccessfulFragment withdrawSuccessfulFragment = new WithdrawSuccessfulFragment();
-                withdrawSuccessfulFragment.HighLightHomeIcon(new WithdrawSuccessfulFragment.homeIconHighlight() {
-                    @Override
-                    public void highlightHomeIcon() {
-                        listener.highlightHomeIconTwo();
-                    }
-                });
+            WithdrawSuccessfulFragment withdrawSuccessfulFragment = new WithdrawSuccessfulFragment();
+            withdrawSuccessfulFragment.HighLightHomeIcon(new WithdrawSuccessfulFragment.homeIconHighlight() {
+                @Override
+                public void highlightHomeIcon() {
+                    listener.highlightHomeIconTwo();
+                }
+            });
 
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        withdrawSuccessfulFragment).commit();
-            }
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    withdrawSuccessfulFragment).commit();
         });
 
         linkPaytm.setOnClickListener(new View.OnClickListener() {

@@ -34,14 +34,11 @@ public class LinkPaytmOTP_Bottomsheet extends BottomSheetDialogFragment {
         EditText paytmOtp = view.findViewById(R.id.PaytmOtpField);
         verifyAndProceed.setEnabled(false);
         verifyAndProceed.setClickable(false);
-        verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.button_grey));
+        verifyAndProceed.setBackgroundColor(requireActivity().getColor(R.color.button_grey));
 
-        verifyAndProceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.showGreenTickPaytm();
-                dismiss();
-            }
+        verifyAndProceed.setOnClickListener(v -> {
+            listener.showGreenTickPaytm();
+            dismiss();
         });
 
         paytmOtp.addTextChangedListener(new TextWatcher() {
@@ -55,11 +52,11 @@ public class LinkPaytmOTP_Bottomsheet extends BottomSheetDialogFragment {
                 if(paytmOtp.getText().toString().trim().length() == 6) {
                     verifyAndProceed.setClickable(true);
                     verifyAndProceed.setEnabled(true);
-                    verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.blue));
+                    verifyAndProceed.setBackgroundColor(requireActivity().getColor(R.color.blue));
                 } else {
                     verifyAndProceed.setClickable(false);
                     verifyAndProceed.setEnabled(false);
-                    verifyAndProceed.setBackgroundColor(getActivity().getColor(R.color.button_grey));
+                    verifyAndProceed.setBackgroundColor(requireActivity().getColor(R.color.button_grey));
                 }
             }
 

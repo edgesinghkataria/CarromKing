@@ -7,7 +7,7 @@
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="17dp"
     android:fontFamily="@font/roboto_regular_400"
@@ -29,7 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/withdrawal_successful_clipart"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/credited_24_hours"
@@ -40,7 +41,7 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="10sp"
+        android:textSize="12sp"
         />
 
     <Button

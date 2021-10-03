@@ -55,26 +55,13 @@ public class LinkPaytm_Bottomsheet extends BottomSheetDialogFragment {
 
         mobile_num.setText(localDataModel.getMobileNumber());
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancel.setOnClickListener(v -> dismiss());
 
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinkPaytmOTP_Bottomsheet bottomSheet = new LinkPaytmOTP_Bottomsheet();
-                bottomSheet.ShowGreenTickPaytm(new LinkPaytmOTP_Bottomsheet.greenTickPaytm() {
-                    @Override
-                    public void showGreenTickPaytm() {
-                        listener.showGreenTickPaytmTwo();
-                    }
-                });
-                bottomSheet.show(getActivity().getSupportFragmentManager(), "LinkPaytmOTP");
-                dismiss();
-            }
+        proceed.setOnClickListener(v -> {
+            LinkPaytmOTP_Bottomsheet bottomSheet = new LinkPaytmOTP_Bottomsheet();
+            bottomSheet.ShowGreenTickPaytm(() -> listener.showGreenTickPaytmTwo());
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytmOTP");
+            dismiss();
         });
     }
 
