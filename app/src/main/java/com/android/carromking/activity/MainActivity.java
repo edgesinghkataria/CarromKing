@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import com.android.carromking.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(colorDrawable);
         getSupportActionBar().hide();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
 //      this is to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
+                    new HomeFragment(bottomNav)).commit();
         }
 
 
@@ -37,18 +39,10 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment;
 
             if (item.getItemId() == R.id.nav_home) {
-                selectedFragment = new HomeFragment();
-                bottomNav.getMenu().findItem(R.id.nav_home).setChecked(true);
+                selectedFragment = new HomeFragment(bottomNav);
 
             } else if (item.getItemId() == R.id.nav_wallet) {
-                WalletFragment walletFragment = new WalletFragment();
-                walletFragment.HighLightHomeIconThree(new WalletFragment.homeIconHighlightThree() {
-                    @Override
-                    public void highlightHomeIconThree() {
-                        bottomNav.setSelectedItemId(R.id.nav_home);
-                    }
-                });
-                selectedFragment = walletFragment;
+                selectedFragment = new WalletFragment();
             } else {
                 selectedFragment = new ProfileFragment();
             }
@@ -75,6 +69,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment());
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(bottomNav));
     }
 }

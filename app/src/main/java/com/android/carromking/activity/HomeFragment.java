@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.android.carromking.models.home.HomeResponseDataModel;
 import com.android.carromking.models.home.HomeResponseModel;
 import com.android.carromking.models.home.LobbyModel;
 import com.android.carromking.models.local.LocalDataModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -44,8 +46,16 @@ public class HomeFragment extends Fragment {
     List<LobbyModel> lobbyList, beginnerList, silverList, goldList, diamondList;
     LocalDataModel localDataModel;
 
+    LinearLayout llWallet;
+
     CustomProgressBar progressBar;
     final Gson gson = new Gson();
+
+    final BottomNavigationView bottomNav;
+
+    HomeFragment(BottomNavigationView bottomNav) {
+        this.bottomNav = bottomNav;
+    }
 
     @Nullable
     @Override
@@ -57,6 +67,7 @@ public class HomeFragment extends Fragment {
         silver = v.findViewById(R.id.home_silver);
         gold = v.findViewById(R.id.home_gold);
         diamond = v.findViewById(R.id.home_diamond);
+        llWallet = v.findViewById(R.id.llWallet);
 
         progressBar = new CustomProgressBar(getActivity());
 
@@ -64,6 +75,13 @@ public class HomeFragment extends Fragment {
         HomeRecyclerView.setHasFixedSize(true);
         HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new home_list_adapter();
+
+
+        llWallet.setOnClickListener(view -> {
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new WalletFragment()).commit();
+            bottomNav.setSelectedItemId(R.id.nav_wallet);
+        });
 
         beginner.setOnClickListener(v14 -> {
             beginner.setTypeface(null, Typeface.BOLD);
@@ -222,7 +240,7 @@ public class HomeFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
-//        }
+
     }
 
 

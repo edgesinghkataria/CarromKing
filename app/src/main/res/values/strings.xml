@@ -107,6 +107,7 @@
     <string name="resend_otp">Resend OTP?</string>
     <string name="change_mobile_num">Change Mobile Number?</string>
     <string name="_00_15">00 : 15</string>
+    <string name="_0_00">0.00</string>
 
 
 </resources>

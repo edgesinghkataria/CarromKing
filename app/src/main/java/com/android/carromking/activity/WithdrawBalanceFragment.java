@@ -3,7 +3,6 @@ package com.android.carromking.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -16,9 +15,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,8 +30,6 @@ import com.google.gson.Gson;
 
 public class WithdrawBalanceFragment extends Fragment {
 
-    private homeIconHighlightTwo listener;
-    private LocalDataModel localDataModel;
     final Gson gson = new Gson();
     SharedPreferences sp;
     String TAG;
@@ -42,8 +37,7 @@ public class WithdrawBalanceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_withdraw_balance, container, false);
-        return v;
+        return inflater.inflate(R.layout.fragment_withdraw_balance, container, false);
     }
 
     @SuppressLint("SetTextI18n")
@@ -64,7 +58,7 @@ public class WithdrawBalanceFragment extends Fragment {
                 "0"
         );
 
-        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+        LocalDataModel localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
 
         Button withdrawNow = view.findViewById(R.id.withdraw_now_button);
@@ -79,35 +73,18 @@ public class WithdrawBalanceFragment extends Fragment {
 
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
-        withdrawNow.setOnClickListener(v -> {
+        withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new WithdrawSuccessfulFragment()).commit());
 
-            WithdrawSuccessfulFragment withdrawSuccessfulFragment = new WithdrawSuccessfulFragment();
-            withdrawSuccessfulFragment.HighLightHomeIcon(new WithdrawSuccessfulFragment.homeIconHighlight() {
-                @Override
-                public void highlightHomeIcon() {
-                    listener.highlightHomeIconTwo();
-                }
+        linkPaytm.setOnClickListener(v -> {
+            LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
+            bottomSheet.ShowGreenTickPaytmTwo(() -> {
+                greenTickAndArrowPaytm.setVisibility(View.VISIBLE);
+                linkPaytm.setVisibility(View.GONE);
+                greenTickBank.setVisibility(View.GONE);
+                greenTickUpi.setVisibility(View.GONE);
             });
-
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    withdrawSuccessfulFragment).commit();
-        });
-
-        linkPaytm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
-                bottomSheet.ShowGreenTickPaytmTwo(new LinkPaytm_Bottomsheet.greenTickPaytmTwo() {
-                    @Override
-                    public void showGreenTickPaytmTwo() {
-                        greenTickAndArrowPaytm.setVisibility(View.VISIBLE);
-                        linkPaytm.setVisibility(View.GONE);
-                        greenTickBank.setVisibility(View.GONE);
-                        greenTickUpi.setVisibility(View.GONE);
-                    }
-                });
-                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytm");
-            }
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytm");
         });
 
         linkUPI.setOnClickListener(v -> {
@@ -157,15 +134,6 @@ public class WithdrawBalanceFragment extends Fragment {
 
 
     }
-
-    public interface homeIconHighlightTwo{
-        void highlightHomeIconTwo();
-    }
-
-    public void HighLightHomeIconTwo(homeIconHighlightTwo listener){
-        this.listener = listener;
-    }
-
 
 
     @Override

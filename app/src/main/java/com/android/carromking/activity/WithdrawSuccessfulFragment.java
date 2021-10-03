@@ -1,13 +1,11 @@
 package com.android.carromking.activity;
 
-import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
+
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.Fragment;
 
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,6 @@ import com.android.carromking.R;
 
 public class WithdrawSuccessfulFragment extends Fragment {
 
-    private homeIconHighlight listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,19 +25,8 @@ public class WithdrawSuccessfulFragment extends Fragment {
         Button keepPlaying = v.findViewById(R.id.keepPlaying);
         keepPlaying.setOnClickListener(v1 -> {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new HomeFragment()).commit();
-            listener.highlightHomeIcon();
+                    new WalletFragment()).commit();
         });
         return v;
     }
-
-    public interface homeIconHighlight{
-        void highlightHomeIcon();
-    }
-
-    public void HighLightHomeIcon(homeIconHighlight listener){
-        this.listener = listener;
-    }
-
-
 }

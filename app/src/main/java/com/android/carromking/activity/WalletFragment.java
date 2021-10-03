@@ -3,7 +3,6 @@ package com.android.carromking.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.android.carromking.ApiService;
@@ -25,7 +23,6 @@ import com.android.carromking.models.wallet.WalletResponseDataModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
 import com.google.gson.Gson;
 
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,8 +39,6 @@ public class WalletFragment extends Fragment {
     CustomProgressBar progressBar;
 
     String TAG;
-
-    private homeIconHighlightThree listener;
 
     @Nullable
     @Override
@@ -62,17 +57,8 @@ public class WalletFragment extends Fragment {
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "AddMoney");
         });
 
-        withdraw.setOnClickListener(v13 -> {
-            WithdrawBalanceFragment withdrawBalanceFragment = new WithdrawBalanceFragment();
-            withdrawBalanceFragment.HighLightHomeIconTwo(new WithdrawBalanceFragment.homeIconHighlightTwo() {
-                @Override
-                public void highlightHomeIconTwo() {
-                    listener.highlightHomeIconThree();
-                }
-            });
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                withdrawBalanceFragment).addToBackStack(null).commit();
-        });
+        withdraw.setOnClickListener(v13 -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new WithdrawBalanceFragment()).addToBackStack(null).commit());
 
         seeAllTransactions.setOnClickListener(v1 ->
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HistoryFragment()).addToBackStack(null).commit());
@@ -126,24 +112,13 @@ public class WalletFragment extends Fragment {
         sp.edit().putString("local", new Gson().toJson(localDataModel)).apply();
     }
 
-    public interface homeIconHighlightThree{
-        void highlightHomeIconThree();
-    }
-
-    public void HighLightHomeIconThree(homeIconHighlightThree listener){
-        this.listener = listener;
-    }
-
     private void getWalletData() {
         progressBar.show();
             ApiService apiService = new ApiService();
             MyApiEndpointInterface apiEndpointInterface = apiService.
                     getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
 
-//        if(!apiService.internetIsConnected()) {
-//            progressBar.hide();
-//            Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show();
-//        } else {
+
             apiEndpointInterface.getWalletData()
                     .enqueue(new Callback<WalletResponseModel>() {
                         @Override
@@ -181,7 +156,6 @@ public class WalletFragment extends Fragment {
                             progressBar.dismiss();
                         }
                     });
-//        }
     }
 
 }
