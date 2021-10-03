@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etUpiId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -65,14 +65,13 @@
         android:text="@string/securly_vpa"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etUpiId" />
 
     <Button
         android:id="@+id/verifyAndProceedUpi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="38dp"
         android:background="@drawable/custom_button"
         android:fontFamily="@font/roboto_medium_500"

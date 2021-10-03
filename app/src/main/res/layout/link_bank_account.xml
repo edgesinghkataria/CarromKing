@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/etAccountNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/etConfirmAccNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -56,10 +56,10 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+        app:layout_constraintTop_toBottomOf="@+id/etAccountNum" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/etIFSC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -71,10 +71,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
+        app:layout_constraintTop_toBottomOf="@+id/etConfirmAccNum" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="41dp"
@@ -86,7 +86,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+        app:layout_constraintTop_toBottomOf="@+id/etIFSC" />
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -103,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <Button
         android:id="@+id/verifyAndProceedBank"

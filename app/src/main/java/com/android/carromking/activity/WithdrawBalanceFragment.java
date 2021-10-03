@@ -115,33 +115,24 @@ public class WithdrawBalanceFragment extends Fragment {
 
         linkUPI.setOnClickListener(v -> {
             EnterUPI_Bottomsheet bottomSheet = new EnterUPI_Bottomsheet();
-            bottomSheet.ShowGreenTickUpi(new EnterUPI_Bottomsheet.greenTickUpi() {
-                @Override
-                public void showGreenTickUpi() {
-                    greenTickUpi.setVisibility(View.VISIBLE);
-                    greenTickBank.setVisibility(View.GONE);
-                    greenTickAndArrowPaytm.setVisibility(View.GONE);
-                    linkPaytm.setVisibility(View.VISIBLE);
-                }
+            bottomSheet.ShowGreenTickUpi(() -> {
+                greenTickUpi.setVisibility(View.VISIBLE);
+                greenTickBank.setVisibility(View.GONE);
+                greenTickAndArrowPaytm.setVisibility(View.GONE);
+                linkPaytm.setVisibility(View.VISIBLE);
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkUPI");
         });
 
-        linkBank.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LinkBank_Bottomsheet bottomSheet = new LinkBank_Bottomsheet();
-                bottomSheet.ShowGreenTickBank(new LinkBank_Bottomsheet.greenTickBank() {
-                    @Override
-                    public void showGreenTickBank() {
-                        greenTickBank.setVisibility(View.VISIBLE);
-                        greenTickUpi.setVisibility(View.GONE);
-                        linkPaytm.setVisibility(View.VISIBLE);
-                        greenTickAndArrowPaytm.setVisibility(View.GONE);
-                    }
-                });
-                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkBank");
-            }
+        linkBank.setOnClickListener(v -> {
+            LinkBank_Bottomsheet bottomSheet = new LinkBank_Bottomsheet();
+            bottomSheet.ShowGreenTickBank(() -> {
+                greenTickBank.setVisibility(View.VISIBLE);
+                greenTickUpi.setVisibility(View.GONE);
+                linkPaytm.setVisibility(View.VISIBLE);
+                greenTickAndArrowPaytm.setVisibility(View.GONE);
+            });
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkBank");
         });
 
         Selection.setSelection(etAmountWithdraw.getText(), etAmountWithdraw.getText().length());
