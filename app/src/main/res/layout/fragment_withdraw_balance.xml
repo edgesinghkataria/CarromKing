@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
         android:fontFamily="@font/roboto_regular_400">
@@ -26,7 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="2dp"
                 android:text="@string/withdraw_balance_amount"
                 android:textColor="#2B2B2B"
                 android:textSize="18sp"
@@ -55,15 +55,15 @@
                 android:text="@string/below_withdrawable_text"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="8sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/withdraw_balance_white_bg"
             android:layout_width="match_parent"
-            android:layout_height="321dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/withdraw_balance_white_bg"
             android:elevation="4dp"
             android:gravity="center_horizontal"
@@ -77,35 +77,36 @@
                 android:layout_marginTop="35dp"
                 android:text="@string/amount_to_withdraw"
                 android:textColor="@color/black"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
 
             <EditText
+                android:labelFor="@id/amount_to_withdraw_text"
                 android:id="@+id/amount_to_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:paddingLeft="2dp"
-                android:text="@string/withdraw_balance_amount"
-                android:textColor="#2B2B2B"
-                android:ems="10"
                 android:backgroundTint="@color/light_grey"
-                android:textAlignment="center"
-                android:textSize="18sp"
+                android:ems="10"
                 android:inputType="number"
-                android:textStyle="bold" />
-
+                android:text="@string/withdraw_balance_amount"
+                android:textAlignment="center"
+                android:textColor="#2B2B2B"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:autofillHints=""
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/funds_will_be_transferred_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="22dp"
                 android:text="@string/funds_will_be_transferred_text"
                 android:textColor="@color/black"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -119,16 +120,17 @@
                     android:id="@+id/paytm_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/withdraw_paytm" />
+                    android:background="@drawable/withdraw_paytm"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/paytm_wallet_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:text="@string/paytm_wallet_text"
                     android:textColor="@color/black"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -136,10 +138,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:text="@string/link_account"
                     android:textColor="#1D9FFF"
-                    android:textSize="10sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -147,7 +149,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="start"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -155,15 +157,17 @@
                         android:id="@+id/greenTickPaytm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:background="@drawable/green_tick_withdraw" />
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/green_tick_withdraw"
+                        android:contentDescription="@string/todo" />
 
                     <ImageView
                         android:id="@+id/arrow_paytm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/withdraw_arrow" />
+                        android:background="@drawable/withdraw_arrow"
+                        android:contentDescription="@string/todo" />
                 </LinearLayout>
 
 
@@ -174,10 +178,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/withdraw_long_line" />
+                android:background="@drawable/withdraw_long_line"
+                android:contentDescription="@string/todo" />
 
 
             <LinearLayout
+                android:id="@+id/arrow_upi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -188,12 +194,13 @@
                     android:id="@+id/upi_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/withdraw_upi_icon" />
+                    android:background="@drawable/withdraw_upi_icon"
+                    android:contentDescription="@string/todo" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -202,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/receive_in_upi"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -213,7 +220,7 @@
                         android:alpha="0.4"
                         android:text="@string/registered_upi_id"
                         android:textColor="@color/black"
-                        android:textSize="8sp" />
+                        android:textSize="11sp" />
 
                 </LinearLayout>
 
@@ -221,23 +228,24 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/greenTickUpi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/green_tick_withdraw"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:contentDescription="@string/todo" />
 
                     <ImageView
-                        android:id="@+id/arrow_upi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/withdraw_arrow" />
+                        android:background="@drawable/withdraw_arrow"
+                        android:contentDescription="@string/todo" />
                 </LinearLayout>
 
 
@@ -249,9 +257,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/withdraw_long_line" />
+                android:background="@drawable/withdraw_long_line"
+                android:contentDescription="@string/todo" />
 
             <LinearLayout
+                android:id="@+id/arrow_bank_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -262,39 +272,41 @@
                     android:id="@+id/bank_transfer_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/withdraw_bank_transfer_icon" />
+                    android:background="@drawable/withdraw_bank_transfer_icon"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/bank_transfer_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:text="@string/bank_transfer_text"
                     android:textColor="@color/black"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/greenTickBankTransfer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginEnd="16dp"
                         android:background="@drawable/green_tick_withdraw"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        android:contentDescription="@string/todo" />
 
                     <ImageView
-                        android:id="@+id/arrow_bank_transfer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/withdraw_arrow" />
+                        android:background="@drawable/withdraw_arrow"
+                        android:contentDescription="@string/todo" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -304,12 +316,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -321,7 +334,7 @@
                     android:text="@string/daily_withdrawal_limit_text"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="9sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -337,7 +350,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -349,7 +362,7 @@
                     android:text="@string/min_withdrawable_amount_text"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="9sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -365,7 +378,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -377,7 +390,7 @@
                     android:text="@string/withdrawal_commission_text"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="9sp"
+                    android:textSize="11sp"
                     android:textStyle="bold" />
 
                 <TextView

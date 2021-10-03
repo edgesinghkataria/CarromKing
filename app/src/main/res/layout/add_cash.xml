@@ -90,63 +90,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
+
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto_regular_400"
         android:text="@string/enter_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <EditText
+        android:id="@+id/editTextNumber4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginEnd="62dp"
-        android:background="@drawable/border"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/boundary"
+        android:ems="10"
+        android:hint="500"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="#2B2B2B"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23">
-
-        <TextView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/rupee"
-            android:textAlignment="textEnd"
-            android:textColor="@color/black"
-
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/editTextNumber4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:hint="500"
-            android:inputType="number"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <Button
         android:id="@+id/button8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="100dp"
         android:background="@drawable/custom_button"
         android:text="@string/continuee"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

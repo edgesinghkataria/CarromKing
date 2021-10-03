@@ -12,13 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.Html;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +46,7 @@ public class WithdrawBalanceFragment extends Fragment {
         return v;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,16 +69,15 @@ public class WithdrawBalanceFragment extends Fragment {
 
         Button withdrawNow = view.findViewById(R.id.withdraw_now_button);
         TextView linkPaytm = view.findViewById(R.id.link_account_paytm);
-        ImageView linkUPI = view.findViewById(R.id.arrow_upi);
-        ImageView linkBank = view.findViewById(R.id.arrow_bank_transfer);
+        LinearLayout linkUPI = view.findViewById(R.id.arrow_upi);
+        LinearLayout linkBank = view.findViewById(R.id.arrow_bank_transfer);
         LinearLayout greenTickAndArrowPaytm = view.findViewById(R.id.greenTickAndArrowPaytm);
         ImageView greenTickUpi = view.findViewById(R.id.greenTickUpi);
         ImageView greenTickBank = view.findViewById(R.id.greenTickBankTransfer);
         TextView withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
-        TextView amountToWithdraw = view.findViewById(R.id.amount_to_withdraw);
+        EditText etAmountWithdraw = view.findViewById(R.id.amount_to_withdraw);
 
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
-        amountToWithdraw.setText("₹ "+ localDataModel.getWinningBalance());
 
         withdrawNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,21 +113,18 @@ public class WithdrawBalanceFragment extends Fragment {
             }
         });
 
-        linkUPI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EnterUPI_Bottomsheet bottomSheet = new EnterUPI_Bottomsheet();
-                bottomSheet.ShowGreenTickUpi(new EnterUPI_Bottomsheet.greenTickUpi() {
-                    @Override
-                    public void showGreenTickUpi() {
-                        greenTickUpi.setVisibility(View.VISIBLE);
-                        greenTickBank.setVisibility(View.GONE);
-                        greenTickAndArrowPaytm.setVisibility(View.GONE);
-                        linkPaytm.setVisibility(View.VISIBLE);
-                    }
-                });
-                bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkUPI");
-            }
+        linkUPI.setOnClickListener(v -> {
+            EnterUPI_Bottomsheet bottomSheet = new EnterUPI_Bottomsheet();
+            bottomSheet.ShowGreenTickUpi(new EnterUPI_Bottomsheet.greenTickUpi() {
+                @Override
+                public void showGreenTickUpi() {
+                    greenTickUpi.setVisibility(View.VISIBLE);
+                    greenTickBank.setVisibility(View.GONE);
+                    greenTickAndArrowPaytm.setVisibility(View.GONE);
+                    linkPaytm.setVisibility(View.VISIBLE);
+                }
+            });
+            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkUPI");
         });
 
         linkBank.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +141,29 @@ public class WithdrawBalanceFragment extends Fragment {
                     }
                 });
                 bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkBank");
+            }
+        });
+
+        Selection.setSelection(etAmountWithdraw.getText(), etAmountWithdraw.getText().length());
+
+        etAmountWithdraw.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().startsWith(view.getContext().getString(R.string.rupee))){
+                    etAmountWithdraw.setText(view.getContext().getString(R.string.rupee));
+                    Selection.setSelection(etAmountWithdraw.getText(), etAmountWithdraw.getText().length());
+
+                }
             }
         });
 
