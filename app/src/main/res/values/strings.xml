@@ -58,11 +58,11 @@
     <string name="receive_in_upi">Receive in UPI</string>
     <string name="registered_upi_id">You  need to have a registered UPI ID.</string>
     <string name="bank_transfer_text">Receive in your bank account</string>
-    <string name="daily_withdrawal_limit_text">Daily <br/>Withdrawal Limit</string>
+    <string name="daily_withdrawal_limit_text">Daily <br />Withdrawal Limit</string>
     <string name="daily_withdrawal_limit">₹ 5000</string>
-    <string name="min_withdrawable_amount_text">Minimum withdrawable <br/>Amount</string>
+    <string name="min_withdrawable_amount_text">Minimum withdrawable <br />Amount</string>
     <string name="min_withdrawal_amount_value">₹ 0</string>
-    <string name="withdrawal_commission_text">Withdrawal <br/>Commission</string>
+    <string name="withdrawal_commission_text">Withdrawal <br />Commission</string>
     <string name="withdrawal_commission_value">5%</string>
     <string name="withdraw_now">Withdraw Now</string>
 
@@ -82,7 +82,7 @@
     <string name="bank_link_declaration">I hereby declare that the information provided by me is correct.</string>
 
     <string name="withdrawal_successful">Withdrawal Request Successful!</string>
-    <string name="credited_24_hours">The amount will be credited to your preferred <br/>mode in next 24 hrs.</string>
+    <string name="credited_24_hours">The amount will be credited to your preferred <br />mode in next 24 hrs.</string>
     <string name="keep_playing">Keep Playing</string>
     <string name="total_balance">Total Balance</string>
     <string name="unplayed">Unplayed</string>
@@ -108,6 +108,8 @@
     <string name="change_mobile_num">Change Mobile Number?</string>
     <string name="_00_15">00 : 15</string>
     <string name="_0_00">0.00</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
