@@ -1,149 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="160dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo1"
+        app:layout_constraintDimensionRatio="1.385"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <LinearLayout
+        android:id="@+id/llWallet"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/rectangle"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:contentDescription="@string/todo"
-            android:src="@drawable/ellipseb"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/wallet_icon" />
 
         <TextView
-            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/roboto_medium_500"
-            android:text="@string/carrom"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/rupee"
+            android:textColor="#1D9FFF"
+            android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/llWallet"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/rectangle"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/home_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/_0_00"
+            android:textColor="#1D9FFF"
+            android:textSize="20sp" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/wallet_icon" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="2dp"
-                android:text="@string/rupee"
-                android:textColor="#1D9FFF"
-                android:textSize="20sp" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:id="@+id/tabular_nav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="0dp">
 
-            <TextView
-                android:id="@+id/home_wallet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/_0_00"
-                android:textColor="#1D9FFF"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tabular_nav"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            style="@style/CategoryTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
+            android:layout_gravity="center_horizontal"
             android:background="#afddf5"
-            android:orientation="horizontal"
-            android:paddingHorizontal="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:tabGravity="center"
+            app:tabMode="scrollable" />
 
-            <TextView
-                android:id="@+id/home_beginner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_regular_400"
-                android:gravity="center"
-                android:paddingVertical="12dp"
-                android:text="@string/beginner"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/home_silver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_regular_400"
-                android:gravity="center"
-                android:paddingVertical="12dp"
-                android:text="@string/silver_league_home"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/home_gold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_regular_400"
-                android:gravity="center"
-                android:paddingVertical="12dp"
-                android:text="@string/gold_league_home"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/home_diamond"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_regular_400"
-                android:gravity="center"
-                android:paddingVertical="12dp"
-                android:text="@string/diamond_league_home"
-                android:textAllCaps="false"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_RecyclerView"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@+id/tabular_nav"
-            tools:listitem="@layout/home_lobby_recycler_item" />
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
