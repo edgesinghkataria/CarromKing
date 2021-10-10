@@ -67,9 +67,11 @@
         <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/fragment_league.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/fragment_profile.xml" value="0.536" />
         <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/fragment_wallet.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/home_lobby_recycler_item.xml" value="0.536" />
+        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/home_lobby_recycler_item.xml" value="0.264" />
         <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/link_bank_account.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/wallet_history.xml" value="0.20878623188405798" />
+        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/transaction_recycler_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/wallet_cardview_successful.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/layout/wallet_history.xml" value="0.1" />
         <entry key="..\:/Users/Siddharth/StudioProjects/CarromKing/app/src/main/res/menu/bottom_navigation.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/circle.xml" value="0.15208333333333332" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/CarromKing/app/src/main/res/drawable/corner_radius_linear_layout.xml" value="0.19583333333333333" />
