@@ -9,8 +9,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_text">#393A59</color>
+    <color name="yellow">#FF9933</color>
+    <color name="green">#4BB543</color>
     <color name="secondary_text">#717284</color>
     <color name="light_grey">#E3E3E3</color>
     <color name="blue">#1D9FFF</color>
     <color name="button_grey">#B6B6B6</color>
+    <color name="red">@android:color/holo_red_dark</color>
 </resources>

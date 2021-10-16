@@ -1,5 +1,7 @@
 package com.android.carromking.models.home;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -125,5 +127,22 @@ public class LobbyModel {
 
     public void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
+    }
+
+    @Override
+    public String toString() {
+        return "LobbyModel{" +
+                "id=" + id +
+                ", gameId=" + gameId +
+                ", entryFee=" + entryFee +
+                ", rakePercent=" + rakePercent +
+                ", level='" + level + '\'' +
+                ", maxPlayers=" + maxPlayers +
+                ", expiresAt='" + expiresAt + '\'' +
+                ", status=" + status +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", isLocked=" + isLocked +
+                '}';
     }
 }

@@ -5,6 +5,7 @@ import com.android.carromking.models.otp.SendOTPResponseModel;
 import com.android.carromking.models.otp.VerifyOTPBodyModel;
 import com.android.carromking.models.otp.VerifyOTPResponseModel;
 import com.android.carromking.models.profile.ProfileResponseModel;
+import com.android.carromking.models.wallet.TransactionResponseModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
 
 import retrofit2.Call;
@@ -30,5 +31,8 @@ public interface MyApiEndpointInterface {
 
     @GET("user/wallet")
     Call<WalletResponseModel> getWalletData();
+
+    @GET("user/transaction")
+    Call<TransactionResponseModel> getTransactionData();
 
 }

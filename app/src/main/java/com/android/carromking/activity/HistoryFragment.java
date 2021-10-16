@@ -1,28 +1,73 @@
 package com.android.carromking.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.carromking.ApiService;
+import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
+import com.android.carromking.models.wallet.TransactionResponseDataModel;
+import com.android.carromking.models.wallet.TransactionResponseModel;
+import com.android.carromking.models.wallet.WalletResponseModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class HistoryFragment extends Fragment {
+
+    SharedPreferences sp;
+    RecyclerView recyclerView;
+    Transaction_List_Adapter adapter;
+    ArrayList<TransactionResponseDataModel> transactions;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Bundle args = getArguments();
+        if(args != null) {
+            transactions = args.getParcelableArrayList("transactions");
+            Log.d("TAGG", String.valueOf(transactions.size()));
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.wallet_history, container, false);
+        View v = inflater.inflate(R.layout.wallet_history, container, false);
+        sp = v.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+        recyclerView = v.findViewById(R.id.trans_RecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new Transaction_List_Adapter();
+        adapter.setTasks(transactions);
+        recyclerView.setAdapter(adapter);
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d("flow is here", "hello im here");
     }
 
     @Override
