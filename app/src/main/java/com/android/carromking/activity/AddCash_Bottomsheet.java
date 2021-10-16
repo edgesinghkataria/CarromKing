@@ -202,7 +202,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
                             if (response.body().isStatus()) {
                                 PaytmResponseDataModel dataModel = response.body().getData();
                                 if (dataModel != null) {
-                                    startPayment(String.valueOf(amount), dataModel.getTxnToken());
+                                    startPayment(amount.getAmount(), dataModel.getTxnToken(), dataModel.getOrderId(), dataModel.getCallbackUrl());
                                 }
                             }
                         }
@@ -223,38 +223,37 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         }
     }
 
-    private void startPayment(String amount, String txnToken) {
-        String orderId = UUID.randomUUID().toString();
-        PaytmOrder paytmOrder = new PaytmOrder(orderId, "iFsjSJ18864517452615", txnToken, amount, "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID="+orderId);
+    private void startPayment(String amount, String txnToken, String orderId, String callbackUrl) {
+        PaytmOrder paytmOrder = new PaytmOrder(orderId, "iFsjSJ18864517452615", txnToken, amount, callbackUrl);
         TransactionManager transactionManager = new TransactionManager(paytmOrder, new PaytmPaymentTransactionCallback() {
             @Override
             public void onTransactionResponse(@Nullable Bundle bundle) {
-                Toast.makeText(requireContext(), bundle != null ? bundle.toString() : null, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onTransactionResponse: "+ (bundle != null ? bundle.toString() : null));
             }
 
             @Override
             public void networkNotAvailable() {
-                Toast.makeText(requireContext(), "Network Not Available", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "networkNotAvailable: network error");
             }
 
             @Override
             public void onErrorProceed(String s) {
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onErrorProceed: "+s);
             }
 
             @Override
             public void clientAuthenticationFailed(String s) {
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "clientAuthenticationFailed: "+s);
             }
 
             @Override
             public void someUIErrorOccurred(String s) {
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "someUIErrorOccurred: "+s);
             }
 
             @Override
             public void onErrorLoadingWebPage(int i, String s, String s1) {
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onErrorLoadingWebPage: "+s+" -- "+s1);
             }
 
             @Override
@@ -263,7 +262,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
 
             @Override
             public void onTransactionCancel(String s, Bundle bundle) {
-                Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onTransactionCancel: "+s);
             }
         });
         transactionManager.startTransaction(requireActivity(), 111);

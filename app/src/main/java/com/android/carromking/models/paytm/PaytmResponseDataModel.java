@@ -16,6 +16,28 @@ public class PaytmResponseDataModel {
     @SerializedName("authenticated")
     @Expose
     private boolean authenticated;
+    @SerializedName("orderId")
+    @Expose
+    private String orderId;
+    @SerializedName("callbackUrl")
+    @Expose
+    private String callbackUrl;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCallbackUrl() {
+        return callbackUrl;
+    }
+
+    public void setCallbackUrl(String callbackUrl) {
+        this.callbackUrl = callbackUrl;
+    }
 
     public PaytmResultBodyModel getPaytmResultData() {
         return paytmResultData;
