@@ -1,5 +1,7 @@
 package com.android.carromking.models.home;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -72,5 +74,18 @@ public class HomeResponseDataModel {
 
     public void setLobbies(List<LobbyModel> lobbies) {
         this.lobbies = lobbies;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "HomeResponseDataModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", lobbies=" + lobbies +
+                '}';
     }
 }

@@ -2,7 +2,6 @@ package com.android.carromking.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.carromking.ApiService;
 import com.android.carromking.CustomProgressBar;
@@ -23,13 +22,12 @@ import com.android.carromking.MyApiEndpointInterface;
 import com.android.carromking.R;
 import com.android.carromking.models.home.HomeResponseDataModel;
 import com.android.carromking.models.home.HomeResponseModel;
-import com.android.carromking.models.home.LobbyModel;
+import com.android.carromking.models.local.LeagueList;
 import com.android.carromking.models.local.LocalDataModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,13 +35,9 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-
     SharedPreferences sp;
     HomeResponseDataModel dataModel;
-    home_list_adapter adapter;
-    RecyclerView HomeRecyclerView;
-    TextView beginner, silver, gold, diamond, homeWallet;
-    List<LobbyModel> lobbyList, beginnerList, silverList, goldList, diamondList;
+    TextView homeWallet;
     LocalDataModel localDataModel;
 
     LinearLayout llWallet;
@@ -52,6 +46,10 @@ public class HomeFragment extends Fragment {
     final Gson gson = new Gson();
 
     final BottomNavigationView bottomNav;
+
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    String[] tab_array = {"Beginner", "Silver", "Gold", "Diamond"};
 
     HomeFragment(BottomNavigationView bottomNav) {
         this.bottomNav = bottomNav;
@@ -63,60 +61,35 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
 
         homeWallet = v.findViewById(R.id.home_wallet);
-        beginner = v.findViewById(R.id.home_beginner);
-        silver = v.findViewById(R.id.home_silver);
-        gold = v.findViewById(R.id.home_gold);
-        diamond = v.findViewById(R.id.home_diamond);
         llWallet = v.findViewById(R.id.llWallet);
+        ViewPager2 viewPager = v.findViewById(R.id.viewPager);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
+        viewPager.setAdapter(categoryAdapter);
+        TabLayout tabLayout = v.findViewById(R.id.tabs);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position)-> tab.setText(tab_array[position])).attach();
 
         progressBar = new CustomProgressBar(getActivity());
 
-        HomeRecyclerView = v.findViewById(R.id.home_RecyclerView);
-        HomeRecyclerView.setHasFixedSize(true);
-        HomeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new home_list_adapter();
+        swipeRefreshLayout = v.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getHomeData();
+            swipeRefreshLayout.setRefreshing(false);
+        });
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                swipeRefreshLayout.setEnabled(state == ViewPager2.SCROLL_STATE_IDLE);
+            }
+        });
+
 
 
         llWallet.setOnClickListener(view -> {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new WalletFragment()).commit();
             bottomNav.setSelectedItemId(R.id.nav_wallet);
-        });
-
-        beginner.setOnClickListener(v14 -> {
-            beginner.setTypeface(null, Typeface.BOLD);
-            silver.setTypeface(null, Typeface.NORMAL);
-            gold.setTypeface(null, Typeface.NORMAL);
-            diamond.setTypeface(null, Typeface.NORMAL);
-            adapter.setTasks(beginnerList);
-            HomeRecyclerView.setAdapter(adapter);
-        });
-
-        silver.setOnClickListener(v13 -> {
-            silver.setTypeface(null, Typeface.BOLD);
-            beginner.setTypeface(null, Typeface.NORMAL);
-            gold.setTypeface(null, Typeface.NORMAL);
-            diamond.setTypeface(null, Typeface.NORMAL);
-            adapter.setTasks(silverList);
-            HomeRecyclerView.setAdapter(adapter);
-        });
-
-        gold.setOnClickListener(v12 -> {
-            gold.setTypeface(null, Typeface.BOLD);
-            silver.setTypeface(null, Typeface.NORMAL);
-            beginner.setTypeface(null, Typeface.NORMAL);
-            diamond.setTypeface(null, Typeface.NORMAL);
-            adapter.setTasks(goldList);
-            HomeRecyclerView.setAdapter(adapter);
-        });
-
-        diamond.setOnClickListener(v1 -> {
-            diamond.setTypeface(null, Typeface.BOLD);
-            silver.setTypeface(null, Typeface.NORMAL);
-            gold.setTypeface(null, Typeface.NORMAL);
-            beginner.setTypeface(null, Typeface.NORMAL);
-            adapter.setTasks(diamondList);
-            HomeRecyclerView.setAdapter(adapter);
         });
 
         sp = v.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
@@ -137,21 +110,6 @@ public class HomeFragment extends Fragment {
         String bonusBalance = localDataModel.getBonusBalance();
 
         homeWallet.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
-
-        switch (localDataModel.getLevel()) {
-            case "beginner":
-                beginner.setTypeface(null, Typeface.BOLD);
-                break;
-            case "silver":
-                silver.setTypeface(null, Typeface.BOLD);
-                break;
-            case "gold":
-                gold.setTypeface(null, Typeface.BOLD);
-                break;
-            case "diamond":
-                diamond.setTypeface(null, Typeface.BOLD);
-                break;
-        }
 
         return v;
 
@@ -185,44 +143,7 @@ public class HomeFragment extends Fragment {
                                 if (response.body().isStatus()) {
                                     dataModel = response.body().getData().get(0);
                                     if (dataModel != null) {
-                                        beginnerList = new ArrayList<>();
-                                        silverList = new ArrayList<>();
-                                        goldList = new ArrayList<>();
-                                        diamondList = new ArrayList<>();
-                                        lobbyList = dataModel.getLobbies();
-
-                                        for (LobbyModel lobby : lobbyList) {
-                                            switch (lobby.getLevel()) {
-                                                case "beginner":
-                                                    beginnerList.add(lobby);
-                                                    break;
-                                                case "silver":
-                                                    silverList.add(lobby);
-                                                    break;
-                                                case "gold":
-                                                    goldList.add(lobby);
-                                                    break;
-                                                case "diamond":
-                                                    diamondList.add(lobby);
-                                                    break;
-                                            }
-                                        }
-                                        switch (localDataModel.getLevel()) {
-                                            case "beginner":
-                                                adapter.setTasks(beginnerList);
-                                                break;
-                                            case "silver":
-                                                adapter.setTasks(silverList);
-                                                break;
-                                            case "gold":
-                                                adapter.setTasks(goldList);
-                                                break;
-                                            case "diamond":
-                                                adapter.setTasks(diamondList);
-                                                break;
-                                        }
-                                        //adapter.setTasks(lobbyList);
-                                        HomeRecyclerView.setAdapter(adapter);
+                                        LeagueList.getInstance().setLobbies(dataModel.getLobbies());
                                         progressBar.dismiss();
                                     } else {
                                         progressBar.dismiss();

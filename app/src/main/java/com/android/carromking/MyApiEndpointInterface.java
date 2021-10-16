@@ -7,6 +7,7 @@ import com.android.carromking.models.otp.VerifyOTPResponseModel;
 import com.android.carromking.models.paytm.PaytmRequestInitModel;
 import com.android.carromking.models.paytm.PaytmResponseModel;
 import com.android.carromking.models.profile.ProfileResponseModel;
+import com.android.carromking.models.wallet.TransactionResponseModel;
 import com.android.carromking.models.wallet.WalletResponseModel;
 
 import retrofit2.Call;
@@ -32,6 +33,9 @@ public interface MyApiEndpointInterface {
 
     @GET("user/wallet")
     Call<WalletResponseModel> getWalletData();
+
+    @GET("user/transaction")
+    Call<TransactionResponseModel> getTransactionData();
 
     @POST("user/transaction/deposit/init")
     Call<PaytmResponseModel> initPaytmTxn(@Body PaytmRequestInitModel amount);
