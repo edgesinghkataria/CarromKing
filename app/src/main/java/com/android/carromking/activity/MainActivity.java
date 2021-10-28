@@ -3,6 +3,7 @@ package com.android.carromking.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -47,8 +48,11 @@ public class MainActivity extends AppCompatActivity{
                 selectedFragment = new ProfileFragment();
             }
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    selectedFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.fragment_container, selectedFragment)
+                    .commit();
 
             return true;
         });
