@@ -148,6 +148,8 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="13dp"
             android:background="@drawable/add_money_button_bg"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:gravity="center"
             android:text="@string/plus_add_money"
             android:textAllCaps="false"

@@ -26,6 +26,8 @@
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:background="@drawable/rectangle"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"

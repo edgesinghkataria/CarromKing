@@ -102,6 +102,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/enable_corner_radius_linear_layout"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             android:orientation="horizontal"
             android:padding="9dp"
             app:layout_constraintEnd_toEndOf="parent"
