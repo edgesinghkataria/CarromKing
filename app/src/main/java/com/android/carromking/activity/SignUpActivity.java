@@ -72,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity{
                         if(ccp.isValidFullNumber()) {
                             btnGetOTP.setBackgroundColor(getColor(R.color.blue));
                             btnGetOTP.setClickable(true);
+                            btnGetOTP.performClick();
                         } else {
                             btnGetOTP.setClickable(false);
                             btnGetOTP.setBackgroundColor(getColor(R.color.button_grey));
