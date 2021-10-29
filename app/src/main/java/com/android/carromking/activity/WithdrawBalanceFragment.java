@@ -74,7 +74,7 @@ public class WithdrawBalanceFragment extends Fragment {
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
         withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new WithdrawSuccessfulFragment()).commit());
+                new WithdrawSuccessfulFragment()).addToBackStack(null).commit());
 
         linkPaytm.setOnClickListener(v -> {
             LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
