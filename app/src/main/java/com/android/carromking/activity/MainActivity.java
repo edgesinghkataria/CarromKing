@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity{
 
     BottomNavigationView bottomNav;
+    MenuItem prevItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity{
                     new HomeFragment(bottomNav)).commit();
         }
 
-
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment;
 
@@ -47,12 +47,14 @@ public class MainActivity extends AppCompatActivity{
             } else {
                 selectedFragment = new ProfileFragment();
             }
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .replace(R.id.fragment_container, selectedFragment)
-                    .commit();
+            if (prevItem != item) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+                prevItem = item;
+            }
 
             return true;
         });
