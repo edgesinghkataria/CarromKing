@@ -234,6 +234,7 @@ public class EnterOTPActivity extends AppCompatActivity {
             if(isLast) {
                 btnVerify.setClickable(true);
                 btnVerify.setBackgroundColor(getColor(R.color.blue));
+                btnVerify.performClick();
             } else {
                 btnVerify.setClickable(false);
                 btnVerify.setBackgroundColor(getColor(R.color.button_grey));
@@ -267,6 +268,7 @@ public class EnterOTPActivity extends AppCompatActivity {
 
             if (isAllEditTextsFilled() && isLast) { // isLast is optional
 //                editTexts[currentIndex].clearFocus();
+
                 hideKeyboard();
             }
         }
