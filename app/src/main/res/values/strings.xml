@@ -30,7 +30,7 @@
     <string name="game_wallet">Game Wallet Balance</string>
     <string name="plus_add_money">+ Add Money</string>
     <string name="phone_num">+91 8922345111</string>
-    <string name="TAG">com.android.carromking</string>
+    <string name="TAG">com.entwik.carromcash</string>
     <string name="withdraw_balance_amount">₹ 10.00</string>
     <string name="link_paytm_wallet">Link Paytm wallet</string>
     <string name="link_paytm_wallet_associated">Link Paytm wallet associated with this \nnumber:</string>
