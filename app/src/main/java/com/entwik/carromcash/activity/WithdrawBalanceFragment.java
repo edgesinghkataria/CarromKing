@@ -24,8 +24,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.local.LocalDataModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
 public class WithdrawBalanceFragment extends Fragment {
@@ -44,6 +46,12 @@ public class WithdrawBalanceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, this.getClass().getSimpleName());
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
+        MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
         TAG = getString(R.string.TAG);
         sp = view.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 

@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.entwik.carromcash.ApiService;
 import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
+import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.common.UserDataModel;
 import com.entwik.carromcash.models.common.UserWalletDataModel;
@@ -27,6 +28,7 @@ import com.entwik.carromcash.models.local.LocalDataModel;
 import com.entwik.carromcash.models.profile.LeagueModel;
 import com.entwik.carromcash.models.profile.ProfileResponseDataModel;
 import com.entwik.carromcash.models.profile.ProfileResponseModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -58,6 +60,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, this.getClass().getSimpleName());
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
+        MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
 
         progressBar = new CustomProgressBar(getActivity());
 
