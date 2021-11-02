@@ -5,14 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.entwik.carromcash.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -23,6 +31,23 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("FirebaseNotifications", "FirebaseNotifications", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("general")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Successful";
+                        if (!task.isSuccessful()) {
+                            msg = "failed";
+                        }
+                    }
+                });
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FFFFFF"));
         assert getSupportActionBar() != null;
