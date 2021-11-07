@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.entwik.carromcash.models.wallet.TransactionResponseDataModel;
 import com.entwik.carromcash.models.wallet.TransactionResponseModel;
 import com.entwik.carromcash.models.wallet.WalletResponseDataModel;
 import com.entwik.carromcash.models.wallet.WalletResponseModel;
+import com.entwik.carromcash.utils.InfoDialogType;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
@@ -45,6 +47,7 @@ public class WalletFragment extends Fragment {
     WalletResponseDataModel dataModel;
     RecyclerView recyclerView;
     TextView unPlayedAmount, winningAmount, cashBonus, totalBalance;
+    ImageView iUnplayed, iWinning, iCashBonus;
     private LocalDataModel localDataModel;
     final Gson gson = new Gson();
 
@@ -118,6 +121,9 @@ public class WalletFragment extends Fragment {
         winningAmount = v.findViewById(R.id.winning_amount);
         cashBonus = v.findViewById(R.id.cash_bonus);
         totalBalance = v.findViewById(R.id.wallet_balance);
+        iUnplayed = v.findViewById(R.id.info_unplayed);
+        iWinning = v.findViewById(R.id.info_winning);
+        iCashBonus = v.findViewById(R.id.info_cash_bonus);
 
         String unPlayedBalance = localDataModel.getDepositBalance();
         String winningBalance = localDataModel.getWinningBalance();
@@ -127,6 +133,28 @@ public class WalletFragment extends Fragment {
         winningAmount.setText(winningBalance);
         cashBonus.setText(bonusBalance);
         totalBalance.setText(String.valueOf(Integer.parseInt(unPlayedBalance) + Integer.parseInt(winningBalance) + Integer.parseInt(bonusBalance)));
+
+        iUnplayed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoDialog dialog = new InfoDialog(InfoDialogType.UNPLAYED);
+                dialog.show(requireActivity().getSupportFragmentManager(), "info dialog");
+            }
+        });
+        iWinning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoDialog dialog = new InfoDialog(InfoDialogType.WINNING);
+                dialog.show(requireActivity().getSupportFragmentManager(), "info dialog");
+            }
+        });
+        iCashBonus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InfoDialog dialog = new InfoDialog(InfoDialogType.CASH_BONUS);
+                dialog.show(requireActivity().getSupportFragmentManager(), "info dialog");
+            }
+        });
 
         return v;
     }

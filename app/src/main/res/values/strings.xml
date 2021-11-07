@@ -117,5 +117,14 @@
     <string name="deposit_failed">Deposit Request Failed!</string>
     <string name="retry">Retry</string>
 
+    <!--Info dialog-->
+    <string name="unplayed_title">Unplayed</string>
+    <string name="winning_title">Winning</string>
+    <string name="cash_bonus_title">Cash Bonus</string>
+    <string name="unplayed_msg">Money that you will deposit and can be used to join contest but you can’t withdraw</string>
+    <string name="winning_msg">This is the money that you can withdraw or re-use to join a contest</string>
+    <string name="cash_bonus_msg">Maximum amount of cash bonus that may be used by a user to participate in any particular contest shall be decided by the company and can vary</string>
+
+
 
 </resources>
