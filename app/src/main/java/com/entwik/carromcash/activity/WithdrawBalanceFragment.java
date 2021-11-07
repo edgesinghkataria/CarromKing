@@ -60,6 +60,7 @@ public class WithdrawBalanceFragment extends Fragment {
                 getString(R.string.mobile_number),
                 "",
                 "silver",
+                false,
                 sp.getString("token", null),
                 "0",
                 "0",
@@ -82,7 +83,7 @@ public class WithdrawBalanceFragment extends Fragment {
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
         withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new WithdrawResultFragment(0)).addToBackStack(null).commit());
+                new ResultFragment(0)).addToBackStack(null).commit());
 
         linkPaytm.setOnClickListener(v -> {
             LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();

@@ -41,6 +41,7 @@ public class LinkPaytm_Bottomsheet extends BottomSheetDialogFragment {
                 getString(R.string.mobile_number),
                 "",
                 "silver",
+                false,
                 sp.getString("token", null),
                 "0",
                 "0",

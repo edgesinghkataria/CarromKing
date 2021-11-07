@@ -8,6 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity{
                         }
                     }
                 });
+
+        SharedPreferences sp = getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
+        boolean isNew = sp.getBoolean("isNew", false);
+        if (isNew) {
+            new BonusDialog().show(getSupportFragmentManager(), "bonus dialog");
+        }
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FFFFFF"));
         assert getSupportActionBar() != null;

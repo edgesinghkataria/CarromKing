@@ -213,6 +213,7 @@ public class EnterOTPActivity extends AppCompatActivity {
                 mobileNumber,
                 userData.getProfilePic(),
                 userData.getLevel(),
+                userData.getIsNew(),
                 userData.getToken(),
                 String.valueOf(walletData.getWinningBalance()),
                 String.valueOf(walletData.getDepositBalance()),

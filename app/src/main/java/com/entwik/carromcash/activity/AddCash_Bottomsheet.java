@@ -32,6 +32,8 @@ import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.paytm.pgsdk.TransactionManager;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -233,8 +235,12 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         PaytmOrder paytmOrder = new PaytmOrder(orderId, "iFsjSJ18864517452615", txnToken, amount, callbackUrl);
         TransactionManager transactionManager = new TransactionManager(paytmOrder, new PaytmPaymentTransactionCallback() {
             @Override
-            public void onTransactionResponse(@Nullable Bundle bundle) {
-                Log.d(TAG, "onTransactionResponse: "+ (bundle != null ? bundle.toString() : null));
+            public void onTransactionResponse(@Nullable Bundle response) {
+                if (Objects.equals(response.getString("STATUS"), "TXN_SUCCESS")) {
+                    //    Payment Success
+                } else if (!response.getBoolean("STATUS")) {
+                    //    Payment Failed
+                }
             }
 
             @Override

@@ -36,6 +36,9 @@ public class UserDataModel {
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
+    @SerializedName("isNew")
+    @Expose
+    private boolean isNew;
     @SerializedName("token")
     @Expose
     private String token;
@@ -118,6 +121,14 @@ public class UserDataModel {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(boolean isNew) {
+        this.isNew = isNew;
     }
 
     public String getToken() {

@@ -78,6 +78,7 @@ public class ProfileFragment extends Fragment {
                 getString(R.string.mobile_number),
                 "",
                 "silver",
+                false,
                 sp.getString("token", null),
                 "0",
                 "0",

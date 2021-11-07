@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.entwik.carromcash.R;
 
 
-public class WithdrawResultFragment extends Fragment {
+public class ResultFragment extends Fragment {
 
     private int mResult;
     private TextView mTvWithdraw;
@@ -24,14 +24,14 @@ public class WithdrawResultFragment extends Fragment {
     private ImageView mWithdrawSuccessful;
     private TextView mCredited;
 
-    WithdrawResultFragment(int mResult) {
+    ResultFragment(int mResult) {
         this.mResult = mResult;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.withdrawal_result, container, false);
+        View v = inflater.inflate(R.layout.fragment_result, container, false);
         mTvWithdraw = v.findViewById(R.id.withdrawal_successful);
         mCTA = v.findViewById(R.id.keepPlaying);
         mWithdrawSuccessful = v.findViewById(R.id.imvWithdrawSuccessful);

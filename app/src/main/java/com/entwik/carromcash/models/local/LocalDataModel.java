@@ -6,6 +6,7 @@ public class LocalDataModel {
     private String mobileNumber;
     private String profilePic;
     private String level;
+    private boolean isNew;
     private String token;
     private String winningBalance;
     private String depositBalance;
@@ -15,6 +16,7 @@ public class LocalDataModel {
                           String mobileNumber,
                           String profilePic,
                           String level,
+                          boolean isNew,
                           String token,
                           String winningBalance,
                           String depositBalance,
@@ -23,6 +25,7 @@ public class LocalDataModel {
         this.mobileNumber = mobileNumber;
         this.profilePic = profilePic;
         this.level = level;
+        this.isNew = isNew;
         this.token = token;
         this.winningBalance = winningBalance;
         this.depositBalance = depositBalance;
@@ -59,6 +62,14 @@ public class LocalDataModel {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 
     public String getToken() {
