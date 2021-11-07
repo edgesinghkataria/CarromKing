@@ -21,11 +21,13 @@ import androidx.annotation.Nullable;
 
 import com.entwik.carromcash.ApiService;
 import com.entwik.carromcash.MyApiEndpointInterface;
+import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.paytm.PaytmRequestInitModel;
 import com.entwik.carromcash.models.paytm.PaytmResponseDataModel;
 import com.entwik.carromcash.models.paytm.PaytmResponseModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.paytm.pgsdk.PaytmOrder;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.paytm.pgsdk.TransactionManager;
@@ -43,6 +45,12 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_cash, container, false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, this.getClass().getSimpleName());
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
+        MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+
         TAG = v.getContext().getString(R.string.TAG);
         sp = v.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
         button10 = v.findViewById(R.id.button4);

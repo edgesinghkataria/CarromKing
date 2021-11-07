@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.entwik.carromcash.ApiService;
 import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
+import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.home.HomeResponseDataModel;
 import com.entwik.carromcash.models.home.HomeResponseModel;
@@ -27,6 +28,7 @@ import com.entwik.carromcash.models.local.LocalDataModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -59,6 +61,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, this.getClass().getSimpleName());
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
+        MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
 
         homeWallet = v.findViewById(R.id.home_wallet);
         llWallet = v.findViewById(R.id.llWallet);

@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.entwik.carromcash.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity{
 

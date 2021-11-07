@@ -21,12 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.entwik.carromcash.ApiService;
 import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
+import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.local.LocalDataModel;
 import com.entwik.carromcash.models.wallet.TransactionResponseDataModel;
 import com.entwik.carromcash.models.wallet.TransactionResponseModel;
 import com.entwik.carromcash.models.wallet.WalletResponseDataModel;
 import com.entwik.carromcash.models.wallet.WalletResponseModel;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
 
@@ -57,6 +59,12 @@ public class WalletFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wallet, container, false);
+
+        Bundle fbBundle = new Bundle();
+        fbBundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, this.getClass().getSimpleName());
+        fbBundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
+        MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, fbBundle);
+
         Button withdraw = v.findViewById(R.id.button_withdraw);
         TextView seeAllTransactions = v.findViewById(R.id.seeAllTransactions);
         Button addMoney = v.findViewById(R.id.button_addMoney);
