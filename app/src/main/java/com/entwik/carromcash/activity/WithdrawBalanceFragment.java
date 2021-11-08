@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.local.LocalDataModel;
+import com.entwik.carromcash.utils.ResultType;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 
@@ -83,7 +84,7 @@ public class WithdrawBalanceFragment extends Fragment {
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
         withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new ResultFragment(0)).addToBackStack(null).commit());
+                new ResultFragment(ResultType.WITHDRAWAL_SUCCESS)).addToBackStack(null).commit());
 
         linkPaytm.setOnClickListener(v -> {
             LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
