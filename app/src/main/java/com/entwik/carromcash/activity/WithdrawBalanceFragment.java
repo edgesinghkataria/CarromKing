@@ -72,10 +72,10 @@ public class WithdrawBalanceFragment extends Fragment {
 
 
         Button withdrawNow = view.findViewById(R.id.withdraw_now_button);
-        TextView linkPaytm = view.findViewById(R.id.link_account_paytm);
+//        TextView linkPaytm = view.findViewById(R.id.link_account_paytm);
         LinearLayout linkUPI = view.findViewById(R.id.arrow_upi);
         LinearLayout linkBank = view.findViewById(R.id.arrow_bank_transfer);
-        LinearLayout greenTickAndArrowPaytm = view.findViewById(R.id.greenTickAndArrowPaytm);
+//        LinearLayout greenTickAndArrowPaytm = view.findViewById(R.id.greenTickAndArrowPaytm);
         ImageView greenTickUpi = view.findViewById(R.id.greenTickUpi);
         ImageView greenTickBank = view.findViewById(R.id.greenTickBankTransfer);
         TextView withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
@@ -86,24 +86,24 @@ public class WithdrawBalanceFragment extends Fragment {
         withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new ResultFragment(ResultType.WITHDRAWAL_SUCCESS)).addToBackStack(null).commit());
 
-        linkPaytm.setOnClickListener(v -> {
-            LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
-            bottomSheet.ShowGreenTickPaytmTwo(() -> {
-                greenTickAndArrowPaytm.setVisibility(View.VISIBLE);
-                linkPaytm.setVisibility(View.GONE);
-                greenTickBank.setVisibility(View.GONE);
-                greenTickUpi.setVisibility(View.GONE);
-            });
-            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytm");
-        });
+//        linkPaytm.setOnClickListener(v -> {
+//            LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();
+//            bottomSheet.ShowGreenTickPaytmTwo(() -> {
+//                greenTickAndArrowPaytm.setVisibility(View.VISIBLE);
+//                linkPaytm.setVisibility(View.GONE);
+//                greenTickBank.setVisibility(View.GONE);
+//                greenTickUpi.setVisibility(View.GONE);
+//            });
+//            bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkPaytm");
+//        });
 
         linkUPI.setOnClickListener(v -> {
             EnterUPI_Bottomsheet bottomSheet = new EnterUPI_Bottomsheet();
             bottomSheet.ShowGreenTickUpi(() -> {
                 greenTickUpi.setVisibility(View.VISIBLE);
                 greenTickBank.setVisibility(View.GONE);
-                greenTickAndArrowPaytm.setVisibility(View.GONE);
-                linkPaytm.setVisibility(View.VISIBLE);
+//                greenTickAndArrowPaytm.setVisibility(View.GONE);
+//                linkPaytm.setVisibility(View.VISIBLE);
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkUPI");
         });
@@ -113,8 +113,8 @@ public class WithdrawBalanceFragment extends Fragment {
             bottomSheet.ShowGreenTickBank(() -> {
                 greenTickBank.setVisibility(View.VISIBLE);
                 greenTickUpi.setVisibility(View.GONE);
-                linkPaytm.setVisibility(View.VISIBLE);
-                greenTickAndArrowPaytm.setVisibility(View.GONE);
+//                linkPaytm.setVisibility(View.VISIBLE);
+//                greenTickAndArrowPaytm.setVisibility(View.GONE);
             });
             bottomSheet.show(requireActivity().getSupportFragmentManager(), "LinkBank");
         });

@@ -40,7 +40,7 @@ public class Transaction_List_Adapter extends RecyclerView.Adapter<Transaction_L
         if(item.getType().equals("debit")) {
             holder.amount.setText("-" + item.getAmount());
         }
-        String status = item.getState();
+        String status = item.getStatus();
         if(status.equals("failed")){
             holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.red, null));
         }

@@ -64,6 +64,7 @@
         android:fontFamily="@font/roboto_regular_400"
         android:text="@string/securly_vpa"
         android:textSize="16sp"
+        android:checked="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUpiId" />
 

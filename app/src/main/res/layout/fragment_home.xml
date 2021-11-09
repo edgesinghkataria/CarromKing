@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:id="@+id/llWallet"
-        android:layout_width="120dp"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
         android:background="@drawable/rectangle"

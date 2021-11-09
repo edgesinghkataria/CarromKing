@@ -17,7 +17,7 @@ import java.util.Objects;
 public class SplashActivity extends AppCompatActivity {
     private SharedPreferences sp;
 
-    final String TAG = "com.android.carromking";
+    final String TAG = "com.entwik.carromcash";
 
 
     @Override
@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Objects.requireNonNull(getSupportActionBar()).hide();
         sp = getSharedPreferences(TAG, MODE_PRIVATE);
+        String s = sp.getString("token", null);
 
         new Handler().postDelayed(() -> {
             Intent i = sp.getString("token", null) != null ?

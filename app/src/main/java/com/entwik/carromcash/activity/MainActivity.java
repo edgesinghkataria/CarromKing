@@ -26,10 +26,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNav;
-    MenuItem prevItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +81,11 @@ public class MainActivity extends AppCompatActivity{
             } else {
                 selectedFragment = new ProfileFragment();
             }
-            if (prevItem != item) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.fragment_container, selectedFragment)
-                        .commit();
-                prevItem = item;
-            }
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.fragment_container, selectedFragment)
+                    .commit();
 
             return true;
         });
@@ -100,7 +96,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Log.d(getString(R.string.TAG), "onOptionsItemSelected: Hello");
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             getSupportFragmentManager().popBackStack();
             return true;
         }

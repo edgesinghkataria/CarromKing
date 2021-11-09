@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,7 +99,13 @@ public class WalletFragment extends Fragment {
             //transactions.add(new TransactionResponseDataModel());
             bundle.putParcelableArrayList("transactions", (ArrayList<? extends Parcelable>) transdataModel);
 
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, HistoryFragment.class, bundle).addToBackStack(null).commit();
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.fragment_container, HistoryFragment.class, bundle)
+                    .addToBackStack(null)
+                    .commit();
         });
 
 

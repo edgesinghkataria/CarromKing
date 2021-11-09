@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.entwik.carromcash.ApiService;
+import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
 import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
@@ -43,6 +44,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
     SharedPreferences sp;
     Button button10, button20, button50, button100, continueBtn;
     EditText amountEditText;
+    CustomProgressBar progressBar;
     String TAG;
     @Nullable
     @Override
@@ -54,6 +56,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, this.getClass().getSimpleName());
         MyApplication.mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
 
+        progressBar = new CustomProgressBar(requireActivity());
         TAG = v.getContext().getString(R.string.TAG);
         sp = v.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE);
         button10 = v.findViewById(R.id.button4);
@@ -193,6 +196,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         });
 
         continueBtn.setOnClickListener(v15 -> {
+            progressBar.show();
             String amount = amountEditText.getText().toString().replace(v.getContext().getString(R.string.rupee), "").trim();
             initPayment(new PaytmRequestInitModel(amount));
         });
@@ -211,6 +215,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
                             if (response.body().isStatus()) {
                                 PaytmResponseDataModel dataModel = response.body().getData();
                                 if (dataModel != null) {
+                                    progressBar.dismiss();
                                     startPayment(amount.getAmount(), dataModel.getTxnToken(), dataModel.getOrderId(), dataModel.getCallbackUrl());
                                 }
                             }
@@ -219,6 +224,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
 
                     @Override
                     public void onFailure(@NonNull Call<PaytmResponseModel> call, @NonNull Throwable t) {
+                        progressBar.dismiss();
                         Log.d(TAG, "onFailure: "+t.getMessage());
                     }
                 });
@@ -283,8 +289,10 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
 
             @Override
             public void onBackPressedCancelTransaction() {
+                dismissAllowingStateLoss();
+                Log.d(TAG, "onBackButtonPressed: ");
                 requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commitAllowingStateLoss();
             }
 
             @Override

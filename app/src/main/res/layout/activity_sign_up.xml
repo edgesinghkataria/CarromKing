@@ -23,12 +23,10 @@
             app:cardCornerRadius="250dp">
 
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/secondary_text"
-                android:contentDescription="@string/profile"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:src="@drawable/logo1" />
 
         </androidx.cardview.widget.CardView>
 

@@ -9,6 +9,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TransactionResponseDataModel implements Parcelable {
+
+    @SerializedName("id")
+    @Expose
+    private int id;
     @SerializedName("type")
     @Expose
     private String type;
@@ -21,30 +25,37 @@ public class TransactionResponseDataModel implements Parcelable {
     @SerializedName("amount")
     @Expose
     private int amount;
-    @SerializedName("state")
+    @SerializedName("status")
     @Expose
-    private String state;
+    private String status;
     @SerializedName("createdAt")
     @Expose
     private String createdAt;
+    @SerializedName("updatedAt")
+    @Expose
+    private String updatedAt;
 
     protected TransactionResponseDataModel(Parcel in) {
+        id = in.readInt();
         type = in.readString();
         name = in.readString();
         transactionId = in.readString();
         amount = in.readInt();
-        state = in.readString();
+        status = in.readString();
         createdAt = in.readString();
+        updatedAt = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(type);
         dest.writeString(name);
         dest.writeString(transactionId);
         dest.writeInt(amount);
-        dest.writeString(state);
+        dest.writeString(status);
         dest.writeString(createdAt);
+        dest.writeString(updatedAt);
     }
 
     @Override
@@ -88,8 +99,8 @@ public class TransactionResponseDataModel implements Parcelable {
         this.amount = amount;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setCreatedAt(String createdAt) {
@@ -104,24 +115,42 @@ public class TransactionResponseDataModel implements Parcelable {
         return amount;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
     public String getCreatedAt() {
         return createdAt;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return "TransactionResponseDataModel{" +
-                "type='" + type + '\'' +
+                "id="+ id +
+                ", type='" + type + '\'' +
                 ", name='" + name + '\'' +
                 ", transactionId='" + transactionId + '\'' +
                 ", amount=" + amount +
-                ", state='" + state + '\'' +
+                ", state='" + status + '\'' +
                 ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
                 '}';
     }
 
