@@ -202,6 +202,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         });
         return v;
     }
+
     private void initPayment(PaytmRequestInitModel amount) {
         ApiService apiService = new ApiService();
         MyApiEndpointInterface apiEndpointInterface = apiService.
@@ -244,64 +245,66 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
             @Override
             public void onTransactionResponse(@Nullable Bundle response) {
                 if (Objects.equals(response.getString("STATUS"), "TXN_SUCCESS")) {
-                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new ResultFragment(ResultType.DEPOSIT_SUCCESS)).addToBackStack(null).commit();
+                    showDepositSuccess();
                 } else if (!response.getBoolean("STATUS")) {
-                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                    showDepositFailed();
                 }
             }
 
             @Override
             public void networkNotAvailable() {
                 Log.d(TAG, "networkNotAvailable: network error");
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
 
             @Override
             public void onErrorProceed(String s) {
                 Log.d(TAG, "onErrorProceed: "+s);
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
 
             @Override
             public void clientAuthenticationFailed(String s) {
                 Log.d(TAG, "clientAuthenticationFailed: "+s);
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
 
             @Override
             public void someUIErrorOccurred(String s) {
                 Log.d(TAG, "someUIErrorOccurred: "+s);
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
 
             @Override
             public void onErrorLoadingWebPage(int i, String s, String s1) {
                 Log.d(TAG, "onErrorLoadingWebPage: "+s+" -- "+s1);
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
 
             @Override
             public void onBackPressedCancelTransaction() {
-                dismissAllowingStateLoss();
                 Log.d(TAG, "onBackButtonPressed: ");
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commitAllowingStateLoss();
+                showDepositFailed();
             }
 
             @Override
             public void onTransactionCancel(String s, Bundle bundle) {
                 Log.d(TAG, "onTransactionCancel: "+s);
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commit();
+                showDepositFailed();
             }
         });
         transactionManager.startTransaction(requireActivity(), 111);
+    }
+
+    private void showDepositFailed() {
+        dismissAllowingStateLoss();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new ResultFragment(ResultType.DEPOSIT_FAILURE)).addToBackStack(null).commitAllowingStateLoss();
+    }
+
+    private void showDepositSuccess() {
+        dismissAllowingStateLoss();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new ResultFragment(ResultType.DEPOSIT_SUCCESS)).addToBackStack(null).commitAllowingStateLoss();
     }
 }
