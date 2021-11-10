@@ -19,11 +19,16 @@ import java.util.List;
 
 public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.HomeViewHolder> {
     private List<LobbyModel> mLobbyList;
+    private HomeOnClickListener mListener;
 
     public void setTasks(List<LobbyModel> mLobbyList){
        // this.mLobbyList = new ArrayList<>();
         this.mLobbyList = mLobbyList;
         notifyDataSetChanged();
+    }
+
+    public home_list_adapter(HomeOnClickListener mListener) {
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -84,6 +89,14 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
                 holder.mConstraintLayout.setBackgroundResource(R.drawable.diamond_card_view_boundary);
                 break;
         }
+        if (!item.isIsLocked()) {
+            holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClick(position);
+                }
+            });
+        }
 
     }
 
@@ -108,7 +121,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
             mBattleLevel = itemView.findViewById(R.id.battle_level);
             mWinAmount = itemView.findViewById(R.id.textView6);
             mMaxPlayer = itemView.findViewById(R.id.textView7);
-            mLinearLayout = itemView.findViewById(R.id.linearLayout);
+            mLinearLayout = itemView.findViewById(R.id.playButton);
             mButtonRupee = itemView.findViewById(R.id.imageView2);
             mPlayAmount = itemView.findViewById(R.id.textView10);
             mBar = itemView.findViewById(R.id.view);
@@ -118,6 +131,8 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
             mConstraintLayout = itemView.findViewById(R.id.card_view_boundary);
         }
     }
+}
 
-
+interface HomeOnClickListener {
+    public void onClick(int position);
 }

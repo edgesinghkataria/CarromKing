@@ -1,6 +1,8 @@
 package com.entwik.carromcash;
 
 import com.entwik.carromcash.models.home.HomeResponseModel;
+import com.entwik.carromcash.models.lobby.JoinRequestModel;
+import com.entwik.carromcash.models.lobby.JoinResponseModel;
 import com.entwik.carromcash.models.otp.SendOTPResponseModel;
 import com.entwik.carromcash.models.otp.VerifyOTPBodyModel;
 import com.entwik.carromcash.models.otp.VerifyOTPResponseModel;
@@ -39,5 +41,8 @@ public interface MyApiEndpointInterface {
 
     @POST("user/transaction/deposit/init")
     Call<PaytmResponseModel> initPaytmTxn(@Body PaytmRequestInitModel amount);
+
+    @POST("lobby/join")
+    Call<JoinResponseModel> joinLobby(@Body JoinRequestModel lobbyId);
 
 }
