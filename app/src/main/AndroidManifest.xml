@@ -15,10 +15,12 @@
         android:theme="@style/Theme.CarromKing">
         <activity
             android:name="com.entwik.carromcash.activity.EnterOTPActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.entwik.carromcash.activity.SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +30,11 @@
         </activity>
         <activity
             android:name="com.entwik.carromcash.activity.SignUpActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
         <activity
             android:name="com.entwik.carromcash.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"></activity>
         <service
             android:name="com.entwik.carromcash.MessagingService"

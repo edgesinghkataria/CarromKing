@@ -1,5 +1,7 @@
 package com.entwik.carromcash;
 
+import com.entwik.carromcash.models.debit.DebitInitRequestModel;
+import com.entwik.carromcash.models.debit.DebitResponseModel;
 import com.entwik.carromcash.models.home.HomeResponseModel;
 import com.entwik.carromcash.models.lobby.JoinRequestModel;
 import com.entwik.carromcash.models.lobby.JoinResponseModel;
@@ -44,5 +46,8 @@ public interface MyApiEndpointInterface {
 
     @POST("lobby/join")
     Call<JoinResponseModel> joinLobby(@Body JoinRequestModel lobbyId);
+
+    @POST("user/transaction/debit/init")
+    Call<DebitResponseModel> initDebit(@Body DebitInitRequestModel amount);
 
 }

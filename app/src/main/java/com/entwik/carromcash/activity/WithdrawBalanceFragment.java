@@ -22,14 +22,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.entwik.carromcash.ApiService;
+import com.entwik.carromcash.CustomProgressBar;
+import com.entwik.carromcash.MyApiEndpointInterface;
 import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
+import com.entwik.carromcash.models.debit.DebitInitRequestModel;
+import com.entwik.carromcash.models.debit.DebitResponseModel;
 import com.entwik.carromcash.models.local.LocalDataModel;
+import com.entwik.carromcash.models.paytm.PaytmResponseDataModel;
 import com.entwik.carromcash.utils.ResultType;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WithdrawBalanceFragment extends Fragment {
 
@@ -80,11 +91,45 @@ public class WithdrawBalanceFragment extends Fragment {
         ImageView greenTickBank = view.findViewById(R.id.greenTickBankTransfer);
         TextView withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
         EditText etAmountWithdraw = view.findViewById(R.id.amount_to_withdraw);
+        CustomProgressBar progressBar = new CustomProgressBar(getActivity());
 
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
 
-        withdrawNow.setOnClickListener(v -> requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new ResultFragment(ResultType.WITHDRAWAL_SUCCESS)).addToBackStack(null).commit());
+        withdrawNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.show();
+                String amount = etAmountWithdraw.getText().toString().substring(1);
+
+                ApiService apiService = new ApiService();
+                MyApiEndpointInterface apiEndpointInterface = apiService.
+                        getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+
+                apiEndpointInterface.initDebit(new DebitInitRequestModel(amount))
+                        .enqueue(new Callback<DebitResponseModel>() {
+                            @Override
+                            public void onResponse(Call<DebitResponseModel> call, Response<DebitResponseModel> response) {
+                                progressBar.dismiss();
+                                if (response.body() != null) {
+                                    if (response.body().isStatus()) {
+                                        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                                new ResultFragment(ResultType.WITHDRAWAL_SUCCESS)).addToBackStack(null).commit();
+                                    }
+                                } else {
+                                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                            new ResultFragment(ResultType.WITHDRAWAL_FAILURE)).addToBackStack(null).commit();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DebitResponseModel> call, Throwable t) {
+                                progressBar.dismiss();
+                                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                        new ResultFragment(ResultType.WITHDRAWAL_FAILURE)).addToBackStack(null).commit();
+                            }
+                        });
+            }
+        });
 
 //        linkPaytm.setOnClickListener(v -> {
 //            LinkPaytm_Bottomsheet bottomSheet = new LinkPaytm_Bottomsheet();

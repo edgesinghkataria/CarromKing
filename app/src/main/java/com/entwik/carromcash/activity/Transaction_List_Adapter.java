@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.entwik.carromcash.R;
 import com.entwik.carromcash.models.wallet.TransactionResponseDataModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Transaction_List_Adapter extends RecyclerView.Adapter<Transaction_List_Adapter.TransactionViewHolder> {
@@ -51,6 +53,7 @@ public class Transaction_List_Adapter extends RecyclerView.Adapter<Transaction_L
             holder.status.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.green, null));
         }
         holder.status.setText(status);
+        holder.time.setText(item.getUpdatedAt());
     }
 
     @Override
