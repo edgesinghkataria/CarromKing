@@ -30,7 +30,7 @@
     <string name="game_wallet">Game Wallet Balance</string>
     <string name="plus_add_money">+ Add Money</string>
     <string name="phone_num">+91 8922345111</string>
-    <string name="TAG">com.android.carromking</string>
+    <string name="TAG">com.entwik.carromcash</string>
     <string name="withdraw_balance_amount">₹ 10.00</string>
     <string name="link_paytm_wallet">Link Paytm wallet</string>
     <string name="link_paytm_wallet_associated">Link Paytm wallet associated with this \nnumber:</string>
@@ -81,7 +81,6 @@
     <string name="continuee">Continue</string>
     <string name="bank_link_declaration">I hereby declare that the information provided by me is correct.</string>
 
-    <string name="withdrawal_successful">Withdrawal Request Successful!</string>
     <string name="credited_24_hours">The amount will be credited to your preferred <br />mode in next 24 hrs.</string>
     <string name="keep_playing">Keep Playing</string>
     <string name="total_balance">Total Balance</string>
@@ -110,6 +109,22 @@
     <string name="_0_00">0.00</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="withdrawal_successful">Withdrawal Request Successful!</string>
+    <string name="withdrawal_pending">Withdrawal Request Pending!</string>
+    <string name="withdrawal_failed">Withdrawal Request Failed!</string>
+    <string name="deposit_successful">Deposit Request Successful!</string>
+    <string name="deposit_pending">Deposit Request Pending!</string>
+    <string name="deposit_failed">Deposit Request Failed!</string>
+    <string name="retry">Retry</string>
+
+    <!--Info dialog-->
+    <string name="unplayed_title">Unplayed</string>
+    <string name="winning_title">Winning</string>
+    <string name="cash_bonus_title">Cash Bonus</string>
+    <string name="unplayed_msg">Money that you will deposit and can be used to join contest but you can’t withdraw</string>
+    <string name="winning_msg">This is the money that you can withdraw or re-use to join a contest</string>
+    <string name="cash_bonus_msg">Maximum amount of cash bonus that may be used by a user to participate in any particular contest shall be decided by the company and can vary</string>
+
 
 
 </resources>

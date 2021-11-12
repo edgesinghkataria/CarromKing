@@ -64,20 +64,21 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="113dp"
-                android:alpha="0.6"
+                android:alpha="0.4"
                 android:fontFamily="@font/roboto_regular_400"
                 android:gravity="top"
                 android:text="@string/unplayed"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textColor="#3A3B59"
+                android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/info_unplayed"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="100dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="115dp"
+                android:layout_toEndOf="@+id/unplayed"
                 android:gravity="top"
                 android:src="@drawable/i_wallet" />
 
@@ -109,26 +110,28 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/winning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="162dp"
-                android:alpha="0.6"
+                android:alpha="0.4"
                 android:fontFamily="@font/roboto_regular_400"
+                android:textColor="#3A3B59"
+                android:textSize="14sp"
                 android:gravity="top"
-                android:text="@string/winning"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:text="@string/winning" />
 
             <ImageView
+                android:id="@+id/info_winning"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="164dp"
+                android:layout_toEndOf="@id/winning"
                 android:gravity="top"
                 android:src="@drawable/i_wallet" />
 
@@ -160,26 +163,28 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_cash_bonus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="211dp"
-                android:alpha="0.6"
+                android:alpha="0.4"
                 android:fontFamily="@font/roboto_regular_400"
                 android:gravity="top"
                 android:text="Cash Bonus"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textColor="#3A3B59"
+                android:textSize="14sp" />
 
             <ImageView
+                android:id="@+id/info_cash_bonus"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="115dp"
+                android:layout_marginStart="2dp"
                 android:layout_marginTop="213dp"
+                android:layout_toEndOf="@id/tv_cash_bonus"
                 android:gravity="top"
                 android:src="@drawable/i_wallet" />
 
@@ -219,7 +224,9 @@
                 android:layout_marginTop="113dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/custom_button"
+                android:clickable="true"
                 android:fontFamily="@font/roboto_medium_500"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:paddingHorizontal="10dp"
                 android:text="@string/add_money_wallet"
                 android:textAllCaps="false"
@@ -235,7 +242,9 @@
                 android:layout_marginTop="171dp"
                 android:layout_marginEnd="25dp"
                 android:background="@drawable/custom_button_withdraw"
+                android:clickable="true"
                 android:fontFamily="@font/roboto_medium_500"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:paddingHorizontal="25dp"
                 android:text="@string/withdraw_wallet"
                 android:textAllCaps="false"
@@ -258,8 +267,8 @@
             android:id="@+id/firstfew"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/transaction_recycler_item"
-            tools:itemCount="4" />
+            tools:itemCount="4"
+            tools:listitem="@layout/transaction_recycler_item" />
 
         <TextView
             android:id="@+id/seeAllTransactions"

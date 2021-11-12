@@ -11,10 +11,10 @@
         android:layout_width="160dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
         android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
         android:src="@drawable/logo1"
+        app:layout_constraintBottom_toTopOf="@+id/swipe"
         app:layout_constraintDimensionRatio="1.385"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,13 +22,16 @@
 
     <LinearLayout
         android:id="@+id/llWallet"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/rectangle"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/swipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -66,28 +69,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <LinearLayout
-        android:id="@+id/tabular_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="0dp">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            style="@style/CategoryTab"
+        <LinearLayout
+            android:id="@+id/tabular_nav"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="#afddf5"
-            app:tabGravity="center"
-            app:tabMode="scrollable" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="0dp">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                style="@style/CategoryTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="#afddf5"
+                app:tabGravity="center"
+                app:tabMode="scrollable" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
