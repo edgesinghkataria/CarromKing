@@ -1,5 +1,7 @@
 package com.entwik.carromcash.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,16 +21,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class LinkBank_Bottomsheet extends BottomSheetDialogFragment {
 
     private greenTickBank listener;
-
+    SharedPreferences sp;
     EditText etAccountNum, etConfirmAccNum, etIFSC, etName;
     CheckBox checkBox;
     Button verifyAndProceedButton;
+    String TAG;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.link_bank_account, container, false);
         verifyAndProceedButton = v.findViewById(R.id.verifyAndProceedBank);
+
+        TAG = getString(R.string.TAG);
+        sp = getActivity().getSharedPreferences(TAG, Context.MODE_PRIVATE);
 
         etAccountNum = v.findViewById(R.id.etAccountNum);
         etConfirmAccNum = v.findViewById(R.id.etConfirmAccNum);
@@ -39,6 +45,18 @@ public class LinkBank_Bottomsheet extends BottomSheetDialogFragment {
         verifyAndProceedButton.setClickable(false);
         verifyAndProceedButton.setBackgroundColor(v.getContext().getColor(R.color.button_grey));
 
+        if(sp.getString("accountNumber",null)!=null){
+            etAccountNum.setText(sp.getString("accountNumber",null));
+            etConfirmAccNum.setText(sp.getString("accountNumber",null));
+        }
+        if(sp.getString("ifsc",null)!=null){
+            etIFSC.setText(sp.getString("accountNumber",null));
+        }
+        if(sp.getString("accountName",null)!=null){
+            etName.setText(sp.getString("accountName",null));
+        }
+        check();
+        changeButton(v);
 
         etAccountNum.addTextChangedListener(new TextWatcher() {
             @Override
@@ -114,6 +132,9 @@ public class LinkBank_Bottomsheet extends BottomSheetDialogFragment {
 
         verifyAndProceedButton.setOnClickListener(v1 -> {
             listener.showGreenTickBank();
+            sp.edit().putString("accountNumber",etAccountNum.getText().toString().trim()).apply();
+            sp.edit().putString("ifsc",etIFSC.getText().toString().trim()).apply();
+            sp.edit().putString("accountName",etName.getText().toString().trim()).apply();
             dismiss();
         });
         return v;
