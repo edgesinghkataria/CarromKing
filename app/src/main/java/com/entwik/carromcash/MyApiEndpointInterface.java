@@ -1,5 +1,7 @@
 package com.entwik.carromcash;
 
+import com.entwik.carromcash.models.account.AccountDetailsModel;
+import com.entwik.carromcash.models.account.AccountResponseModel;
 import com.entwik.carromcash.models.debit.DebitInitRequestModel;
 import com.entwik.carromcash.models.debit.DebitResponseModel;
 import com.entwik.carromcash.models.home.HomeResponseModel;
@@ -49,5 +51,8 @@ public interface MyApiEndpointInterface {
 
     @POST("user/transaction/debit/init")
     Call<DebitResponseModel> initDebit(@Body DebitInitRequestModel amount);
+
+    @POST("user/bank")
+    Call<AccountResponseModel> accountDetails(@Body AccountDetailsModel details);
 
 }
