@@ -1,5 +1,7 @@
 package com.entwik.carromcash.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,19 +18,26 @@ import com.entwik.carromcash.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class EnterUPI_Bottomsheet extends BottomSheetDialogFragment {
-
+    SharedPreferences sp;
     private greenTickUpi listener;
     EditText etUpiId;
+    Button verifyAndProceedUpi;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.enter_upi_id, container, false);
-        Button verifyAndProceedUpi = v.findViewById(R.id.verifyAndProceedUpi);
+        verifyAndProceedUpi = v.findViewById(R.id.verifyAndProceedUpi);
         etUpiId = v.findViewById(R.id.etUpiId);
+
+        sp = v.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
 
         verifyAndProceedUpi.setClickable(false);
         verifyAndProceedUpi.setBackgroundColor(v.getContext().getColor(R.color.button_grey));
+        if(sp.getString("upi",null)!=null){
+            etUpiId.setText(sp.getString("upi",null));
+            changeButton(v);
+        }
 
         etUpiId.addTextChangedListener(new TextWatcher() {
             @Override
@@ -38,15 +47,8 @@ public class EnterUPI_Bottomsheet extends BottomSheetDialogFragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    changeButton(v);
 
-                String s = etUpiId.getText().toString().trim();
-                if(!s.contains("@")  || s.length() < 6) {
-                    verifyAndProceedUpi.setClickable(false);
-                    verifyAndProceedUpi.setBackgroundColor(v.getContext().getColor(R.color.button_grey));
-                } else {
-                    verifyAndProceedUpi.setClickable(true);
-                    verifyAndProceedUpi.setBackgroundColor(v.getContext().getColor(R.color.blue));
-                }
             }
 
             @Override
@@ -57,6 +59,7 @@ public class EnterUPI_Bottomsheet extends BottomSheetDialogFragment {
 
         verifyAndProceedUpi.setOnClickListener(v1 -> {
             listener.showGreenTickUpi();
+            sp.edit().putString("upi",etUpiId.getText().toString().trim()).apply();
             dismiss();
         });
 
@@ -69,5 +72,16 @@ public class EnterUPI_Bottomsheet extends BottomSheetDialogFragment {
 
     public void ShowGreenTickUpi(greenTickUpi listener){
         this.listener = listener;
+    }
+
+    public void changeButton(View v){
+        String s = etUpiId.getText().toString().trim();
+        if(!s.contains("@")  || s.length() < 6) {
+            verifyAndProceedUpi.setClickable(false);
+            verifyAndProceedUpi.setBackgroundColor(v.getContext().getColor(R.color.button_grey));
+        } else {
+            verifyAndProceedUpi.setClickable(true);
+            verifyAndProceedUpi.setBackgroundColor(v.getContext().getColor(R.color.blue));
+        }
     }
 }

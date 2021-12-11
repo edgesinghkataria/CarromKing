@@ -30,6 +30,8 @@ import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
 import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
+import com.entwik.carromcash.models.account.AccountDetailsModel;
+import com.entwik.carromcash.models.account.AccountResponseModel;
 import com.entwik.carromcash.models.debit.DebitInitRequestModel;
 import com.entwik.carromcash.models.debit.DebitResponseModel;
 import com.entwik.carromcash.models.local.LocalDataModel;
@@ -47,6 +49,7 @@ public class WithdrawBalanceFragment extends Fragment {
     final Gson gson = new Gson();
     SharedPreferences sp;
     String TAG;
+    boolean isUpi;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +107,7 @@ public class WithdrawBalanceFragment extends Fragment {
                 ApiService apiService = new ApiService();
                 MyApiEndpointInterface apiEndpointInterface = apiService.
                         getApiServiceForInterceptor(apiService.getInterceptor(sp.getString("token", null)));
+                postAccountDetails();
 
                 apiEndpointInterface.initDebit(new DebitInitRequestModel(amount))
                         .enqueue(new Callback<DebitResponseModel>() {
@@ -143,6 +147,7 @@ public class WithdrawBalanceFragment extends Fragment {
 //        });
 
         linkUPI.setOnClickListener(v -> {
+            isUpi=true;
             EnterUPI_Bottomsheet bottomSheet = new EnterUPI_Bottomsheet();
             bottomSheet.ShowGreenTickUpi(() -> {
                 greenTickUpi.setVisibility(View.VISIBLE);
@@ -154,6 +159,7 @@ public class WithdrawBalanceFragment extends Fragment {
         });
 
         linkBank.setOnClickListener(v -> {
+            isUpi=false;
             LinkBank_Bottomsheet bottomSheet = new LinkBank_Bottomsheet();
             bottomSheet.ShowGreenTickBank(() -> {
                 greenTickBank.setVisibility(View.VISIBLE);
@@ -209,5 +215,39 @@ public class WithdrawBalanceFragment extends Fragment {
         super.onStop();
         ((AppCompatActivity)requireActivity()).getSupportActionBar().hide();
     }
+    private void postAccountDetails(){
+        String upi = null,accountNumber=null,ifsc=null,accountName=null;
+        if(isUpi){
+            upi = sp.getString("upi",null);
+        }else{
+            accountNumber = sp.getString("accountNumber",null);
+            ifsc = sp.getString("ifsc",null);
+            accountName = sp.getString("accountName",null);
+        }
 
+        ApiService interceptor = new ApiService();
+        MyApiEndpointInterface apiEndpointInterface = interceptor.getApiServiceForInterceptor(interceptor.getInterceptor(sp.getString("token", null)));
+        AccountDetailsModel accountDetailsModel = new AccountDetailsModel(upi,accountNumber,"icici",ifsc);
+
+        apiEndpointInterface.accountDetails(accountDetailsModel)
+                .enqueue(new Callback<AccountResponseModel>() {
+                    @Override
+                    public void onResponse(Call<AccountResponseModel> call, Response<AccountResponseModel> response) {
+                        if(response.isSuccessful()){
+                            //ToDo: What to do on success
+//                            Toast.makeText(getActivity(), "UPI Id saved", Toast.LENGTH_SHORT).show();
+                        }else{
+
+//                            Toast.makeText(getContext(), "Unable to save UPI Id\nPlease try again later",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AccountResponseModel> call, Throwable t) {
+
+                    }
+                });
+
+
+    }
 }
