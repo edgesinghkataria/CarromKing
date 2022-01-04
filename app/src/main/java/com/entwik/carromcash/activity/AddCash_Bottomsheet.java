@@ -233,10 +233,13 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.i("puranjay", "puranjay");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 111 && data != null) {
+            showDepositSuccess();
             Toast.makeText(requireActivity(), data.getStringExtra("nativeSdkForMerchantMessage") + data.getStringExtra("response"), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void startPayment(String amount, String txnToken, String orderId, String callbackUrl) {
@@ -244,9 +247,15 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         TransactionManager transactionManager = new TransactionManager(paytmOrder, new PaytmPaymentTransactionCallback() {
             @Override
             public void onTransactionResponse(@Nullable Bundle response) {
-                if (Objects.equals(response.getString("STATUS"), "TXN_SUCCESS")) {
+                Log.i("condition", String.valueOf(response.getString("response").contains("TXN_SUCCESS")));
+
+                if (response.getString("response").contains("TXN_SUCCESS")) {
                     showDepositSuccess();
-                } else if (!response.getBoolean("STATUS")) {
+                    Log.i("puranjay","Success");
+                } else if (response.getString("response").contains("PENDING")) {
+                    showDepositPending();
+                    Log.i("puranjay","Failed");
+                }else {
                     showDepositFailed();
                 }
             }
@@ -293,6 +302,7 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
                 showDepositFailed();
             }
         });
+        transactionManager.setAppInvokeEnabled(false);
         transactionManager.startTransaction(requireActivity(), 111);
     }
 
@@ -306,5 +316,10 @@ public class AddCash_Bottomsheet extends BottomSheetDialogFragment {
         dismissAllowingStateLoss();
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new ResultFragment(ResultType.DEPOSIT_SUCCESS)).addToBackStack(null).commitAllowingStateLoss();
+    }
+    private void showDepositPending(){
+        dismissAllowingStateLoss();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new ResultFragment(ResultType.DEPOSIT_PENDING)).addToBackStack(null).commitAllowingStateLoss();
     }
 }
