@@ -3,6 +3,7 @@ package com.entwik.carromcash.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.entwik.carromcash.CustomProgressBar;
 import com.entwik.carromcash.MyApiEndpointInterface;
 import com.entwik.carromcash.MyApplication;
 import com.entwik.carromcash.R;
+import com.entwik.carromcash.models.common.ResponseErrorModel;
 import com.entwik.carromcash.models.home.LobbyModel;
 import com.entwik.carromcash.models.lobby.JoinRequestModel;
 import com.entwik.carromcash.models.lobby.JoinResponseDataModel;
@@ -24,6 +26,8 @@ import com.entwik.carromcash.models.lobby.JoinResponseModel;
 import com.entwik.carromcash.models.local.LeagueList;
 import com.entwik.carromcash.models.local.OnLeagueDataChangeListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -59,7 +63,7 @@ public class LeagueFragment extends Fragment implements OnLeagueDataChangeListen
 
         recyclerView = view.findViewById(R.id.home_RecyclerView);
         sp = view.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
         progressBar = new CustomProgressBar(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new home_list_adapter(new HomeOnClickListener() {
@@ -99,6 +103,19 @@ public class LeagueFragment extends Fragment implements OnLeagueDataChangeListen
                                     }
                                 }
                             }
+                        else{
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                double deficitAmount = jObjError.getJSONObject("error").getJSONObject("data").getDouble("deficitAmount");
+                                if(deficitAmount>0){
+                                    new AddMoneyDialog().show(requireActivity().getSupportFragmentManager(), "add money");
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            progressBar.dismiss();
+
+                        }
                     }
 
                     @Override

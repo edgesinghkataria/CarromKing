@@ -47,7 +47,7 @@ public class HistoryFragment extends Fragment {
         View v = inflater.inflate(R.layout.wallet_history, container, false);
         sp = v.getContext().getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
         recyclerView = v.findViewById(R.id.trans_RecyclerView);
-        recyclerView.setHasFixedSize(true);
+//        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Transaction_List_Adapter();
         adapter.setTasks(transactions);

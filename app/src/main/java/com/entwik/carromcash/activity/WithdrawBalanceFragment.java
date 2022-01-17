@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,11 @@ public class WithdrawBalanceFragment extends Fragment {
     SharedPreferences sp;
     String TAG;
     boolean isUpi;
+    boolean isMethodVerified = false;
+    EditText etAmountWithdraw;
+    TextView withdrawableBalance;
+    Button withdrawNow;
+    LocalDataModel localDataModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,22 +88,22 @@ public class WithdrawBalanceFragment extends Fragment {
                 "0"
         );
 
-        LocalDataModel localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
 
 
-        Button withdrawNow = view.findViewById(R.id.withdraw_now_button);
+        withdrawNow = view.findViewById(R.id.withdraw_now_button);
 //        TextView linkPaytm = view.findViewById(R.id.link_account_paytm);
         LinearLayout linkUPI = view.findViewById(R.id.arrow_upi);
         LinearLayout linkBank = view.findViewById(R.id.arrow_bank_transfer);
 //        LinearLayout greenTickAndArrowPaytm = view.findViewById(R.id.greenTickAndArrowPaytm);
         ImageView greenTickUpi = view.findViewById(R.id.greenTickUpi);
         ImageView greenTickBank = view.findViewById(R.id.greenTickBankTransfer);
-        TextView withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
-        EditText etAmountWithdraw = view.findViewById(R.id.amount_to_withdraw);
+        withdrawableBalance = view.findViewById(R.id.withdrawble_balance_amount);
+        etAmountWithdraw = view.findViewById(R.id.amount_to_withdraw);
         CustomProgressBar progressBar = new CustomProgressBar(getActivity());
 
         withdrawableBalance.setText( "₹ "+ localDataModel.getWinningBalance());
-
+        checkWithdraw(view);
         withdrawNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +158,8 @@ public class WithdrawBalanceFragment extends Fragment {
             bottomSheet.ShowGreenTickUpi(() -> {
                 greenTickUpi.setVisibility(View.VISIBLE);
                 greenTickBank.setVisibility(View.GONE);
+                isMethodVerified = true;
+                checkWithdraw(view);
 //                greenTickAndArrowPaytm.setVisibility(View.GONE);
 //                linkPaytm.setVisibility(View.VISIBLE);
             });
@@ -164,6 +172,8 @@ public class WithdrawBalanceFragment extends Fragment {
             bottomSheet.ShowGreenTickBank(() -> {
                 greenTickBank.setVisibility(View.VISIBLE);
                 greenTickUpi.setVisibility(View.GONE);
+                isMethodVerified = true;
+                checkWithdraw(view);
 //                linkPaytm.setVisibility(View.VISIBLE);
 //                greenTickAndArrowPaytm.setVisibility(View.GONE);
             });
@@ -180,7 +190,7 @@ public class WithdrawBalanceFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                    checkWithdraw(view);
             }
 
             @Override
@@ -188,7 +198,6 @@ public class WithdrawBalanceFragment extends Fragment {
                 if(!s.toString().startsWith(view.getContext().getString(R.string.rupee))){
                     etAmountWithdraw.setText(view.getContext().getString(R.string.rupee));
                     Selection.setSelection(etAmountWithdraw.getText(), etAmountWithdraw.getText().length());
-
                 }
             }
         });
@@ -249,5 +258,23 @@ public class WithdrawBalanceFragment extends Fragment {
                 });
 
 
+    }
+    private void checkWithdraw(View view){
+
+        String s = etAmountWithdraw.getText().toString().replaceAll("\\s+","");
+        s = s.replace(view.getContext().getString(R.string.rupee),"");
+        if(!s.equals("")){
+            Log.i("withdraw", s);
+            if(Double.parseDouble(s) > Double.parseDouble(localDataModel.getWinningBalance())){
+                withdrawNow.setEnabled(false);
+                withdrawNow.setBackgroundColor(getResources().getColor(R.color.light_grey));
+            }else if (!isMethodVerified){
+                withdrawNow.setEnabled(false);
+                withdrawNow.setBackgroundColor(getResources().getColor(R.color.light_grey));
+            }else {
+                withdrawNow.setEnabled(true);
+                withdrawNow.setBackground(getResources().getDrawable(R.drawable.withdraw_now_blue_bg));
+            }
+        }
     }
 }

@@ -45,8 +45,10 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
         String maxP = item.getMaxPlayers() + "P";
         holder.mMaxPlayer.setText(maxP);
         holder.mPlayAmount.setText(String.valueOf(item.getEntryFee()));
-        //this needs to be edited by win amount from api
-        holder.mWinAmount.setText("₹ 500");
+        holder.mWinAmount.setText(R.string.rupee);
+        holder.mWinAmount.append(String.valueOf(item.getWinningAmount()));
+        holder.mBonusDeduction.setText(R.string.use_bonus);
+        holder.mBonusDeduction.append(String.valueOf(item.getBonusDeduction()));
         if(item.isIsLocked()){
             holder.mLobbyIcon.setImageResource(R.drawable.ic_battle_lobby_disable);
             holder.mBattleLevel.setTextColor(Color.parseColor("#717284"));
@@ -111,7 +113,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
 
     public static class HomeViewHolder extends RecyclerView.ViewHolder{
         ImageView mLobbyIcon, mButtonRupee, mLock;
-        TextView mBattleLevel, mWinAmount, mMaxPlayer, mPlayAmount,mPlay, mWinText;
+        TextView mBattleLevel, mWinAmount, mMaxPlayer, mPlayAmount,mPlay, mWinText, mBonusDeduction;
         LinearLayout mLinearLayout;
         View mBar;
         ConstraintLayout mConstraintLayout;
@@ -129,6 +131,7 @@ public class home_list_adapter extends RecyclerView.Adapter<home_list_adapter.Ho
             mLock = itemView.findViewById(R.id.lobby_button_lock);
             mWinText =itemView.findViewById(R.id.textView5);
             mConstraintLayout = itemView.findViewById(R.id.card_view_boundary);
+            mBonusDeduction = itemView.findViewById(R.id.textView12);
         }
     }
 }

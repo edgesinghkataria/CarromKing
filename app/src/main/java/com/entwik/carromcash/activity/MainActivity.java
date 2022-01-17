@@ -20,16 +20,21 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.entwik.carromcash.R;
+import com.entwik.carromcash.models.local.LocalDataModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNav;
-
+    final Gson gson = new Gson();
+    SharedPreferences sp;
+    String TAG;
+    LocalDataModel localDataModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,26 @@ public class MainActivity extends AppCompatActivity {
             manager.createNotificationChannel(channel);
         }
 
+        TAG = getString(R.string.TAG);
+        sp = getSharedPreferences(TAG, Context.MODE_PRIVATE);
+        LocalDataModel localDataModel1 =  new LocalDataModel(
+                "1",
+                getString(R.string.mobile_number),
+                "",
+                "silver",
+                false,
+                sp.getString("token", null),
+                "0",
+                "0",
+                "0"
+        );
+
+        localDataModel = gson.fromJson(sp.getString("local", gson.toJson(localDataModel1)), LocalDataModel.class);
+        if(localDataModel.isNew()){
+            new BonusDialog().show(getSupportFragmentManager(), "bonus dialog");
+        }
+
+
         FirebaseMessaging.getInstance().subscribeToTopic("general")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -51,12 +76,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-        SharedPreferences sp = getSharedPreferences(getString(R.string.TAG), Context.MODE_PRIVATE);
-        boolean isNew = sp.getBoolean("isNew", false);
-        if (isNew) {
-            new BonusDialog().show(getSupportFragmentManager(), "bonus dialog");
-        }
+//        boolean isNew = sp.getBoolean("isNew", false);
+//        if (isNew) {
+//            new BonusDialog().show(getSupportFragmentManager(), "bonus dialog");
+//        }
 
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#FFFFFF"));
         assert getSupportActionBar() != null;

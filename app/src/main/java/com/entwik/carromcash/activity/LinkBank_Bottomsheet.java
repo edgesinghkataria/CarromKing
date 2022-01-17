@@ -50,7 +50,7 @@ public class LinkBank_Bottomsheet extends BottomSheetDialogFragment {
             etConfirmAccNum.setText(sp.getString("accountNumber",null));
         }
         if(sp.getString("ifsc",null)!=null){
-            etIFSC.setText(sp.getString("accountNumber",null));
+            etIFSC.setText(sp.getString("ifsc",null));
         }
         if(sp.getString("accountName",null)!=null){
             etName.setText(sp.getString("accountName",null));

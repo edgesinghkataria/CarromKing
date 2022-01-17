@@ -17,6 +17,12 @@ public class LobbyModel {
     @SerializedName("rakePercent")
     @Expose
     private int rakePercent;
+    @SerializedName("bonusDeduction")
+    @Expose
+    private int bonusDeduction;
+    @SerializedName("winningAmount")
+    @Expose
+    private int winningAmount;
     @SerializedName("level")
     @Expose
     private String level;
@@ -126,6 +132,23 @@ public class LobbyModel {
     public void setIsLocked(boolean isLocked) {
         this.isLocked = isLocked;
     }
+
+    public int getBonusDeduction() {
+        return bonusDeduction;
+    }
+
+    public void setBonusDeduction(int bonusDeduction) {
+        this.bonusDeduction = bonusDeduction;
+    }
+
+    public int getWinningAmount() {
+        return winningAmount;
+    }
+
+    public void setWinningAmount(int winningAmount) {
+        this.winningAmount = winningAmount;
+    }
+
 
     @Override
     public String toString() {
